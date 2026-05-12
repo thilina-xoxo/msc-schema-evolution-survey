@@ -1,9 +1,9 @@
 const SCRIPT_URL =
-  'https://script.google.com/macros/s/AKfycbz0iSfHXlFO33yZiwU5CR_GJBIr2jAT2-azdNkzozm6RyG8lIj0DGgJtrE1KGQKf0le/exec'
-const SURVEY_TOKEN = 'msc_schema_evolution_survey_2026'
+  'https://script.google.com/macros/s/AKfycbz9z5pdzJ9wp-umhtXPBACNU-7Qitxdw4Jm4jx8l8X7BP0gP31gQNsCY8EmRoQfO8_H/exec';
+const SURVEY_TOKEN = 'msc_schema_evolution_survey_2026';
 
 function joinArrayValue(value) {
-  return Array.isArray(value) ? value.join(', ') : value
+  return Array.isArray(value) ? value.join(', ') : value;
 }
 
 export async function submitSurvey(formData) {
@@ -25,30 +25,26 @@ export async function submitSurvey(formData) {
       main_persistence_strategy: formData.main_persistence_strategy,
       polyglot_familiarity: formData.polyglot_familiarity,
       multimodel_familiarity: formData.multimodel_familiarity,
-      schema_evolution_familiarity:
-        formData.schema_evolution_familiarity,
+      schema_evolution_familiarity: formData.schema_evolution_familiarity,
       production_schema_change_experience:
         formData.production_schema_change_experience,
     },
     architecture_context: {
       architecture_context_clarity: formData.architecture_context_clarity,
-      architecture_difference_clarity:
-        formData.architecture_difference_clarity,
+      architecture_difference_clarity: formData.architecture_difference_clarity,
       analytics_layer_clarity: formData.analytics_layer_clarity,
       architecture_understanding: formData.architecture_understanding,
       perceived_operational_complexity:
         formData.perceived_operational_complexity,
-      perceived_schema_reasoning_ease:
-        formData.perceived_schema_reasoning_ease,
+      perceived_schema_reasoning_ease: formData.perceived_schema_reasoning_ease,
       perceived_downstream_impacts: joinArrayValue(
         formData.perceived_downstream_impacts,
       ),
       perceived_downstream_impacts_other:
         formData.perceived_downstream_impacts_other,
-      biggest_architecture_challenge:
-        formData.biggest_architecture_challenge,
+      biggest_architecture_challenge: formData.biggest_architecture_challenge,
     },
-  }
+  };
 
   await fetch(SCRIPT_URL, {
     method: 'POST',
@@ -57,5 +53,5 @@ export async function submitSurvey(formData) {
       'Content-Type': 'text/plain',
     },
     body: JSON.stringify(payload),
-  })
+  });
 }
