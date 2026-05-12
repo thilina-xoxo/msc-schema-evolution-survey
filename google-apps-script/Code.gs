@@ -1,7 +1,8 @@
 const SURVEY_TOKEN = 'msc_schema_evolution_survey_2026';
 
-const PARTICIPANT_BACKGROUND_SHEET = 'ParticipantBackground';
-const ARCHITECTURE_CONTEXT_SHEET = 'ArchitectureContext';
+const PARTICIPANT_BACKGROUND_SHEET = 'participant_background';
+const ARCHITECTURE_CONTEXT_SHEET = 'architecture_context';
+const SCHEMA_EVOLUTION_EXPERIENCE_SHEET = 'schema_evolution_experience';
 
 const PARTICIPANT_BACKGROUND_HEADERS = [
   'timestamp',
@@ -38,6 +39,29 @@ const ARCHITECTURE_CONTEXT_HEADERS = [
   'biggest_architecture_challenge',
 ];
 
+const SCHEMA_EVOLUTION_EXPERIENCE_HEADERS = [
+  'timestamp',
+  'participant_id',
+  'schema_change_frequency',
+  'experienced_schema_change_types',
+  'experienced_schema_change_types_other',
+  'schema_change_impact_layers',
+  'schema_change_impact_layers_other',
+  'schema_evolution_difficulty_factors',
+  'schema_evolution_difficulty_factors_other',
+  'schema_change_productivity_impact',
+  'schema_change_cognitive_load',
+  'schema_change_coordination_overhead',
+  'schema_change_relative_risk',
+  'schema_change_delay_reason',
+  'schema_change_delay_reason_other',
+  'easier_persistence_strategy_general',
+  'easier_persistence_strategy_reason',
+  'most_helpful_schema_practice',
+  'most_helpful_schema_practice_other',
+  'schema_evolution_experience_example',
+];
+
 function doPost(e) {
   try {
     const payload = JSON.parse(e.postData.contents || '{}');
@@ -64,6 +88,11 @@ function doPost(e) {
       ARCHITECTURE_CONTEXT_SHEET,
       ARCHITECTURE_CONTEXT_HEADERS
     );
+    const schemaEvolutionExperienceSheet = getOrCreateSheet(
+      spreadsheet,
+      SCHEMA_EVOLUTION_EXPERIENCE_SHEET,
+      SCHEMA_EVOLUTION_EXPERIENCE_HEADERS
+    );
 
     participantBackgroundSheet.appendRow(
       buildRow(
@@ -79,6 +108,14 @@ function doPost(e) {
         participantId,
         payload.architecture_context || {},
         ARCHITECTURE_CONTEXT_HEADERS
+      )
+    );
+    schemaEvolutionExperienceSheet.appendRow(
+      buildRow(
+        timestamp,
+        participantId,
+        payload.schema_evolution_experience || {},
+        SCHEMA_EVOLUTION_EXPERIENCE_HEADERS
       )
     );
 

@@ -1,5 +1,5 @@
 const SCRIPT_URL =
-  'https://script.google.com/macros/s/AKfycbz9z5pdzJ9wp-umhtXPBACNU-7Qitxdw4Jm4jx8l8X7BP0gP31gQNsCY8EmRoQfO8_H/exec';
+  'https://script.google.com/macros/s/AKfycbxDrK0qnKthF_8DUMPbksSPvBDItCT3FUimoZ6xL1TrGb0ZQY0scpWvD2jNN9zzBwAj/exec';
 const SURVEY_TOKEN = 'msc_schema_evolution_survey_2026';
 
 function joinArrayValue(value) {
@@ -43,6 +43,42 @@ export async function submitSurvey(formData) {
       perceived_downstream_impacts_other:
         formData.perceived_downstream_impacts_other,
       biggest_architecture_challenge: formData.biggest_architecture_challenge,
+    },
+    schema_evolution_experience: {
+      schema_change_frequency: formData.schema_change_frequency,
+      experienced_schema_change_types: joinArrayValue(
+        formData.experienced_schema_change_types,
+      ),
+      experienced_schema_change_types_other:
+        formData.experienced_schema_change_types_other,
+      schema_change_impact_layers: joinArrayValue(
+        formData.schema_change_impact_layers,
+      ),
+      schema_change_impact_layers_other:
+        formData.schema_change_impact_layers_other,
+      schema_evolution_difficulty_factors: joinArrayValue(
+        formData.schema_evolution_difficulty_factors,
+      ),
+      schema_evolution_difficulty_factors_other:
+        formData.schema_evolution_difficulty_factors_other,
+      schema_change_productivity_impact:
+        formData.schema_change_productivity_impact,
+      schema_change_cognitive_load: formData.schema_change_cognitive_load,
+      schema_change_coordination_overhead:
+        formData.schema_change_coordination_overhead,
+      schema_change_relative_risk: formData.schema_change_relative_risk,
+      schema_change_delay_reason: formData.schema_change_delay_reason,
+      schema_change_delay_reason_other:
+        formData.schema_change_delay_reason_other,
+      easier_persistence_strategy_general:
+        formData.easier_persistence_strategy_general,
+      easier_persistence_strategy_reason:
+        formData.easier_persistence_strategy_reason,
+      most_helpful_schema_practice: formData.most_helpful_schema_practice,
+      most_helpful_schema_practice_other:
+        formData.most_helpful_schema_practice_other,
+      schema_evolution_experience_example:
+        formData.schema_evolution_experience_example,
     },
   };
 

@@ -157,6 +157,10 @@ textarea {
   resize: vertical;
 }
 
+textarea::placeholder {
+  color: #8290a0;
+}
+
 .scale-labels {
   display: flex;
   justify-content: space-between;
@@ -394,6 +398,37 @@ tr:last-child td {
   border-top: 2px solid #d7e2ec;
 }
 
+.schema-experience-section {
+  display: grid;
+  gap: 18px;
+}
+
+.schema-experience-section > .question {
+  margin-bottom: 0;
+  padding: 18px;
+  border: 1px solid #d7e2ec;
+  border-radius: 8px;
+  background: #fbfdff;
+}
+
+.schema-experience-section > .question.nested {
+  margin-top: -8px;
+  margin-left: 18px;
+  padding-left: 18px;
+  border-left: 3px solid #d7e2ec;
+}
+
+.section-definition {
+  margin-bottom: 28px;
+}
+
+.optional-label {
+  margin-left: 8px;
+  color: #59687a;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
 .placeholder-panel p,
 .success-panel p {
   margin: 0;
@@ -500,6 +535,14 @@ button:disabled {
   .button-row.end,
   .button-row.split {
     flex-direction: column;
+  }
+
+  .schema-experience-section > .question {
+    padding: 16px;
+  }
+
+  .schema-experience-section > .question.nested {
+    margin-left: 0;
   }
 
   button {

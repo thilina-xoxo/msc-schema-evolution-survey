@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import ConsentSection from './components/ConsentSection'
 import ParticipantBackground from './components/ParticipantBackground'
+import SchemaEvolutionExperience from './components/SchemaEvolutionExperience'
 import SectionThreeArchitecture from './components/SectionThreeArchitecture'
 import { submitSurvey } from './services/submitSurvey'
 import { getParticipantId } from './utils/participantId'
@@ -33,6 +34,24 @@ const initialFormData = {
   perceived_downstream_impacts: [],
   perceived_downstream_impacts_other: '',
   biggest_architecture_challenge: '',
+  schema_change_frequency: '',
+  experienced_schema_change_types: [],
+  experienced_schema_change_types_other: '',
+  schema_change_impact_layers: [],
+  schema_change_impact_layers_other: '',
+  schema_evolution_difficulty_factors: [],
+  schema_evolution_difficulty_factors_other: '',
+  schema_change_productivity_impact: '',
+  schema_change_cognitive_load: '',
+  schema_change_coordination_overhead: '',
+  schema_change_relative_risk: '',
+  schema_change_delay_reason: '',
+  schema_change_delay_reason_other: '',
+  easier_persistence_strategy_general: '',
+  easier_persistence_strategy_reason: '',
+  most_helpful_schema_practice: '',
+  most_helpful_schema_practice_other: '',
+  schema_evolution_experience_example: '',
 }
 
 function validateSectionOne(formData) {
@@ -184,6 +203,107 @@ function validateSectionThree(formData) {
   return errors
 }
 
+function validateSectionFour(formData) {
+  const errors = {}
+
+  if (!formData.schema_change_frequency) {
+    errors.schema_change_frequency =
+      'Please select how often schemas or data structures change in your experience.'
+  }
+
+  if (formData.experienced_schema_change_types.length === 0) {
+    errors.experienced_schema_change_types =
+      'Please select at least one schema or data structure change type.'
+  }
+
+  if (
+    formData.experienced_schema_change_types.includes('Other') &&
+    !formData.experienced_schema_change_types_other.trim()
+  ) {
+    errors.experienced_schema_change_types_other =
+      'Please specify the schema or data structure change type.'
+  }
+
+  if (formData.schema_change_impact_layers.length === 0) {
+    errors.schema_change_impact_layers =
+      'Please select at least one impacted layer.'
+  }
+
+  if (
+    formData.schema_change_impact_layers.includes('Other') &&
+    !formData.schema_change_impact_layers_other.trim()
+  ) {
+    errors.schema_change_impact_layers_other =
+      'Please specify the impacted layer.'
+  }
+
+  if (formData.schema_evolution_difficulty_factors.length === 0) {
+    errors.schema_evolution_difficulty_factors =
+      'Please select at least one factor that makes schema evolution difficult.'
+  }
+
+  if (
+    formData.schema_evolution_difficulty_factors.includes('Other') &&
+    !formData.schema_evolution_difficulty_factors_other.trim()
+  ) {
+    errors.schema_evolution_difficulty_factors_other =
+      'Please specify the difficulty factor.'
+  }
+
+  if (!formData.schema_change_productivity_impact) {
+    errors.schema_change_productivity_impact =
+      'Please rate how schema changes affect developer productivity.'
+  }
+
+  if (!formData.schema_change_cognitive_load) {
+    errors.schema_change_cognitive_load =
+      'Please rate the mental effort required to understand schema change impact.'
+  }
+
+  if (!formData.schema_change_coordination_overhead) {
+    errors.schema_change_coordination_overhead =
+      'Please rate the coordination required for cross-service or cross-team schema changes.'
+  }
+
+  if (!formData.schema_change_relative_risk) {
+    errors.schema_change_relative_risk =
+      'Please select the relative risk of schema changes.'
+  }
+
+  if (!formData.schema_change_delay_reason) {
+    errors.schema_change_delay_reason =
+      'Please select the most common reason schema changes become delayed or underestimated.'
+  }
+
+  if (
+    formData.schema_change_delay_reason === 'Other' &&
+    !formData.schema_change_delay_reason_other.trim()
+  ) {
+    errors.schema_change_delay_reason_other =
+      'Please specify the delay or underestimation reason.'
+  }
+
+  if (!formData.easier_persistence_strategy_general) {
+    errors.easier_persistence_strategy_general =
+      'Please select the persistence strategy that is generally easier to maintain.'
+  }
+
+  if (!formData.most_helpful_schema_practice) {
+    errors.most_helpful_schema_practice =
+      'Please select the practice that has helped you most.'
+  }
+
+  if (
+    formData.most_helpful_schema_practice === 'Other' &&
+    !formData.most_helpful_schema_practice_other.trim()
+  ) {
+    errors.most_helpful_schema_practice_other =
+      'Please specify the helpful schema evolution practice.'
+  }
+
+  return errors
+}
+
 function App() {
   const participantId = useMemo(() => getParticipantId(), [])
   const [step, setStep] = useState(1)
@@ -229,14 +349,26 @@ function App() {
     }
   }
 
+  function handleSectionThreeNext() {
+    const nextErrors = validateSectionThree(formData)
+    setErrors(nextErrors)
+
+    if (Object.keys(nextErrors).length === 0) {
+      setStep(4)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }
+
   async function handleSubmit() {
     const sectionOneErrors = validateSectionOne(formData)
     const sectionTwoErrors = validateSectionTwo(formData)
     const sectionThreeErrors = validateSectionThree(formData)
+    const sectionFourErrors = validateSectionFour(formData)
     const nextErrors = {
       ...sectionOneErrors,
       ...sectionTwoErrors,
       ...sectionThreeErrors,
+      ...sectionFourErrors,
     }
 
     setErrors(nextErrors)
@@ -244,7 +376,7 @@ function App() {
 
     if (Object.keys(nextErrors).length > 0) {
       setSubmissionError(
-        'Please complete all required consent, eligibility, background, and architecture context questions before submitting.',
+        'Please complete all required consent, eligibility, background, architecture context, and schema evolution experience questions before submitting.',
       )
       return
     }
@@ -298,12 +430,24 @@ function App() {
       )
     }
 
+    if (step === 3) {
+      return (
+        <SectionThreeArchitecture
+          formData={formData}
+          errors={errors}
+          onChange={handleChange}
+          onBack={() => setStep(2)}
+          onNext={handleSectionThreeNext}
+        />
+      )
+    }
+
     return (
-      <SectionThreeArchitecture
+      <SchemaEvolutionExperience
         formData={formData}
         errors={errors}
         onChange={handleChange}
-        onBack={() => setStep(2)}
+        onBack={() => setStep(3)}
         onSubmit={handleSubmit}
         isSubmitting={isSubmitting}
         submissionError={submissionError}
@@ -318,12 +462,12 @@ function App() {
           <header className="survey-header">
             <p className="eyebrow">MSc Research Survey</p>
             <h1>Schema Evolution in Microservice Persistence</h1>
-            <div className="progress-wrap" aria-label={`Step ${step} of 3`}>
-              <div className="progress-text">Step {step} of 3</div>
+            <div className="progress-wrap" aria-label={`Step ${step} of 4`}>
+              <div className="progress-text">Step {step} of 4</div>
               <div className="progress-track">
                 <div
                   className="progress-fill"
-                  style={{ width: `${(step / 3) * 100}%` }}
+                  style={{ width: `${(step / 4) * 100}%` }}
                 />
               </div>
             </div>
