@@ -429,6 +429,162 @@ tr:last-child td {
   font-weight: 600;
 }
 
+.architecture-reminder {
+  display: grid;
+  gap: 18px;
+  margin: 28px 0 34px;
+  padding: 22px;
+  border: 1px solid #c9d8e6;
+  border-radius: 8px;
+  background: #f5f9fc;
+}
+
+.architecture-reminder h3 {
+  margin: 0 0 6px;
+  color: #172033;
+  font-size: 1.15rem;
+}
+
+.architecture-reminder p {
+  margin: 0;
+  color: #59687a;
+}
+
+.architecture-reminder dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 18px;
+  margin: 0;
+}
+
+.architecture-reminder dl div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 12px;
+  border: 1px solid #d7e2ec;
+  border-radius: 6px;
+  background: #ffffff;
+}
+
+.architecture-reminder dt {
+  color: #26364a;
+  font-weight: 700;
+}
+
+.architecture-reminder dd {
+  margin: 0;
+  color: #315b87;
+  text-align: right;
+}
+
+.architecture-reminder a {
+  color: #24577f;
+  font-weight: 700;
+}
+
+.scenario-list {
+  display: grid;
+  gap: 34px;
+}
+
+.scenario-card {
+  padding: 24px;
+  border: 1px solid #d7e2ec;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 10px 24px rgba(22, 34, 51, 0.05);
+}
+
+.scenario-card + .scenario-card {
+  border-top: 4px solid #d7e2ec;
+}
+
+.scenario-card-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.scenario-card h3 {
+  margin: 0 0 10px;
+  color: #172033;
+  font-size: 1.2rem;
+  line-height: 1.3;
+}
+
+.complexity-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #e8f3ea;
+  color: #24613a;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.complexity-badge.medium-to-high {
+  background: #fff4db;
+  color: #83540f;
+}
+
+.complexity-badge.high {
+  background: #fde8df;
+  color: #9a3412;
+}
+
+.complexity-badge.extreme {
+  background: #fde7e9;
+  color: #a3152b;
+}
+
+.scenario-description {
+  margin-bottom: 22px;
+  padding: 18px;
+  border-radius: 8px;
+  background: #f8fbfd;
+  color: #405168;
+}
+
+.scenario-description p {
+  margin: 0 0 12px;
+}
+
+.scenario-description p:last-child {
+  margin-bottom: 0;
+}
+
+.scenario-description ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px 22px;
+  margin: 0 0 12px;
+  padding-left: 22px;
+}
+
+.scenario-questions {
+  display: grid;
+  gap: 18px;
+}
+
+.scenario-questions > .question {
+  margin-bottom: 0;
+  padding: 18px;
+  border: 1px solid #d7e2ec;
+  border-radius: 8px;
+  background: #fbfdff;
+}
+
+.scenario-questions > .question.nested {
+  margin-top: -8px;
+  margin-left: 18px;
+  padding-left: 18px;
+  border-left: 3px solid #d7e2ec;
+}
+
 .placeholder-panel p,
 .success-panel p {
   margin: 0;
@@ -520,6 +676,39 @@ button:disabled {
   .info-box,
   .diagram-placeholder {
     padding: 16px;
+  }
+
+  .architecture-reminder {
+    padding: 16px;
+  }
+
+  .architecture-reminder dl {
+    grid-template-columns: 1fr;
+  }
+
+  .architecture-reminder dl div {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .architecture-reminder dd {
+    text-align: left;
+  }
+
+  .scenario-card {
+    padding: 18px;
+  }
+
+  .scenario-description ul {
+    grid-template-columns: 1fr;
+  }
+
+  .scenario-questions > .question {
+    padding: 16px;
+  }
+
+  .scenario-questions > .question.nested {
+    margin-left: 0;
   }
 
   .iframe-wrap {

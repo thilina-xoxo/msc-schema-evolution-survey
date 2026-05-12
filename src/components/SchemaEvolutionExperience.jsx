@@ -142,9 +142,7 @@ function SchemaEvolutionExperience({
   errors,
   onChange,
   onBack,
-  onSubmit,
-  isSubmitting,
-  submissionError,
+  onNext,
 }) {
   return (
     <section>
@@ -364,24 +362,20 @@ function SchemaEvolutionExperience({
         </div>
       </div>
 
-      {submissionError && <p className="form-error">{submissionError}</p>}
-
       <div className="button-row split">
         <button
           type="button"
           className="secondary-button"
           onClick={onBack}
-          disabled={isSubmitting}
         >
           Back
         </button>
         <button
           type="button"
           className="primary-button"
-          onClick={onSubmit}
-          disabled={isSubmitting}
+          onClick={onNext}
         >
-          {isSubmitting ? 'Submitting...' : 'Submit Current Response'}
+          Next
         </button>
       </div>
     </section>

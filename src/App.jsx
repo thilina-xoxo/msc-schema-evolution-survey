@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import ConsentSection from './components/ConsentSection'
 import ParticipantBackground from './components/ParticipantBackground'
+import ScenarioPolyglot from './components/ScenarioPolyglot'
 import SchemaEvolutionExperience from './components/SchemaEvolutionExperience'
 import SectionThreeArchitecture from './components/SectionThreeArchitecture'
 import { submitSurvey } from './services/submitSurvey'
@@ -52,6 +53,48 @@ const initialFormData = {
   most_helpful_schema_practice: '',
   most_helpful_schema_practice_other: '',
   schema_evolution_experience_example: '',
+  poly_s1_effort: '',
+  poly_s1_components_affected: '',
+  poly_s1_cognitive_load: '',
+  poly_s1_bug_risk: '',
+  poly_s1_coordination_overhead: '',
+  poly_s1_affected_areas: [],
+  poly_s1_affected_areas_other: '',
+  poly_s1_main_challenge: '',
+  poly_s2_effort: '',
+  poly_s2_components_affected: '',
+  poly_s2_cognitive_load: '',
+  poly_s2_bug_risk: '',
+  poly_s2_coordination_overhead: '',
+  poly_s2_backward_compatibility_difficulty: '',
+  poly_s2_affected_areas: [],
+  poly_s2_affected_areas_other: '',
+  poly_s2_main_challenge: '',
+  poly_s2_compatibility_strategy: '',
+  poly_s3_effort: '',
+  poly_s3_components_affected: '',
+  poly_s3_cognitive_load: '',
+  poly_s3_data_risk: '',
+  poly_s3_coordination_overhead: '',
+  poly_s3_migration_difficulty: '',
+  poly_s3_testing_difficulty: '',
+  poly_s3_affected_areas: [],
+  poly_s3_affected_areas_other: '',
+  poly_s3_implementation_approach: '',
+  poly_s3_biggest_risk: '',
+  poly_s4_effort: '',
+  poly_s4_components_affected: '',
+  poly_s4_cognitive_load: '',
+  poly_s4_consistency_risk: '',
+  poly_s4_coordination_overhead: '',
+  poly_s4_rule_enforcement_difficulty: '',
+  poly_s4_failure_handling_difficulty: '',
+  poly_s4_preferred_implementation_approach: '',
+  poly_s4_preferred_implementation_approach_other: '',
+  poly_s4_affected_areas: [],
+  poly_s4_affected_areas_other: '',
+  poly_s4_productivity_challenge: '',
+  poly_s4_complexity_reduction_practices: '',
 }
 
 function validateSectionOne(formData) {
@@ -304,6 +347,96 @@ function validateSectionFour(formData) {
   return errors
 }
 
+function validateScenarioPolyglot(formData) {
+  const errors = {}
+
+  const requiredFields = [
+    ['poly_s1_effort', 'Please select the likely implementation effort.'],
+    ['poly_s1_components_affected', 'Please select how many components would likely need to be modified or checked.'],
+    ['poly_s1_cognitive_load', 'Please rate the mental effort required.'],
+    ['poly_s1_bug_risk', 'Please rate the risk of bugs or inconsistencies.'],
+    ['poly_s1_coordination_overhead', 'Please rate the coordination required.'],
+    ['poly_s2_effort', 'Please select the likely implementation effort.'],
+    ['poly_s2_components_affected', 'Please select how many components would likely need to be modified or checked.'],
+    ['poly_s2_cognitive_load', 'Please rate the mental effort required.'],
+    ['poly_s2_bug_risk', 'Please rate the risk of bugs or inconsistent data.'],
+    ['poly_s2_coordination_overhead', 'Please rate the coordination required.'],
+    ['poly_s2_backward_compatibility_difficulty', 'Please rate the backward compatibility difficulty.'],
+    ['poly_s3_effort', 'Please select the likely implementation effort.'],
+    ['poly_s3_components_affected', 'Please select how many components would likely need to be modified or checked.'],
+    ['poly_s3_cognitive_load', 'Please rate the mental effort required.'],
+    ['poly_s3_data_risk', 'Please rate the data risk.'],
+    ['poly_s3_coordination_overhead', 'Please rate the coordination required.'],
+    ['poly_s3_migration_difficulty', 'Please rate the data migration difficulty.'],
+    ['poly_s3_testing_difficulty', 'Please rate the testing and validation difficulty.'],
+    ['poly_s4_effort', 'Please select the likely implementation effort.'],
+    ['poly_s4_components_affected', 'Please select how many components would likely need to be modified or checked.'],
+    ['poly_s4_cognitive_load', 'Please rate the mental effort required.'],
+    ['poly_s4_consistency_risk', 'Please rate the consistency risk.'],
+    ['poly_s4_coordination_overhead', 'Please rate the coordination required.'],
+    ['poly_s4_rule_enforcement_difficulty', 'Please rate the rule enforcement difficulty.'],
+    ['poly_s4_failure_handling_difficulty', 'Please rate the rollback or failure handling difficulty.'],
+    ['poly_s4_preferred_implementation_approach', 'Please select the implementation approach you would most likely use.'],
+  ]
+
+  requiredFields.forEach(([fieldName, message]) => {
+    if (!formData[fieldName]) {
+      errors[fieldName] = message
+    }
+  })
+
+  const checkboxFields = [
+    ['poly_s1_affected_areas', 'Please select at least one affected area.'],
+    ['poly_s2_affected_areas', 'Please select at least one affected area.'],
+    ['poly_s3_affected_areas', 'Please select at least one affected area.'],
+    ['poly_s4_affected_areas', 'Please select at least one affected area.'],
+  ]
+
+  checkboxFields.forEach(([fieldName, message]) => {
+    if (formData[fieldName].length === 0) {
+      errors[fieldName] = message
+    }
+  })
+
+  if (
+    formData.poly_s1_affected_areas.includes('Other') &&
+    !formData.poly_s1_affected_areas_other.trim()
+  ) {
+    errors.poly_s1_affected_areas_other = 'Please specify the affected area.'
+  }
+
+  if (
+    formData.poly_s2_affected_areas.includes('Other') &&
+    !formData.poly_s2_affected_areas_other.trim()
+  ) {
+    errors.poly_s2_affected_areas_other = 'Please specify the affected area.'
+  }
+
+  if (
+    formData.poly_s3_affected_areas.includes('Other') &&
+    !formData.poly_s3_affected_areas_other.trim()
+  ) {
+    errors.poly_s3_affected_areas_other = 'Please specify the affected area.'
+  }
+
+  if (
+    formData.poly_s4_preferred_implementation_approach === 'Other' &&
+    !formData.poly_s4_preferred_implementation_approach_other.trim()
+  ) {
+    errors.poly_s4_preferred_implementation_approach_other =
+      'Please specify the implementation approach.'
+  }
+
+  if (
+    formData.poly_s4_affected_areas.includes('Other') &&
+    !formData.poly_s4_affected_areas_other.trim()
+  ) {
+    errors.poly_s4_affected_areas_other = 'Please specify the affected area.'
+  }
+
+  return errors
+}
+
 function App() {
   const participantId = useMemo(() => getParticipantId(), [])
   const [step, setStep] = useState(1)
@@ -315,6 +448,10 @@ function App() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submissionError, setSubmissionError] = useState('')
   const [submitted, setSubmitted] = useState(false)
+  const normalizedFormData = {
+    ...initialFormData,
+    ...formData,
+  }
 
   function handleChange(name, value) {
     setFormData((currentData) => ({
@@ -330,7 +467,7 @@ function App() {
   }
 
   function handleSectionOneNext() {
-    const nextErrors = validateSectionOne(formData)
+    const nextErrors = validateSectionOne(normalizedFormData)
     setErrors(nextErrors)
 
     if (Object.keys(nextErrors).length === 0) {
@@ -340,7 +477,7 @@ function App() {
   }
 
   function handleSectionTwoNext() {
-    const nextErrors = validateSectionTwo(formData)
+    const nextErrors = validateSectionTwo(normalizedFormData)
     setErrors(nextErrors)
 
     if (Object.keys(nextErrors).length === 0) {
@@ -350,7 +487,7 @@ function App() {
   }
 
   function handleSectionThreeNext() {
-    const nextErrors = validateSectionThree(formData)
+    const nextErrors = validateSectionThree(normalizedFormData)
     setErrors(nextErrors)
 
     if (Object.keys(nextErrors).length === 0) {
@@ -359,16 +496,28 @@ function App() {
     }
   }
 
+  function handleSectionFourNext() {
+    const nextErrors = validateSectionFour(normalizedFormData)
+    setErrors(nextErrors)
+
+    if (Object.keys(nextErrors).length === 0) {
+      setStep(5)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }
+
   async function handleSubmit() {
-    const sectionOneErrors = validateSectionOne(formData)
-    const sectionTwoErrors = validateSectionTwo(formData)
-    const sectionThreeErrors = validateSectionThree(formData)
-    const sectionFourErrors = validateSectionFour(formData)
+    const sectionOneErrors = validateSectionOne(normalizedFormData)
+    const sectionTwoErrors = validateSectionTwo(normalizedFormData)
+    const sectionThreeErrors = validateSectionThree(normalizedFormData)
+    const sectionFourErrors = validateSectionFour(normalizedFormData)
+    const scenarioPolyglotErrors = validateScenarioPolyglot(normalizedFormData)
     const nextErrors = {
       ...sectionOneErrors,
       ...sectionTwoErrors,
       ...sectionThreeErrors,
       ...sectionFourErrors,
+      ...scenarioPolyglotErrors,
     }
 
     setErrors(nextErrors)
@@ -376,14 +525,14 @@ function App() {
 
     if (Object.keys(nextErrors).length > 0) {
       setSubmissionError(
-        'Please complete all required consent, eligibility, background, architecture context, and schema evolution experience questions before submitting.',
+        'Please complete all required consent, eligibility, background, architecture context, schema evolution experience, and polyglot scenario questions before submitting.',
       )
       return
     }
 
     try {
       setIsSubmitting(true)
-      await submitSurvey(formData)
+      await submitSurvey(normalizedFormData)
       setSubmitted(true)
     } catch {
       setSubmissionError(
@@ -410,7 +559,7 @@ function App() {
     if (step === 1) {
       return (
         <ConsentSection
-          formData={formData}
+          formData={normalizedFormData}
           errors={errors}
           onChange={handleChange}
           onNext={handleSectionOneNext}
@@ -421,7 +570,7 @@ function App() {
     if (step === 2) {
       return (
         <ParticipantBackground
-          formData={formData}
+          formData={normalizedFormData}
           errors={errors}
           onChange={handleChange}
           onBack={() => setStep(1)}
@@ -433,7 +582,7 @@ function App() {
     if (step === 3) {
       return (
         <SectionThreeArchitecture
-          formData={formData}
+          formData={normalizedFormData}
           errors={errors}
           onChange={handleChange}
           onBack={() => setStep(2)}
@@ -442,12 +591,24 @@ function App() {
       )
     }
 
+    if (step === 4) {
+      return (
+        <SchemaEvolutionExperience
+          formData={normalizedFormData}
+          errors={errors}
+          onChange={handleChange}
+          onBack={() => setStep(3)}
+          onNext={handleSectionFourNext}
+        />
+      )
+    }
+
     return (
-      <SchemaEvolutionExperience
-        formData={formData}
+      <ScenarioPolyglot
+        formData={normalizedFormData}
         errors={errors}
         onChange={handleChange}
-        onBack={() => setStep(3)}
+        onBack={() => setStep(4)}
         onSubmit={handleSubmit}
         isSubmitting={isSubmitting}
         submissionError={submissionError}
@@ -462,12 +623,12 @@ function App() {
           <header className="survey-header">
             <p className="eyebrow">MSc Research Survey</p>
             <h1>Schema Evolution in Microservice Persistence</h1>
-            <div className="progress-wrap" aria-label={`Step ${step} of 4`}>
-              <div className="progress-text">Step {step} of 4</div>
+            <div className="progress-wrap" aria-label={`Step ${step} of 5`}>
+              <div className="progress-text">Step {step} of 5</div>
               <div className="progress-track">
                 <div
                   className="progress-fill"
-                  style={{ width: `${(step / 4) * 100}%` }}
+                  style={{ width: `${(step / 5) * 100}%` }}
                 />
               </div>
             </div>

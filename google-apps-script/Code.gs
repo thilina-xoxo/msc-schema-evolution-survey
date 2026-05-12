@@ -3,6 +3,7 @@ const SURVEY_TOKEN = 'msc_schema_evolution_survey_2026';
 const PARTICIPANT_BACKGROUND_SHEET = 'participant_background';
 const ARCHITECTURE_CONTEXT_SHEET = 'architecture_context';
 const SCHEMA_EVOLUTION_EXPERIENCE_SHEET = 'schema_evolution_experience';
+const SCENARIO_POLYGLOT_SHEET = 'scenario_polyglot';
 
 const PARTICIPANT_BACKGROUND_HEADERS = [
   'timestamp',
@@ -62,6 +63,53 @@ const SCHEMA_EVOLUTION_EXPERIENCE_HEADERS = [
   'schema_evolution_experience_example',
 ];
 
+const SCENARIO_POLYGLOT_HEADERS = [
+  'timestamp',
+  'participant_id',
+  'poly_s1_effort',
+  'poly_s1_components_affected',
+  'poly_s1_cognitive_load',
+  'poly_s1_bug_risk',
+  'poly_s1_coordination_overhead',
+  'poly_s1_affected_areas',
+  'poly_s1_affected_areas_other',
+  'poly_s1_main_challenge',
+  'poly_s2_effort',
+  'poly_s2_components_affected',
+  'poly_s2_cognitive_load',
+  'poly_s2_bug_risk',
+  'poly_s2_coordination_overhead',
+  'poly_s2_backward_compatibility_difficulty',
+  'poly_s2_affected_areas',
+  'poly_s2_affected_areas_other',
+  'poly_s2_main_challenge',
+  'poly_s2_compatibility_strategy',
+  'poly_s3_effort',
+  'poly_s3_components_affected',
+  'poly_s3_cognitive_load',
+  'poly_s3_data_risk',
+  'poly_s3_coordination_overhead',
+  'poly_s3_migration_difficulty',
+  'poly_s3_testing_difficulty',
+  'poly_s3_affected_areas',
+  'poly_s3_affected_areas_other',
+  'poly_s3_implementation_approach',
+  'poly_s3_biggest_risk',
+  'poly_s4_effort',
+  'poly_s4_components_affected',
+  'poly_s4_cognitive_load',
+  'poly_s4_consistency_risk',
+  'poly_s4_coordination_overhead',
+  'poly_s4_rule_enforcement_difficulty',
+  'poly_s4_failure_handling_difficulty',
+  'poly_s4_preferred_implementation_approach',
+  'poly_s4_preferred_implementation_approach_other',
+  'poly_s4_affected_areas',
+  'poly_s4_affected_areas_other',
+  'poly_s4_productivity_challenge',
+  'poly_s4_complexity_reduction_practices',
+];
+
 function doPost(e) {
   try {
     const payload = JSON.parse(e.postData.contents || '{}');
@@ -93,6 +141,11 @@ function doPost(e) {
       SCHEMA_EVOLUTION_EXPERIENCE_SHEET,
       SCHEMA_EVOLUTION_EXPERIENCE_HEADERS
     );
+    const scenarioPolyglotSheet = getOrCreateSheet(
+      spreadsheet,
+      SCENARIO_POLYGLOT_SHEET,
+      SCENARIO_POLYGLOT_HEADERS
+    );
 
     participantBackgroundSheet.appendRow(
       buildRow(
@@ -116,6 +169,14 @@ function doPost(e) {
         participantId,
         payload.schema_evolution_experience || {},
         SCHEMA_EVOLUTION_EXPERIENCE_HEADERS
+      )
+    );
+    scenarioPolyglotSheet.appendRow(
+      buildRow(
+        timestamp,
+        participantId,
+        payload.scenario_polyglot || {},
+        SCENARIO_POLYGLOT_HEADERS
       )
     );
 

@@ -80,6 +80,56 @@ export async function submitSurvey(formData) {
       schema_evolution_experience_example:
         formData.schema_evolution_experience_example,
     },
+    scenario_polyglot: {
+      poly_s1_effort: formData.poly_s1_effort,
+      poly_s1_components_affected: formData.poly_s1_components_affected,
+      poly_s1_cognitive_load: formData.poly_s1_cognitive_load,
+      poly_s1_bug_risk: formData.poly_s1_bug_risk,
+      poly_s1_coordination_overhead: formData.poly_s1_coordination_overhead,
+      poly_s1_affected_areas: joinArrayValue(formData.poly_s1_affected_areas),
+      poly_s1_affected_areas_other: formData.poly_s1_affected_areas_other,
+      poly_s1_main_challenge: formData.poly_s1_main_challenge,
+      poly_s2_effort: formData.poly_s2_effort,
+      poly_s2_components_affected: formData.poly_s2_components_affected,
+      poly_s2_cognitive_load: formData.poly_s2_cognitive_load,
+      poly_s2_bug_risk: formData.poly_s2_bug_risk,
+      poly_s2_coordination_overhead: formData.poly_s2_coordination_overhead,
+      poly_s2_backward_compatibility_difficulty:
+        formData.poly_s2_backward_compatibility_difficulty,
+      poly_s2_affected_areas: joinArrayValue(formData.poly_s2_affected_areas),
+      poly_s2_affected_areas_other: formData.poly_s2_affected_areas_other,
+      poly_s2_main_challenge: formData.poly_s2_main_challenge,
+      poly_s2_compatibility_strategy: formData.poly_s2_compatibility_strategy,
+      poly_s3_effort: formData.poly_s3_effort,
+      poly_s3_components_affected: formData.poly_s3_components_affected,
+      poly_s3_cognitive_load: formData.poly_s3_cognitive_load,
+      poly_s3_data_risk: formData.poly_s3_data_risk,
+      poly_s3_coordination_overhead: formData.poly_s3_coordination_overhead,
+      poly_s3_migration_difficulty: formData.poly_s3_migration_difficulty,
+      poly_s3_testing_difficulty: formData.poly_s3_testing_difficulty,
+      poly_s3_affected_areas: joinArrayValue(formData.poly_s3_affected_areas),
+      poly_s3_affected_areas_other: formData.poly_s3_affected_areas_other,
+      poly_s3_implementation_approach: formData.poly_s3_implementation_approach,
+      poly_s3_biggest_risk: formData.poly_s3_biggest_risk,
+      poly_s4_effort: formData.poly_s4_effort,
+      poly_s4_components_affected: formData.poly_s4_components_affected,
+      poly_s4_cognitive_load: formData.poly_s4_cognitive_load,
+      poly_s4_consistency_risk: formData.poly_s4_consistency_risk,
+      poly_s4_coordination_overhead: formData.poly_s4_coordination_overhead,
+      poly_s4_rule_enforcement_difficulty:
+        formData.poly_s4_rule_enforcement_difficulty,
+      poly_s4_failure_handling_difficulty:
+        formData.poly_s4_failure_handling_difficulty,
+      poly_s4_preferred_implementation_approach:
+        formData.poly_s4_preferred_implementation_approach,
+      poly_s4_preferred_implementation_approach_other:
+        formData.poly_s4_preferred_implementation_approach_other,
+      poly_s4_affected_areas: joinArrayValue(formData.poly_s4_affected_areas),
+      poly_s4_affected_areas_other: formData.poly_s4_affected_areas_other,
+      poly_s4_productivity_challenge: formData.poly_s4_productivity_challenge,
+      poly_s4_complexity_reduction_practices:
+        formData.poly_s4_complexity_reduction_practices,
+    },
   };
 
   await fetch(SCRIPT_URL, {
