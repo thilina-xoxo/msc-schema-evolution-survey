@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import ConsentSection from './components/ConsentSection'
 import ParticipantBackground from './components/ParticipantBackground'
-import SectionThreePlaceholder from './components/SectionThreePlaceholder'
+import SectionThreeArchitecture from './components/SectionThreeArchitecture'
 import { submitSurvey } from './services/submitSurvey'
 import { getParticipantId } from './utils/participantId'
 import './App.css'
@@ -24,6 +24,15 @@ const initialFormData = {
   multimodel_familiarity: '',
   schema_evolution_familiarity: '',
   production_schema_change_experience: '',
+  architecture_context_clarity: '',
+  architecture_difference_clarity: '',
+  analytics_layer_clarity: '',
+  architecture_understanding: '',
+  perceived_operational_complexity: '',
+  perceived_schema_reasoning_ease: '',
+  perceived_downstream_impacts: [],
+  perceived_downstream_impacts_other: '',
+  biggest_architecture_challenge: '',
 }
 
 function validateSectionOne(formData) {
@@ -126,6 +135,55 @@ function validateSectionTwo(formData) {
   return errors
 }
 
+function validateSectionThree(formData) {
+  const errors = {}
+
+  if (!formData.architecture_context_clarity) {
+    errors.architecture_context_clarity =
+      'Please rate the clarity of the ModaVista business and technical context.'
+  }
+
+  if (!formData.architecture_difference_clarity) {
+    errors.architecture_difference_clarity =
+      'Please rate the clarity of the difference between the two architectures.'
+  }
+
+  if (!formData.analytics_layer_clarity) {
+    errors.analytics_layer_clarity =
+      'Please rate the clarity of the central Data Lakehouse / Data Warehouse role.'
+  }
+
+  if (!formData.architecture_understanding) {
+    errors.architecture_understanding =
+      'Please select the statement that best describes your understanding.'
+  }
+
+  if (!formData.perceived_operational_complexity) {
+    errors.perceived_operational_complexity =
+      'Please select which architecture appears more operationally complex.'
+  }
+
+  if (!formData.perceived_schema_reasoning_ease) {
+    errors.perceived_schema_reasoning_ease =
+      'Please select which architecture appears easier to reason about during schema changes.'
+  }
+
+  if (formData.perceived_downstream_impacts.length === 0) {
+    errors.perceived_downstream_impacts =
+      'Please select at least one downstream impact.'
+  }
+
+  if (
+    formData.perceived_downstream_impacts.includes('Other') &&
+    !formData.perceived_downstream_impacts_other.trim()
+  ) {
+    errors.perceived_downstream_impacts_other =
+      'Please specify the downstream impact.'
+  }
+
+  return errors
+}
+
 function App() {
   const participantId = useMemo(() => getParticipantId(), [])
   const [step, setStep] = useState(1)
@@ -174,14 +232,19 @@ function App() {
   async function handleSubmit() {
     const sectionOneErrors = validateSectionOne(formData)
     const sectionTwoErrors = validateSectionTwo(formData)
-    const nextErrors = { ...sectionOneErrors, ...sectionTwoErrors }
+    const sectionThreeErrors = validateSectionThree(formData)
+    const nextErrors = {
+      ...sectionOneErrors,
+      ...sectionTwoErrors,
+      ...sectionThreeErrors,
+    }
 
     setErrors(nextErrors)
     setSubmissionError('')
 
     if (Object.keys(nextErrors).length > 0) {
       setSubmissionError(
-        'Please complete all required consent, eligibility, and background questions before submitting.',
+        'Please complete all required consent, eligibility, background, and architecture context questions before submitting.',
       )
       return
     }
@@ -236,7 +299,10 @@ function App() {
     }
 
     return (
-      <SectionThreePlaceholder
+      <SectionThreeArchitecture
+        formData={formData}
+        errors={errors}
+        onChange={handleChange}
         onBack={() => setStep(2)}
         onSubmit={handleSubmit}
         isSubmitting={isSubmitting}

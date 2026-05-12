@@ -130,7 +130,8 @@ legend,
 }
 
 select,
-input[type='text'] {
+input[type='text'],
+textarea {
   width: 100%;
   min-height: 44px;
   box-sizing: border-box;
@@ -144,10 +145,16 @@ input[type='text'] {
 
 select:focus,
 input[type='text']:focus,
+textarea:focus,
 button:focus-visible {
   outline: 3px solid rgba(45, 106, 159, 0.22);
   outline-offset: 2px;
   border-color: #2d6a9f;
+}
+
+textarea {
+  min-height: 128px;
+  resize: vertical;
 }
 
 .scale-labels {
@@ -176,7 +183,8 @@ button:focus-visible {
 }
 
 .has-error select,
-.has-error input[type='text'] {
+.has-error input[type='text'],
+.has-error textarea {
   border-color: #b42318;
 }
 
@@ -194,6 +202,196 @@ button:focus-visible {
   border: 1px solid #d7e2ec;
   border-radius: 8px;
   background: #f8fbfd;
+}
+
+.reading-section {
+  display: grid;
+  gap: 28px;
+  margin-top: 30px;
+}
+
+.reading-block {
+  padding-bottom: 28px;
+  border-bottom: 1px solid #e3e8ef;
+}
+
+.reading-block h3,
+.question-section h3 {
+  margin: 0 0 16px;
+  color: #172033;
+  font-size: 1.2rem;
+  line-height: 1.3;
+}
+
+.reading-block h4,
+.team-card h4,
+.principle-card h4,
+.diagram-placeholder h4,
+.info-box h4 {
+  margin: 0 0 10px;
+  color: #1d2738;
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.reading-block p {
+  margin: 0 0 14px;
+  color: #405168;
+}
+
+.reading-list {
+  display: grid;
+  gap: 8px;
+  margin: 0 0 16px;
+  padding-left: 22px;
+  color: #405168;
+}
+
+.reading-list.columns {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 28px;
+}
+
+.team-grid,
+.principle-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.team-card,
+.principle-card {
+  padding: 18px;
+  border: 1px solid #d7e2ec;
+  border-radius: 8px;
+  background: #fbfdff;
+}
+
+.team-card .reading-list {
+  margin-bottom: 14px;
+}
+
+.card-label {
+  margin: 0 0 8px;
+  color: #315b87;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.principle-card p {
+  margin-bottom: 0;
+}
+
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid #d7e2ec;
+  border-radius: 8px;
+}
+
+table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+  background: #ffffff;
+}
+
+th,
+td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #e3e8ef;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: #edf3f8;
+  color: #172033;
+  font-size: 0.88rem;
+}
+
+td {
+  color: #405168;
+  font-size: 0.92rem;
+}
+
+tr:last-child td {
+  border-bottom: 0;
+}
+
+.info-box {
+  margin: 18px 0;
+  padding: 18px;
+  border-left: 4px solid #2d6a9f;
+  border-radius: 8px;
+  background: #eef6fc;
+}
+
+.info-box p:last-child {
+  margin-bottom: 0;
+}
+
+.diagram-frame {
+  margin: 0;
+  padding-bottom: 28px;
+  border-bottom: 1px solid #e3e8ef;
+}
+
+.iframe-wrap {
+  position: relative;
+  width: 100%;
+  min-height: 520px;
+  overflow: hidden;
+  border: 1px solid #c9d3df;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.iframe-wrap iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.diagram-frame figcaption {
+  margin-top: 10px;
+  color: #59687a;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.diagram-frame a {
+  display: inline-flex;
+  margin-top: 8px;
+  color: #24577f;
+  font-weight: 700;
+}
+
+.diagram-placeholder {
+  display: grid;
+  place-items: center;
+  min-height: 280px;
+  padding: 28px;
+  border: 1px dashed #9db2c7;
+  border-radius: 8px;
+  background: #f8fbfd;
+  text-align: center;
+}
+
+.diagram-placeholder p {
+  max-width: 560px;
+  margin: 0;
+  color: #59687a;
+}
+
+.question-section {
+  margin-top: 34px;
+  padding-top: 28px;
+  border-top: 2px solid #d7e2ec;
 }
 
 .placeholder-panel p,
@@ -274,6 +472,23 @@ button:disabled {
   .checkbox-grid,
   .scale-options {
     grid-template-columns: 1fr;
+  }
+
+  .reading-list.columns,
+  .team-grid,
+  .principle-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .team-card,
+  .principle-card,
+  .info-box,
+  .diagram-placeholder {
+    padding: 16px;
+  }
+
+  .iframe-wrap {
+    min-height: 420px;
   }
 
   .scale-labels {
