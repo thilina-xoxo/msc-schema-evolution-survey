@@ -1,5 +1,5 @@
 const SCRIPT_URL =
-  'https://script.google.com/macros/s/AKfycbxTLNGMfwQ4_c8ZIqVXFBykBtnctW_6kCZDDSLWSnOwBPhNyAPe4jDO4VkXAXUXiZ88/exec';
+  'https://script.google.com/macros/s/AKfycbwx2orwicnWCJSerjmQ6uRaNa3UoN_1oYSPzPk-ZWhU9H7VGDAshfqOBqLsVI6rsH93/exec';
 const SURVEY_TOKEN = 'msc_schema_evolution_survey_2026';
 
 function joinArrayValue(value) {
@@ -211,6 +211,43 @@ export async function submitSurvey(formData) {
       architecture_preference_reason: formData.architecture_preference_reason,
       decision_recommendation_for_leads:
         formData.decision_recommendation_for_leads,
+    },
+    tooling_practices: {
+      used_schema_tools_practices: joinArrayValue(
+        formData.used_schema_tools_practices,
+      ),
+      used_schema_tools_practices_other:
+        formData.used_schema_tools_practices_other,
+      most_effective_migration_tooling:
+        formData.most_effective_migration_tooling,
+      most_effective_migration_tooling_other:
+        formData.most_effective_migration_tooling_other,
+      automated_migration_tool_usefulness:
+        formData.automated_migration_tool_usefulness,
+      automated_test_usefulness: formData.automated_test_usefulness,
+      api_versioning_usefulness: formData.api_versioning_usefulness,
+      event_schema_registry_usefulness:
+        formData.event_schema_registry_usefulness,
+      feature_flag_usefulness: formData.feature_flag_usefulness,
+      rollback_backup_usefulness: formData.rollback_backup_usefulness,
+      documentation_usefulness: formData.documentation_usefulness,
+      ai_tool_usefulness: formData.ai_tool_usefulness,
+      ai_tool_usage_frequency: formData.ai_tool_usage_frequency,
+      ai_tool_supported_tasks: joinArrayValue(formData.ai_tool_supported_tasks),
+      ai_tool_supported_tasks_other: formData.ai_tool_supported_tasks_other,
+      ai_tool_trust_level: formData.ai_tool_trust_level,
+      team_productivity_hack: formData.team_productivity_hack,
+      schema_change_checklist_usage: formData.schema_change_checklist_usage,
+      recommended_schema_change_checklist_items: joinArrayValue(
+        formData.recommended_schema_change_checklist_items,
+      ),
+      recommended_schema_change_checklist_items_other:
+        formData.recommended_schema_change_checklist_items_other,
+      organization_improvement_priority:
+        formData.organization_improvement_priority,
+      organization_improvement_priority_other:
+        formData.organization_improvement_priority_other,
+      tooling_gap_observation: formData.tooling_gap_observation,
     },
   };
 

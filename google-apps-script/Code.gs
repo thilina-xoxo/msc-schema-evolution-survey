@@ -6,6 +6,7 @@ const SCHEMA_EVOLUTION_EXPERIENCE_SHEET = 'schema_evolution_experience';
 const SCENARIO_POLYGLOT_SHEET = 'scenario_polyglot';
 const SCENARIO_MULTIMODEL_SHEET = 'scenario_multimodel';
 const COMPARATIVE_EVALUATION_SHEET = 'comparative_evaluation';
+const TOOLING_PRACTICES_SHEET = 'tooling_practices';
 
 const PARTICIPANT_BACKGROUND_HEADERS = [
   'timestamp',
@@ -181,6 +182,34 @@ const COMPARATIVE_EVALUATION_HEADERS = [
   'decision_recommendation_for_leads',
 ];
 
+const TOOLING_PRACTICES_HEADERS = [
+  'timestamp',
+  'participant_id',
+  'used_schema_tools_practices',
+  'used_schema_tools_practices_other',
+  'most_effective_migration_tooling',
+  'most_effective_migration_tooling_other',
+  'automated_migration_tool_usefulness',
+  'automated_test_usefulness',
+  'api_versioning_usefulness',
+  'event_schema_registry_usefulness',
+  'feature_flag_usefulness',
+  'rollback_backup_usefulness',
+  'documentation_usefulness',
+  'ai_tool_usefulness',
+  'ai_tool_usage_frequency',
+  'ai_tool_supported_tasks',
+  'ai_tool_supported_tasks_other',
+  'ai_tool_trust_level',
+  'team_productivity_hack',
+  'schema_change_checklist_usage',
+  'recommended_schema_change_checklist_items',
+  'recommended_schema_change_checklist_items_other',
+  'organization_improvement_priority',
+  'organization_improvement_priority_other',
+  'tooling_gap_observation',
+];
+
 function doPost(e) {
   try {
     const payload = JSON.parse(e.postData.contents || '{}');
@@ -226,6 +255,11 @@ function doPost(e) {
       spreadsheet,
       COMPARATIVE_EVALUATION_SHEET,
       COMPARATIVE_EVALUATION_HEADERS
+    );
+    const toolingPracticesSheet = getOrCreateSheet(
+      spreadsheet,
+      TOOLING_PRACTICES_SHEET,
+      TOOLING_PRACTICES_HEADERS
     );
 
     participantBackgroundSheet.appendRow(
@@ -274,6 +308,14 @@ function doPost(e) {
         participantId,
         payload.comparative_evaluation || {},
         COMPARATIVE_EVALUATION_HEADERS
+      )
+    );
+    toolingPracticesSheet.appendRow(
+      buildRow(
+        timestamp,
+        participantId,
+        payload.tooling_practices || {},
+        TOOLING_PRACTICES_HEADERS
       )
     );
 

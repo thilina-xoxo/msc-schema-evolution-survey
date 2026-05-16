@@ -6,6 +6,7 @@ import ScenarioMultiModel from './components/ScenarioMultiModel'
 import ScenarioPolyglot from './components/ScenarioPolyglot'
 import SchemaEvolutionExperience from './components/SchemaEvolutionExperience'
 import SectionThreeArchitecture from './components/SectionThreeArchitecture'
+import ToolingPractices from './components/ToolingPractices'
 import { submitSurvey } from './services/submitSurvey'
 import { getParticipantId } from './utils/participantId'
 import './App.css'
@@ -156,6 +157,29 @@ const initialFormData = {
   main_productivity_factor_other: '',
   architecture_preference_reason: '',
   decision_recommendation_for_leads: '',
+  used_schema_tools_practices: [],
+  used_schema_tools_practices_other: '',
+  most_effective_migration_tooling: '',
+  most_effective_migration_tooling_other: '',
+  automated_migration_tool_usefulness: '',
+  automated_test_usefulness: '',
+  api_versioning_usefulness: '',
+  event_schema_registry_usefulness: '',
+  feature_flag_usefulness: '',
+  rollback_backup_usefulness: '',
+  documentation_usefulness: '',
+  ai_tool_usefulness: '',
+  ai_tool_usage_frequency: '',
+  ai_tool_supported_tasks: [],
+  ai_tool_supported_tasks_other: '',
+  ai_tool_trust_level: '',
+  team_productivity_hack: '',
+  schema_change_checklist_usage: '',
+  recommended_schema_change_checklist_items: [],
+  recommended_schema_change_checklist_items_other: '',
+  organization_improvement_priority: '',
+  organization_improvement_priority_other: '',
+  tooling_gap_observation: '',
 }
 
 function validateSectionOne(formData) {
@@ -631,6 +655,88 @@ function validateComparativeEvaluation(formData) {
   return errors
 }
 
+function validateToolingPractices(formData) {
+  const errors = {}
+  const requiredFields = [
+    ['most_effective_migration_tooling', 'Please select the most effective tooling type.'],
+    ['automated_migration_tool_usefulness', 'Please rate automated migration tool usefulness.'],
+    ['automated_test_usefulness', 'Please rate automated test usefulness.'],
+    ['api_versioning_usefulness', 'Please rate API versioning usefulness.'],
+    ['event_schema_registry_usefulness', 'Please rate event schema registry usefulness.'],
+    ['feature_flag_usefulness', 'Please rate feature flag usefulness.'],
+    ['rollback_backup_usefulness', 'Please rate backup and rollback plan usefulness.'],
+    ['documentation_usefulness', 'Please rate documentation usefulness.'],
+    ['ai_tool_usefulness', 'Please rate AI-assisted coding tool usefulness.'],
+    ['ai_tool_usage_frequency', 'Please select your AI tool usage frequency.'],
+    ['ai_tool_trust_level', 'Please select your trust level for AI-generated output.'],
+    ['schema_change_checklist_usage', 'Please select whether your team uses a schema change checklist or review process.'],
+    ['organization_improvement_priority', 'Please select what organizations should improve first.'],
+  ]
+
+  requiredFields.forEach(([fieldName, message]) => {
+    if (!formData[fieldName]) {
+      errors[fieldName] = message
+    }
+  })
+
+  if (formData.used_schema_tools_practices.length === 0) {
+    errors.used_schema_tools_practices =
+      'Please select at least one tool or practice.'
+  }
+
+  if (
+    formData.used_schema_tools_practices.includes('Other') &&
+    !formData.used_schema_tools_practices_other.trim()
+  ) {
+    errors.used_schema_tools_practices_other =
+      'Please specify the tool or practice.'
+  }
+
+  if (
+    formData.most_effective_migration_tooling === 'Other' &&
+    !formData.most_effective_migration_tooling_other.trim()
+  ) {
+    errors.most_effective_migration_tooling_other =
+      'Please specify the effective tooling type.'
+  }
+
+  if (formData.ai_tool_supported_tasks.length === 0) {
+    errors.ai_tool_supported_tasks =
+      'Please select at least one AI-supported task option.'
+  }
+
+  if (
+    formData.ai_tool_supported_tasks.includes('Other') &&
+    !formData.ai_tool_supported_tasks_other.trim()
+  ) {
+    errors.ai_tool_supported_tasks_other =
+      'Please specify the AI-supported task.'
+  }
+
+  if (formData.recommended_schema_change_checklist_items.length === 0) {
+    errors.recommended_schema_change_checklist_items =
+      'Please select at least one checklist item.'
+  }
+
+  if (
+    formData.recommended_schema_change_checklist_items.includes('Other') &&
+    !formData.recommended_schema_change_checklist_items_other.trim()
+  ) {
+    errors.recommended_schema_change_checklist_items_other =
+      'Please specify the checklist item.'
+  }
+
+  if (
+    formData.organization_improvement_priority === 'Other' &&
+    !formData.organization_improvement_priority_other.trim()
+  ) {
+    errors.organization_improvement_priority_other =
+      'Please specify the organizational improvement priority.'
+  }
+
+  return errors
+}
+
 function App() {
   const participantId = useMemo(() => getParticipantId(), [])
   const [step, setStep] = useState(1)
@@ -720,6 +826,16 @@ function App() {
     }
   }
 
+  function handleComparativeEvaluationNext() {
+    const nextErrors = validateComparativeEvaluation(normalizedFormData)
+    setErrors(nextErrors)
+
+    if (Object.keys(nextErrors).length === 0) {
+      setStep(8)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }
+
   async function handleSubmit() {
     const sectionOneErrors = validateSectionOne(normalizedFormData)
     const sectionTwoErrors = validateSectionTwo(normalizedFormData)
@@ -729,6 +845,7 @@ function App() {
     const scenarioMultiModelErrors = validateScenarioMultiModel(normalizedFormData)
     const comparativeEvaluationErrors =
       validateComparativeEvaluation(normalizedFormData)
+    const toolingPracticesErrors = validateToolingPractices(normalizedFormData)
     const nextErrors = {
       ...sectionOneErrors,
       ...sectionTwoErrors,
@@ -737,6 +854,7 @@ function App() {
       ...scenarioPolyglotErrors,
       ...scenarioMultiModelErrors,
       ...comparativeEvaluationErrors,
+      ...toolingPracticesErrors,
     }
 
     setErrors(nextErrors)
@@ -744,7 +862,7 @@ function App() {
 
     if (Object.keys(nextErrors).length > 0) {
       setSubmissionError(
-        'Please complete all required consent, eligibility, background, architecture context, schema evolution experience, scenario, and comparative evaluation questions before submitting.',
+        'Please complete all required consent, eligibility, background, architecture context, schema evolution experience, scenario, comparative evaluation, and tooling practices questions before submitting.',
       )
       return
     }
@@ -846,12 +964,24 @@ function App() {
       )
     }
 
+    if (step === 7) {
+      return (
+        <ComparativeEvaluation
+          formData={normalizedFormData}
+          errors={errors}
+          onChange={handleChange}
+          onBack={() => setStep(6)}
+          onNext={handleComparativeEvaluationNext}
+        />
+      )
+    }
+
     return (
-      <ComparativeEvaluation
+      <ToolingPractices
         formData={normalizedFormData}
         errors={errors}
         onChange={handleChange}
-        onBack={() => setStep(6)}
+        onBack={() => setStep(7)}
         onSubmit={handleSubmit}
         isSubmitting={isSubmitting}
         submissionError={submissionError}
@@ -866,12 +996,12 @@ function App() {
           <header className="survey-header">
             <p className="eyebrow">MSc Research Survey</p>
             <h1>Schema Evolution in Microservice Persistence</h1>
-            <div className="progress-wrap" aria-label={`Step ${step} of 7`}>
-              <div className="progress-text">Step {step} of 7</div>
+            <div className="progress-wrap" aria-label={`Step ${step} of 8`}>
+              <div className="progress-text">Step {step} of 8</div>
               <div className="progress-track">
                 <div
                   className="progress-fill"
-                  style={{ width: `${(step / 7) * 100}%` }}
+                  style={{ width: `${(step / 8) * 100}%` }}
                 />
               </div>
             </div>
