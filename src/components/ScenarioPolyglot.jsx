@@ -204,9 +204,7 @@ function ScenarioPolyglot({
   errors,
   onChange,
   onBack,
-  onSubmit,
-  isSubmitting,
-  submissionError,
+  onNext,
 }) {
   const selectedPolyS1AffectedAreas = formData.poly_s1_affected_areas || []
   const selectedPolyS2AffectedAreas = formData.poly_s2_affected_areas || []
@@ -461,24 +459,20 @@ function ScenarioPolyglot({
         </ScenarioCard>
       </div>
 
-      {submissionError && <p className="form-error">{submissionError}</p>}
-
       <div className="button-row split">
         <button
           type="button"
           className="secondary-button"
           onClick={onBack}
-          disabled={isSubmitting}
         >
           Back
         </button>
         <button
           type="button"
           className="primary-button"
-          onClick={onSubmit}
-          disabled={isSubmitting}
+          onClick={onNext}
         >
-          {isSubmitting ? 'Submitting...' : 'Submit Current Response'}
+          Next
         </button>
       </div>
     </section>

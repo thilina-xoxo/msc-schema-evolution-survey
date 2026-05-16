@@ -1,5 +1,5 @@
 const SCRIPT_URL =
-  'https://script.google.com/macros/s/AKfycbxDrK0qnKthF_8DUMPbksSPvBDItCT3FUimoZ6xL1TrGb0ZQY0scpWvD2jNN9zzBwAj/exec';
+  'https://script.google.com/macros/s/AKfycbxTLNGMfwQ4_c8ZIqVXFBykBtnctW_6kCZDDSLWSnOwBPhNyAPe4jDO4VkXAXUXiZ88/exec';
 const SURVEY_TOKEN = 'msc_schema_evolution_survey_2026';
 
 function joinArrayValue(value) {
@@ -129,6 +129,88 @@ export async function submitSurvey(formData) {
       poly_s4_productivity_challenge: formData.poly_s4_productivity_challenge,
       poly_s4_complexity_reduction_practices:
         formData.poly_s4_complexity_reduction_practices,
+    },
+    scenario_multimodel: {
+      multi_s1_effort: formData.multi_s1_effort,
+      multi_s1_components_affected: formData.multi_s1_components_affected,
+      multi_s1_cognitive_load: formData.multi_s1_cognitive_load,
+      multi_s1_bug_risk: formData.multi_s1_bug_risk,
+      multi_s1_coordination_overhead: formData.multi_s1_coordination_overhead,
+      multi_s1_affected_areas: joinArrayValue(formData.multi_s1_affected_areas),
+      multi_s1_affected_areas_other: formData.multi_s1_affected_areas_other,
+      multi_s1_main_challenge: formData.multi_s1_main_challenge,
+      multi_s2_effort: formData.multi_s2_effort,
+      multi_s2_components_affected: formData.multi_s2_components_affected,
+      multi_s2_cognitive_load: formData.multi_s2_cognitive_load,
+      multi_s2_bug_risk: formData.multi_s2_bug_risk,
+      multi_s2_coordination_overhead: formData.multi_s2_coordination_overhead,
+      multi_s2_backward_compatibility_difficulty:
+        formData.multi_s2_backward_compatibility_difficulty,
+      multi_s2_affected_areas: joinArrayValue(formData.multi_s2_affected_areas),
+      multi_s2_affected_areas_other: formData.multi_s2_affected_areas_other,
+      multi_s2_main_challenge: formData.multi_s2_main_challenge,
+      multi_s2_compatibility_strategy: formData.multi_s2_compatibility_strategy,
+      multi_s3_effort: formData.multi_s3_effort,
+      multi_s3_components_affected: formData.multi_s3_components_affected,
+      multi_s3_cognitive_load: formData.multi_s3_cognitive_load,
+      multi_s3_data_risk: formData.multi_s3_data_risk,
+      multi_s3_coordination_overhead: formData.multi_s3_coordination_overhead,
+      multi_s3_migration_difficulty: formData.multi_s3_migration_difficulty,
+      multi_s3_testing_difficulty: formData.multi_s3_testing_difficulty,
+      multi_s3_affected_areas: joinArrayValue(formData.multi_s3_affected_areas),
+      multi_s3_affected_areas_other: formData.multi_s3_affected_areas_other,
+      multi_s3_implementation_approach:
+        formData.multi_s3_implementation_approach,
+      multi_s3_biggest_risk: formData.multi_s3_biggest_risk,
+      multi_s4_effort: formData.multi_s4_effort,
+      multi_s4_components_affected: formData.multi_s4_components_affected,
+      multi_s4_cognitive_load: formData.multi_s4_cognitive_load,
+      multi_s4_consistency_risk: formData.multi_s4_consistency_risk,
+      multi_s4_coordination_overhead: formData.multi_s4_coordination_overhead,
+      multi_s4_rule_enforcement_difficulty:
+        formData.multi_s4_rule_enforcement_difficulty,
+      multi_s4_failure_handling_difficulty:
+        formData.multi_s4_failure_handling_difficulty,
+      multi_s4_preferred_implementation_approach:
+        formData.multi_s4_preferred_implementation_approach,
+      multi_s4_preferred_implementation_approach_other:
+        formData.multi_s4_preferred_implementation_approach_other,
+      multi_s4_affected_areas: joinArrayValue(formData.multi_s4_affected_areas),
+      multi_s4_affected_areas_other: formData.multi_s4_affected_areas_other,
+      multi_s4_productivity_challenge: formData.multi_s4_productivity_challenge,
+      multi_s4_complexity_reduction_practices:
+        formData.multi_s4_complexity_reduction_practices,
+    },
+    comparative_evaluation: {
+      overall_easier_architecture: formData.overall_easier_architecture,
+      overall_less_effort_architecture:
+        formData.overall_less_effort_architecture,
+      overall_lower_cognitive_load_architecture:
+        formData.overall_lower_cognitive_load_architecture,
+      overall_lower_risk_architecture: formData.overall_lower_risk_architecture,
+      overall_less_coordination_architecture:
+        formData.overall_less_coordination_architecture,
+      overall_easier_migration_architecture:
+        formData.overall_easier_migration_architecture,
+      overall_easier_testing_architecture:
+        formData.overall_easier_testing_architecture,
+      best_architecture_low_complexity:
+        formData.best_architecture_low_complexity,
+      best_architecture_breaking_change:
+        formData.best_architecture_breaking_change,
+      best_architecture_structural_change:
+        formData.best_architecture_structural_change,
+      best_architecture_cross_service_rule:
+        formData.best_architecture_cross_service_rule,
+      most_difficult_schema_change_type:
+        formData.most_difficult_schema_change_type,
+      most_difficult_schema_change_type_other:
+        formData.most_difficult_schema_change_type_other,
+      main_productivity_factor: formData.main_productivity_factor,
+      main_productivity_factor_other: formData.main_productivity_factor_other,
+      architecture_preference_reason: formData.architecture_preference_reason,
+      decision_recommendation_for_leads:
+        formData.decision_recommendation_for_leads,
     },
   };
 

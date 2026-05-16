@@ -4,6 +4,8 @@ const PARTICIPANT_BACKGROUND_SHEET = 'participant_background';
 const ARCHITECTURE_CONTEXT_SHEET = 'architecture_context';
 const SCHEMA_EVOLUTION_EXPERIENCE_SHEET = 'schema_evolution_experience';
 const SCENARIO_POLYGLOT_SHEET = 'scenario_polyglot';
+const SCENARIO_MULTIMODEL_SHEET = 'scenario_multimodel';
+const COMPARATIVE_EVALUATION_SHEET = 'comparative_evaluation';
 
 const PARTICIPANT_BACKGROUND_HEADERS = [
   'timestamp',
@@ -110,6 +112,75 @@ const SCENARIO_POLYGLOT_HEADERS = [
   'poly_s4_complexity_reduction_practices',
 ];
 
+const SCENARIO_MULTIMODEL_HEADERS = [
+  'timestamp',
+  'participant_id',
+  'multi_s1_effort',
+  'multi_s1_components_affected',
+  'multi_s1_cognitive_load',
+  'multi_s1_bug_risk',
+  'multi_s1_coordination_overhead',
+  'multi_s1_affected_areas',
+  'multi_s1_affected_areas_other',
+  'multi_s1_main_challenge',
+  'multi_s2_effort',
+  'multi_s2_components_affected',
+  'multi_s2_cognitive_load',
+  'multi_s2_bug_risk',
+  'multi_s2_coordination_overhead',
+  'multi_s2_backward_compatibility_difficulty',
+  'multi_s2_affected_areas',
+  'multi_s2_affected_areas_other',
+  'multi_s2_main_challenge',
+  'multi_s2_compatibility_strategy',
+  'multi_s3_effort',
+  'multi_s3_components_affected',
+  'multi_s3_cognitive_load',
+  'multi_s3_data_risk',
+  'multi_s3_coordination_overhead',
+  'multi_s3_migration_difficulty',
+  'multi_s3_testing_difficulty',
+  'multi_s3_affected_areas',
+  'multi_s3_affected_areas_other',
+  'multi_s3_implementation_approach',
+  'multi_s3_biggest_risk',
+  'multi_s4_effort',
+  'multi_s4_components_affected',
+  'multi_s4_cognitive_load',
+  'multi_s4_consistency_risk',
+  'multi_s4_coordination_overhead',
+  'multi_s4_rule_enforcement_difficulty',
+  'multi_s4_failure_handling_difficulty',
+  'multi_s4_preferred_implementation_approach',
+  'multi_s4_preferred_implementation_approach_other',
+  'multi_s4_affected_areas',
+  'multi_s4_affected_areas_other',
+  'multi_s4_productivity_challenge',
+  'multi_s4_complexity_reduction_practices',
+];
+
+const COMPARATIVE_EVALUATION_HEADERS = [
+  'timestamp',
+  'participant_id',
+  'overall_easier_architecture',
+  'overall_less_effort_architecture',
+  'overall_lower_cognitive_load_architecture',
+  'overall_lower_risk_architecture',
+  'overall_less_coordination_architecture',
+  'overall_easier_migration_architecture',
+  'overall_easier_testing_architecture',
+  'best_architecture_low_complexity',
+  'best_architecture_breaking_change',
+  'best_architecture_structural_change',
+  'best_architecture_cross_service_rule',
+  'most_difficult_schema_change_type',
+  'most_difficult_schema_change_type_other',
+  'main_productivity_factor',
+  'main_productivity_factor_other',
+  'architecture_preference_reason',
+  'decision_recommendation_for_leads',
+];
+
 function doPost(e) {
   try {
     const payload = JSON.parse(e.postData.contents || '{}');
@@ -146,6 +217,16 @@ function doPost(e) {
       SCENARIO_POLYGLOT_SHEET,
       SCENARIO_POLYGLOT_HEADERS
     );
+    const scenarioMultiModelSheet = getOrCreateSheet(
+      spreadsheet,
+      SCENARIO_MULTIMODEL_SHEET,
+      SCENARIO_MULTIMODEL_HEADERS
+    );
+    const comparativeEvaluationSheet = getOrCreateSheet(
+      spreadsheet,
+      COMPARATIVE_EVALUATION_SHEET,
+      COMPARATIVE_EVALUATION_HEADERS
+    );
 
     participantBackgroundSheet.appendRow(
       buildRow(
@@ -177,6 +258,22 @@ function doPost(e) {
         participantId,
         payload.scenario_polyglot || {},
         SCENARIO_POLYGLOT_HEADERS
+      )
+    );
+    scenarioMultiModelSheet.appendRow(
+      buildRow(
+        timestamp,
+        participantId,
+        payload.scenario_multimodel || {},
+        SCENARIO_MULTIMODEL_HEADERS
+      )
+    );
+    comparativeEvaluationSheet.appendRow(
+      buildRow(
+        timestamp,
+        participantId,
+        payload.comparative_evaluation || {},
+        COMPARATIVE_EVALUATION_HEADERS
       )
     );
 
