@@ -33,62 +33,37 @@ const initialFormData = {
   production_schema_change_experience: '',
   architecture_context_clarity: '',
   architecture_difference_clarity: '',
-  analytics_layer_clarity: '',
-  architecture_understanding: '',
-  perceived_operational_complexity: '',
-  perceived_schema_reasoning_ease: '',
-  perceived_downstream_impacts: [],
-  perceived_downstream_impacts_other: '',
-  biggest_architecture_challenge: '',
   schema_change_frequency: '',
   experienced_schema_change_types: [],
   experienced_schema_change_types_other: '',
-  schema_change_impact_layers: [],
-  schema_change_impact_layers_other: '',
   schema_evolution_difficulty_factors: [],
   schema_evolution_difficulty_factors_other: '',
   schema_change_productivity_impact: '',
   schema_change_cognitive_load: '',
   schema_change_coordination_overhead: '',
-  schema_change_relative_risk: '',
-  schema_change_delay_reason: '',
-  schema_change_delay_reason_other: '',
-  easier_persistence_strategy_general: '',
-  easier_persistence_strategy_reason: '',
-  most_helpful_schema_practice: '',
-  most_helpful_schema_practice_other: '',
-  schema_evolution_experience_example: '',
   poly_s1_effort: '',
-  poly_s1_components_affected: '',
+  poly_s1_change_radius: '',
   poly_s1_cognitive_load: '',
   poly_s1_bug_risk: '',
   poly_s1_coordination_overhead: '',
-  poly_s1_affected_areas: [],
-  poly_s1_affected_areas_other: '',
-  poly_s1_main_challenge: '',
+  poly_s1_comment: '',
   poly_s2_effort: '',
-  poly_s2_components_affected: '',
+  poly_s2_change_radius: '',
   poly_s2_cognitive_load: '',
   poly_s2_bug_risk: '',
   poly_s2_coordination_overhead: '',
   poly_s2_backward_compatibility_difficulty: '',
-  poly_s2_affected_areas: [],
-  poly_s2_affected_areas_other: '',
-  poly_s2_main_challenge: '',
-  poly_s2_compatibility_strategy: '',
+  poly_s2_comment: '',
   poly_s3_effort: '',
-  poly_s3_components_affected: '',
+  poly_s3_change_radius: '',
   poly_s3_cognitive_load: '',
   poly_s3_data_risk: '',
   poly_s3_coordination_overhead: '',
   poly_s3_migration_difficulty: '',
   poly_s3_testing_difficulty: '',
-  poly_s3_affected_areas: [],
-  poly_s3_affected_areas_other: '',
-  poly_s3_implementation_approach: '',
-  poly_s3_biggest_risk: '',
+  poly_s3_comment: '',
   poly_s4_effort: '',
-  poly_s4_components_affected: '',
+  poly_s4_change_radius: '',
   poly_s4_cognitive_load: '',
   poly_s4_consistency_risk: '',
   poly_s4_coordination_overhead: '',
@@ -96,41 +71,30 @@ const initialFormData = {
   poly_s4_failure_handling_difficulty: '',
   poly_s4_preferred_implementation_approach: '',
   poly_s4_preferred_implementation_approach_other: '',
-  poly_s4_affected_areas: [],
-  poly_s4_affected_areas_other: '',
-  poly_s4_productivity_challenge: '',
-  poly_s4_complexity_reduction_practices: '',
+  poly_s4_comment: '',
   multi_s1_effort: '',
-  multi_s1_components_affected: '',
+  multi_s1_change_radius: '',
   multi_s1_cognitive_load: '',
   multi_s1_bug_risk: '',
   multi_s1_coordination_overhead: '',
-  multi_s1_affected_areas: [],
-  multi_s1_affected_areas_other: '',
-  multi_s1_main_challenge: '',
+  multi_s1_comment: '',
   multi_s2_effort: '',
-  multi_s2_components_affected: '',
+  multi_s2_change_radius: '',
   multi_s2_cognitive_load: '',
   multi_s2_bug_risk: '',
   multi_s2_coordination_overhead: '',
   multi_s2_backward_compatibility_difficulty: '',
-  multi_s2_affected_areas: [],
-  multi_s2_affected_areas_other: '',
-  multi_s2_main_challenge: '',
-  multi_s2_compatibility_strategy: '',
+  multi_s2_comment: '',
   multi_s3_effort: '',
-  multi_s3_components_affected: '',
+  multi_s3_change_radius: '',
   multi_s3_cognitive_load: '',
   multi_s3_data_risk: '',
   multi_s3_coordination_overhead: '',
   multi_s3_migration_difficulty: '',
   multi_s3_testing_difficulty: '',
-  multi_s3_affected_areas: [],
-  multi_s3_affected_areas_other: '',
-  multi_s3_implementation_approach: '',
-  multi_s3_biggest_risk: '',
+  multi_s3_comment: '',
   multi_s4_effort: '',
-  multi_s4_components_affected: '',
+  multi_s4_change_radius: '',
   multi_s4_cognitive_load: '',
   multi_s4_consistency_risk: '',
   multi_s4_coordination_overhead: '',
@@ -138,47 +102,26 @@ const initialFormData = {
   multi_s4_failure_handling_difficulty: '',
   multi_s4_preferred_implementation_approach: '',
   multi_s4_preferred_implementation_approach_other: '',
-  multi_s4_affected_areas: [],
-  multi_s4_affected_areas_other: '',
-  multi_s4_productivity_challenge: '',
-  multi_s4_complexity_reduction_practices: '',
+  multi_s4_comment: '',
   overall_easier_architecture: '',
   overall_less_effort_architecture: '',
   overall_lower_cognitive_load_architecture: '',
   overall_lower_risk_architecture: '',
   overall_less_coordination_architecture: '',
-  overall_easier_migration_architecture: '',
-  overall_easier_testing_architecture: '',
-  best_architecture_low_complexity: '',
-  best_architecture_breaking_change: '',
-  best_architecture_structural_change: '',
-  best_architecture_cross_service_rule: '',
   most_difficult_schema_change_type: '',
   most_difficult_schema_change_type_other: '',
   main_productivity_factor: '',
   main_productivity_factor_other: '',
   architecture_preference_reason: '',
-  decision_recommendation_for_leads: '',
   used_schema_tools_practices: [],
   used_schema_tools_practices_other: '',
   most_effective_migration_tooling: '',
   most_effective_migration_tooling_other: '',
-  automated_migration_tool_usefulness: '',
-  automated_test_usefulness: '',
-  api_versioning_usefulness: '',
-  event_schema_registry_usefulness: '',
-  feature_flag_usefulness: '',
-  rollback_backup_usefulness: '',
-  documentation_usefulness: '',
-  ai_tool_usefulness: '',
   ai_tool_usage_frequency: '',
   ai_tool_supported_tasks: [],
   ai_tool_supported_tasks_other: '',
   ai_tool_trust_level: '',
-  team_productivity_hack: '',
   schema_change_checklist_usage: '',
-  recommended_schema_change_checklist_items: [],
-  recommended_schema_change_checklist_items_other: '',
   organization_improvement_priority: '',
   organization_improvement_priority_other: '',
   tooling_gap_observation: '',
@@ -186,20 +129,14 @@ const initialFormData = {
   missed_planning_factors: [],
   missed_planning_factors_other: '',
   release_timeline_impact: '',
-  developer_stress_impact: '',
   delivery_confidence_impact: '',
-  senior_architect_involvement_importance: '',
-  cross_team_communication_importance: '',
-  documentation_importance: '',
-  early_impact_analysis_importance: '',
   schema_change_estimation_owner: '',
   delivery_risk_warning_signs: [],
   delivery_risk_warning_signs_other: '',
   recommended_estimation_buffer: '',
   most_useful_managerial_metric: '',
   most_useful_managerial_metric_other: '',
-  planning_advice_for_leads: '',
-  resource_allocation_advice: '',
+  planning_resource_advice: '',
   biggest_hidden_cost: '',
   one_process_improvement: '',
   additional_comments: '',
@@ -310,45 +247,12 @@ function validateSectionThree(formData) {
 
   if (!formData.architecture_context_clarity) {
     errors.architecture_context_clarity =
-      'Please rate the clarity of the ModaVista business and technical context.'
+      'Please rate the clarity of the reference architecture context.'
   }
 
   if (!formData.architecture_difference_clarity) {
     errors.architecture_difference_clarity =
-      'Please rate the clarity of the difference between the two architectures.'
-  }
-
-  if (!formData.analytics_layer_clarity) {
-    errors.analytics_layer_clarity =
-      'Please rate the clarity of the central Data Lakehouse / Data Warehouse role.'
-  }
-
-  if (!formData.architecture_understanding) {
-    errors.architecture_understanding =
-      'Please select the statement that best describes your understanding.'
-  }
-
-  if (!formData.perceived_operational_complexity) {
-    errors.perceived_operational_complexity =
-      'Please select which architecture appears more operationally complex.'
-  }
-
-  if (!formData.perceived_schema_reasoning_ease) {
-    errors.perceived_schema_reasoning_ease =
-      'Please select which architecture appears easier to reason about during schema changes.'
-  }
-
-  if (formData.perceived_downstream_impacts.length === 0) {
-    errors.perceived_downstream_impacts =
-      'Please select at least one downstream impact.'
-  }
-
-  if (
-    formData.perceived_downstream_impacts.includes('Other') &&
-    !formData.perceived_downstream_impacts_other.trim()
-  ) {
-    errors.perceived_downstream_impacts_other =
-      'Please specify the downstream impact.'
+      'Please rate the clarity of the difference between Polyglot Persistence and Multi-Model Persistence.'
   }
 
   return errors
@@ -373,19 +277,6 @@ function validateSectionFour(formData) {
   ) {
     errors.experienced_schema_change_types_other =
       'Please specify the schema or data structure change type.'
-  }
-
-  if (formData.schema_change_impact_layers.length === 0) {
-    errors.schema_change_impact_layers =
-      'Please select at least one impacted layer.'
-  }
-
-  if (
-    formData.schema_change_impact_layers.includes('Other') &&
-    !formData.schema_change_impact_layers_other.trim()
-  ) {
-    errors.schema_change_impact_layers_other =
-      'Please specify the impacted layer.'
   }
 
   if (formData.schema_evolution_difficulty_factors.length === 0) {
@@ -416,42 +307,6 @@ function validateSectionFour(formData) {
       'Please rate the coordination required for cross-service or cross-team schema changes.'
   }
 
-  if (!formData.schema_change_relative_risk) {
-    errors.schema_change_relative_risk =
-      'Please select the relative risk of schema changes.'
-  }
-
-  if (!formData.schema_change_delay_reason) {
-    errors.schema_change_delay_reason =
-      'Please select the most common reason schema changes become delayed or underestimated.'
-  }
-
-  if (
-    formData.schema_change_delay_reason === 'Other' &&
-    !formData.schema_change_delay_reason_other.trim()
-  ) {
-    errors.schema_change_delay_reason_other =
-      'Please specify the delay or underestimation reason.'
-  }
-
-  if (!formData.easier_persistence_strategy_general) {
-    errors.easier_persistence_strategy_general =
-      'Please select the persistence strategy that is generally easier to maintain.'
-  }
-
-  if (!formData.most_helpful_schema_practice) {
-    errors.most_helpful_schema_practice =
-      'Please select the practice that has helped you most.'
-  }
-
-  if (
-    formData.most_helpful_schema_practice === 'Other' &&
-    !formData.most_helpful_schema_practice_other.trim()
-  ) {
-    errors.most_helpful_schema_practice_other =
-      'Please specify the helpful schema evolution practice.'
-  }
-
   return errors
 }
 
@@ -460,31 +315,31 @@ function validateScenarioPolyglot(formData) {
 
   const requiredFields = [
     ['poly_s1_effort', 'Please select the likely implementation effort.'],
-    ['poly_s1_components_affected', 'Please select how many components would likely need to be modified or checked.'],
+    ['poly_s1_change_radius', 'Please select the likely change impact radius.'],
     ['poly_s1_cognitive_load', 'Please rate the mental effort required.'],
-    ['poly_s1_bug_risk', 'Please rate the risk of bugs or inconsistencies.'],
-    ['poly_s1_coordination_overhead', 'Please rate the coordination required.'],
+    ['poly_s1_bug_risk', 'Please rate the risk of bugs or data issues.'],
+    ['poly_s1_coordination_overhead', 'Please rate the coordination overhead.'],
     ['poly_s2_effort', 'Please select the likely implementation effort.'],
-    ['poly_s2_components_affected', 'Please select how many components would likely need to be modified or checked.'],
+    ['poly_s2_change_radius', 'Please select the likely change impact radius.'],
     ['poly_s2_cognitive_load', 'Please rate the mental effort required.'],
     ['poly_s2_bug_risk', 'Please rate the risk of bugs or inconsistent data.'],
-    ['poly_s2_coordination_overhead', 'Please rate the coordination required.'],
+    ['poly_s2_coordination_overhead', 'Please rate the coordination overhead.'],
     ['poly_s2_backward_compatibility_difficulty', 'Please rate the backward compatibility difficulty.'],
     ['poly_s3_effort', 'Please select the likely implementation effort.'],
-    ['poly_s3_components_affected', 'Please select how many components would likely need to be modified or checked.'],
+    ['poly_s3_change_radius', 'Please select the likely change impact radius.'],
     ['poly_s3_cognitive_load', 'Please rate the mental effort required.'],
-    ['poly_s3_data_risk', 'Please rate the data risk.'],
-    ['poly_s3_coordination_overhead', 'Please rate the coordination required.'],
+    ['poly_s3_data_risk', 'Please rate the data, privacy, or compliance risk.'],
+    ['poly_s3_coordination_overhead', 'Please rate the coordination overhead.'],
     ['poly_s3_migration_difficulty', 'Please rate the data migration difficulty.'],
     ['poly_s3_testing_difficulty', 'Please rate the testing and validation difficulty.'],
     ['poly_s4_effort', 'Please select the likely implementation effort.'],
-    ['poly_s4_components_affected', 'Please select how many components would likely need to be modified or checked.'],
+    ['poly_s4_change_radius', 'Please select the likely change impact radius.'],
     ['poly_s4_cognitive_load', 'Please rate the mental effort required.'],
-    ['poly_s4_consistency_risk', 'Please rate the consistency risk.'],
-    ['poly_s4_coordination_overhead', 'Please rate the coordination required.'],
+    ['poly_s4_consistency_risk', 'Please rate the consistency or compliance risk.'],
+    ['poly_s4_coordination_overhead', 'Please rate the coordination overhead.'],
     ['poly_s4_rule_enforcement_difficulty', 'Please rate the rule enforcement difficulty.'],
-    ['poly_s4_failure_handling_difficulty', 'Please rate the rollback or failure handling difficulty.'],
-    ['poly_s4_preferred_implementation_approach', 'Please select the implementation approach you would most likely use.'],
+    ['poly_s4_failure_handling_difficulty', 'Please rate the failure handling or rollback difficulty.'],
+    ['poly_s4_preferred_implementation_approach', 'Please select the implementation approach you would most likely consider.'],
   ]
 
   requiredFields.forEach(([fieldName, message]) => {
@@ -493,53 +348,12 @@ function validateScenarioPolyglot(formData) {
     }
   })
 
-  const checkboxFields = [
-    ['poly_s1_affected_areas', 'Please select at least one affected area.'],
-    ['poly_s2_affected_areas', 'Please select at least one affected area.'],
-    ['poly_s3_affected_areas', 'Please select at least one affected area.'],
-    ['poly_s4_affected_areas', 'Please select at least one affected area.'],
-  ]
-
-  checkboxFields.forEach(([fieldName, message]) => {
-    if (formData[fieldName].length === 0) {
-      errors[fieldName] = message
-    }
-  })
-
-  if (
-    formData.poly_s1_affected_areas.includes('Other') &&
-    !formData.poly_s1_affected_areas_other.trim()
-  ) {
-    errors.poly_s1_affected_areas_other = 'Please specify the affected area.'
-  }
-
-  if (
-    formData.poly_s2_affected_areas.includes('Other') &&
-    !formData.poly_s2_affected_areas_other.trim()
-  ) {
-    errors.poly_s2_affected_areas_other = 'Please specify the affected area.'
-  }
-
-  if (
-    formData.poly_s3_affected_areas.includes('Other') &&
-    !formData.poly_s3_affected_areas_other.trim()
-  ) {
-    errors.poly_s3_affected_areas_other = 'Please specify the affected area.'
-  }
-
   if (
     formData.poly_s4_preferred_implementation_approach === 'Other' &&
     !formData.poly_s4_preferred_implementation_approach_other.trim()
   ) {
     errors.poly_s4_preferred_implementation_approach_other =
       'Please specify the implementation approach.'
-  }
-
-  if (
-    formData.poly_s4_affected_areas.includes('Other') &&
-    !formData.poly_s4_affected_areas_other.trim()
-  ) {
-    errors.poly_s4_affected_areas_other = 'Please specify the affected area.'
   }
 
   return errors
@@ -550,31 +364,31 @@ function validateScenarioMultiModel(formData) {
 
   const requiredFields = [
     ['multi_s1_effort', 'Please select the likely implementation effort.'],
-    ['multi_s1_components_affected', 'Please select how many components would likely need to be modified or checked.'],
+    ['multi_s1_change_radius', 'Please select the likely change impact radius.'],
     ['multi_s1_cognitive_load', 'Please rate the mental effort required.'],
-    ['multi_s1_bug_risk', 'Please rate the risk of bugs or inconsistencies.'],
-    ['multi_s1_coordination_overhead', 'Please rate the coordination required.'],
+    ['multi_s1_bug_risk', 'Please rate the risk of bugs or data issues.'],
+    ['multi_s1_coordination_overhead', 'Please rate the coordination overhead.'],
     ['multi_s2_effort', 'Please select the likely implementation effort.'],
-    ['multi_s2_components_affected', 'Please select how many components would likely need to be modified or checked.'],
+    ['multi_s2_change_radius', 'Please select the likely change impact radius.'],
     ['multi_s2_cognitive_load', 'Please rate the mental effort required.'],
     ['multi_s2_bug_risk', 'Please rate the risk of bugs or inconsistent data.'],
-    ['multi_s2_coordination_overhead', 'Please rate the coordination required.'],
+    ['multi_s2_coordination_overhead', 'Please rate the coordination overhead.'],
     ['multi_s2_backward_compatibility_difficulty', 'Please rate the backward compatibility difficulty.'],
     ['multi_s3_effort', 'Please select the likely implementation effort.'],
-    ['multi_s3_components_affected', 'Please select how many components would likely need to be modified or checked.'],
+    ['multi_s3_change_radius', 'Please select the likely change impact radius.'],
     ['multi_s3_cognitive_load', 'Please rate the mental effort required.'],
-    ['multi_s3_data_risk', 'Please rate the data risk.'],
-    ['multi_s3_coordination_overhead', 'Please rate the coordination required.'],
+    ['multi_s3_data_risk', 'Please rate the data, privacy, or compliance risk.'],
+    ['multi_s3_coordination_overhead', 'Please rate the coordination overhead.'],
     ['multi_s3_migration_difficulty', 'Please rate the data migration difficulty.'],
     ['multi_s3_testing_difficulty', 'Please rate the testing and validation difficulty.'],
     ['multi_s4_effort', 'Please select the likely implementation effort.'],
-    ['multi_s4_components_affected', 'Please select how many components would likely need to be modified or checked.'],
+    ['multi_s4_change_radius', 'Please select the likely change impact radius.'],
     ['multi_s4_cognitive_load', 'Please rate the mental effort required.'],
-    ['multi_s4_consistency_risk', 'Please rate the consistency risk.'],
-    ['multi_s4_coordination_overhead', 'Please rate the coordination required.'],
+    ['multi_s4_consistency_risk', 'Please rate the consistency or compliance risk.'],
+    ['multi_s4_coordination_overhead', 'Please rate the coordination overhead.'],
     ['multi_s4_rule_enforcement_difficulty', 'Please rate the rule enforcement difficulty.'],
     ['multi_s4_failure_handling_difficulty', 'Please rate the rollback or failure handling difficulty.'],
-    ['multi_s4_preferred_implementation_approach', 'Please select the implementation approach you would most likely use.'],
+    ['multi_s4_preferred_implementation_approach', 'Please select the implementation approach you would most likely consider.'],
   ]
 
   requiredFields.forEach(([fieldName, message]) => {
@@ -583,53 +397,12 @@ function validateScenarioMultiModel(formData) {
     }
   })
 
-  const checkboxFields = [
-    ['multi_s1_affected_areas', 'Please select at least one affected area.'],
-    ['multi_s2_affected_areas', 'Please select at least one affected area.'],
-    ['multi_s3_affected_areas', 'Please select at least one affected area.'],
-    ['multi_s4_affected_areas', 'Please select at least one affected area.'],
-  ]
-
-  checkboxFields.forEach(([fieldName, message]) => {
-    if (formData[fieldName].length === 0) {
-      errors[fieldName] = message
-    }
-  })
-
-  if (
-    formData.multi_s1_affected_areas.includes('Other') &&
-    !formData.multi_s1_affected_areas_other.trim()
-  ) {
-    errors.multi_s1_affected_areas_other = 'Please specify the affected area.'
-  }
-
-  if (
-    formData.multi_s2_affected_areas.includes('Other') &&
-    !formData.multi_s2_affected_areas_other.trim()
-  ) {
-    errors.multi_s2_affected_areas_other = 'Please specify the affected area.'
-  }
-
-  if (
-    formData.multi_s3_affected_areas.includes('Other') &&
-    !formData.multi_s3_affected_areas_other.trim()
-  ) {
-    errors.multi_s3_affected_areas_other = 'Please specify the affected area.'
-  }
-
   if (
     formData.multi_s4_preferred_implementation_approach === 'Other' &&
     !formData.multi_s4_preferred_implementation_approach_other.trim()
   ) {
     errors.multi_s4_preferred_implementation_approach_other =
       'Please specify the implementation approach.'
-  }
-
-  if (
-    formData.multi_s4_affected_areas.includes('Other') &&
-    !formData.multi_s4_affected_areas_other.trim()
-  ) {
-    errors.multi_s4_affected_areas_other = 'Please specify the affected area.'
   }
 
   return errors
@@ -643,12 +416,6 @@ function validateComparativeEvaluation(formData) {
     ['overall_lower_cognitive_load_architecture', 'Please select which architecture seems to create lower cognitive load.'],
     ['overall_lower_risk_architecture', 'Please select which architecture seems to have lower risk.'],
     ['overall_less_coordination_architecture', 'Please select which architecture seems to require less coordination.'],
-    ['overall_easier_migration_architecture', 'Please select which architecture seems easier for migration.'],
-    ['overall_easier_testing_architecture', 'Please select which architecture seems easier for testing and validation.'],
-    ['best_architecture_low_complexity', 'Please select the most suitable architecture for low-complexity changes.'],
-    ['best_architecture_breaking_change', 'Please select the most suitable architecture for breaking changes.'],
-    ['best_architecture_structural_change', 'Please select the most suitable architecture for structural changes.'],
-    ['best_architecture_cross_service_rule', 'Please select the most suitable architecture for cross-service business rules.'],
     ['most_difficult_schema_change_type', 'Please select the most difficult schema evolution change type.'],
     ['main_productivity_factor', 'Please select the main productivity factor.'],
   ]
@@ -682,14 +449,6 @@ function validateToolingPractices(formData) {
   const errors = {}
   const requiredFields = [
     ['most_effective_migration_tooling', 'Please select the most effective tooling type.'],
-    ['automated_migration_tool_usefulness', 'Please rate automated migration tool usefulness.'],
-    ['automated_test_usefulness', 'Please rate automated test usefulness.'],
-    ['api_versioning_usefulness', 'Please rate API versioning usefulness.'],
-    ['event_schema_registry_usefulness', 'Please rate event schema registry usefulness.'],
-    ['feature_flag_usefulness', 'Please rate feature flag usefulness.'],
-    ['rollback_backup_usefulness', 'Please rate backup and rollback plan usefulness.'],
-    ['documentation_usefulness', 'Please rate documentation usefulness.'],
-    ['ai_tool_usefulness', 'Please rate AI-assisted coding tool usefulness.'],
     ['ai_tool_usage_frequency', 'Please select your AI tool usage frequency.'],
     ['ai_tool_trust_level', 'Please select your trust level for AI-generated output.'],
     ['schema_change_checklist_usage', 'Please select whether your team uses a schema change checklist or review process.'],
@@ -736,19 +495,6 @@ function validateToolingPractices(formData) {
       'Please specify the AI-supported task.'
   }
 
-  if (formData.recommended_schema_change_checklist_items.length === 0) {
-    errors.recommended_schema_change_checklist_items =
-      'Please select at least one checklist item.'
-  }
-
-  if (
-    formData.recommended_schema_change_checklist_items.includes('Other') &&
-    !formData.recommended_schema_change_checklist_items_other.trim()
-  ) {
-    errors.recommended_schema_change_checklist_items_other =
-      'Please specify the checklist item.'
-  }
-
   if (
     formData.organization_improvement_priority === 'Other' &&
     !formData.organization_improvement_priority_other.trim()
@@ -765,12 +511,7 @@ function validateManagerialDeliveryImpact(formData) {
   const requiredFields = [
     ['schema_change_underestimation_frequency', 'Please select how often schema changes are underestimated.'],
     ['release_timeline_impact', 'Please rate the impact on release timelines.'],
-    ['developer_stress_impact', 'Please rate the impact on developer stress or workload pressure.'],
     ['delivery_confidence_impact', 'Please rate the impact on delivery confidence.'],
-    ['senior_architect_involvement_importance', 'Please rate the importance of senior engineer or architect involvement.'],
-    ['cross_team_communication_importance', 'Please rate the importance of cross-team communication.'],
-    ['documentation_importance', 'Please rate the importance of documentation.'],
-    ['early_impact_analysis_importance', 'Please rate the importance of early impact analysis.'],
     ['schema_change_estimation_owner', 'Please select who should mainly estimate schema evolution effort.'],
     ['recommended_estimation_buffer', 'Please select the recommended estimation buffer.'],
     ['most_useful_managerial_metric', 'Please select the most useful managerial metric.'],
