@@ -31,12 +31,9 @@ function FinalReflection({
       <p className="section-intro">
         This final section allows you to share broader reflections about schema
         evolution, persistence strategy, developer productivity, and delivery
-        planning in microservice-based systems.
-      </p>
-      <p className="section-intro">
-        The goal is to capture any hidden issues, lessons learned, or
-        practitioner insights that may not have been covered in the previous
-        sections.
+        planning in microservice-based systems. This helps capture practical
+        insights, hidden costs, and improvement opportunities that may not have
+        been covered by the structured questions.
       </p>
 
       <div className="privacy-note">
@@ -50,21 +47,21 @@ function FinalReflection({
 
       <div className="reflection-section">
         <TextareaQuestion
-          label="Q157. Based on your experience or judgement, what is the biggest hidden cost of schema evolution in microservice systems?"
+          label="Q107. Optional: What is the biggest hidden cost of schema evolution in microservice systems?"
           name="biggest_hidden_cost"
           value={formData.biggest_hidden_cost}
           onChange={onChange}
-          placeholder="Examples: coordination effort, testing effort, migration risk, production monitoring, documentation gaps, developer stress, hidden analytics/reporting impact, or rollback complexity."
+          placeholder="Examples: coordination effort, testing effort, migration risk, production monitoring, documentation gaps, hidden analytics/reporting impact, or rollback complexity."
         />
         <TextareaQuestion
-          label="Q158. If you could improve one thing in your team’s schema evolution process, what would it be?"
+          label="Q108. Optional: If you could improve one thing in schema evolution practices, what would it be?"
           name="one_process_improvement"
           value={formData.one_process_improvement}
           onChange={onChange}
           placeholder="Examples: better migration automation, clearer ownership, stronger API/event versioning, better documentation, more automated tests, schema review process, or improved release planning."
         />
         <TextareaQuestion
-          label="Q159. Do you have any additional comments related to schema evolution, persistence strategy, developer productivity, or delivery planning?"
+          label="Q109. Optional: Do you have any additional comments related to schema evolution, persistence strategy, developer productivity, or delivery planning?"
           name="additional_comments"
           value={formData.additional_comments}
           onChange={onChange}
@@ -79,7 +76,7 @@ function FinalReflection({
           practices, and planning considerations related to schema evolution in
           Polyglot and Multi-Model microservice architectures.
         </p>
-        <p>Please click Submit Current Response to complete the survey.</p>
+        <p>Please click Submit to complete the survey.</p>
       </div>
 
       {submissionError && <p className="form-error">{submissionError}</p>}
@@ -99,7 +96,7 @@ function FinalReflection({
           onClick={onSubmit}
           disabled={isSubmitting}
         >
-          {isSubmitting ? 'Submitting...' : 'Submit Current Response'}
+          {isSubmitting ? 'Submitting...' : 'Submit'}
         </button>
       </div>
     </section>

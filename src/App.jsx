@@ -108,38 +108,20 @@ const initialFormData = {
   overall_lower_cognitive_load_architecture: '',
   overall_lower_risk_architecture: '',
   overall_less_coordination_architecture: '',
-  overall_easier_migration_architecture: '',
-  overall_easier_testing_architecture: '',
-  best_architecture_low_complexity: '',
-  best_architecture_breaking_change: '',
-  best_architecture_structural_change: '',
-  best_architecture_cross_service_rule: '',
   most_difficult_schema_change_type: '',
   most_difficult_schema_change_type_other: '',
   main_productivity_factor: '',
   main_productivity_factor_other: '',
   architecture_preference_reason: '',
-  decision_recommendation_for_leads: '',
   used_schema_tools_practices: [],
   used_schema_tools_practices_other: '',
   most_effective_migration_tooling: '',
   most_effective_migration_tooling_other: '',
-  automated_migration_tool_usefulness: '',
-  automated_test_usefulness: '',
-  api_versioning_usefulness: '',
-  event_schema_registry_usefulness: '',
-  feature_flag_usefulness: '',
-  rollback_backup_usefulness: '',
-  documentation_usefulness: '',
-  ai_tool_usefulness: '',
   ai_tool_usage_frequency: '',
   ai_tool_supported_tasks: [],
   ai_tool_supported_tasks_other: '',
   ai_tool_trust_level: '',
-  team_productivity_hack: '',
   schema_change_checklist_usage: '',
-  recommended_schema_change_checklist_items: [],
-  recommended_schema_change_checklist_items_other: '',
   organization_improvement_priority: '',
   organization_improvement_priority_other: '',
   tooling_gap_observation: '',
@@ -147,20 +129,14 @@ const initialFormData = {
   missed_planning_factors: [],
   missed_planning_factors_other: '',
   release_timeline_impact: '',
-  developer_stress_impact: '',
   delivery_confidence_impact: '',
-  senior_architect_involvement_importance: '',
-  cross_team_communication_importance: '',
-  documentation_importance: '',
-  early_impact_analysis_importance: '',
   schema_change_estimation_owner: '',
   delivery_risk_warning_signs: [],
   delivery_risk_warning_signs_other: '',
   recommended_estimation_buffer: '',
   most_useful_managerial_metric: '',
   most_useful_managerial_metric_other: '',
-  planning_advice_for_leads: '',
-  resource_allocation_advice: '',
+  planning_resource_advice: '',
   biggest_hidden_cost: '',
   one_process_improvement: '',
   additional_comments: '',
@@ -440,12 +416,6 @@ function validateComparativeEvaluation(formData) {
     ['overall_lower_cognitive_load_architecture', 'Please select which architecture seems to create lower cognitive load.'],
     ['overall_lower_risk_architecture', 'Please select which architecture seems to have lower risk.'],
     ['overall_less_coordination_architecture', 'Please select which architecture seems to require less coordination.'],
-    ['overall_easier_migration_architecture', 'Please select which architecture seems easier for migration.'],
-    ['overall_easier_testing_architecture', 'Please select which architecture seems easier for testing and validation.'],
-    ['best_architecture_low_complexity', 'Please select the most suitable architecture for low-complexity changes.'],
-    ['best_architecture_breaking_change', 'Please select the most suitable architecture for breaking changes.'],
-    ['best_architecture_structural_change', 'Please select the most suitable architecture for structural changes.'],
-    ['best_architecture_cross_service_rule', 'Please select the most suitable architecture for cross-service business rules.'],
     ['most_difficult_schema_change_type', 'Please select the most difficult schema evolution change type.'],
     ['main_productivity_factor', 'Please select the main productivity factor.'],
   ]
@@ -479,14 +449,6 @@ function validateToolingPractices(formData) {
   const errors = {}
   const requiredFields = [
     ['most_effective_migration_tooling', 'Please select the most effective tooling type.'],
-    ['automated_migration_tool_usefulness', 'Please rate automated migration tool usefulness.'],
-    ['automated_test_usefulness', 'Please rate automated test usefulness.'],
-    ['api_versioning_usefulness', 'Please rate API versioning usefulness.'],
-    ['event_schema_registry_usefulness', 'Please rate event schema registry usefulness.'],
-    ['feature_flag_usefulness', 'Please rate feature flag usefulness.'],
-    ['rollback_backup_usefulness', 'Please rate backup and rollback plan usefulness.'],
-    ['documentation_usefulness', 'Please rate documentation usefulness.'],
-    ['ai_tool_usefulness', 'Please rate AI-assisted coding tool usefulness.'],
     ['ai_tool_usage_frequency', 'Please select your AI tool usage frequency.'],
     ['ai_tool_trust_level', 'Please select your trust level for AI-generated output.'],
     ['schema_change_checklist_usage', 'Please select whether your team uses a schema change checklist or review process.'],
@@ -533,19 +495,6 @@ function validateToolingPractices(formData) {
       'Please specify the AI-supported task.'
   }
 
-  if (formData.recommended_schema_change_checklist_items.length === 0) {
-    errors.recommended_schema_change_checklist_items =
-      'Please select at least one checklist item.'
-  }
-
-  if (
-    formData.recommended_schema_change_checklist_items.includes('Other') &&
-    !formData.recommended_schema_change_checklist_items_other.trim()
-  ) {
-    errors.recommended_schema_change_checklist_items_other =
-      'Please specify the checklist item.'
-  }
-
   if (
     formData.organization_improvement_priority === 'Other' &&
     !formData.organization_improvement_priority_other.trim()
@@ -562,12 +511,7 @@ function validateManagerialDeliveryImpact(formData) {
   const requiredFields = [
     ['schema_change_underestimation_frequency', 'Please select how often schema changes are underestimated.'],
     ['release_timeline_impact', 'Please rate the impact on release timelines.'],
-    ['developer_stress_impact', 'Please rate the impact on developer stress or workload pressure.'],
     ['delivery_confidence_impact', 'Please rate the impact on delivery confidence.'],
-    ['senior_architect_involvement_importance', 'Please rate the importance of senior engineer or architect involvement.'],
-    ['cross_team_communication_importance', 'Please rate the importance of cross-team communication.'],
-    ['documentation_importance', 'Please rate the importance of documentation.'],
-    ['early_impact_analysis_importance', 'Please rate the importance of early impact analysis.'],
     ['schema_change_estimation_owner', 'Please select who should mainly estimate schema evolution effort.'],
     ['recommended_estimation_buffer', 'Please select the recommended estimation buffer.'],
     ['most_useful_managerial_metric', 'Please select the most useful managerial metric.'],
@@ -625,13 +569,7 @@ function App() {
   })
   const [errors, setErrors] = useState({})
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isScenarioMultiModelTestSubmitting, setIsScenarioMultiModelTestSubmitting] =
-    useState(false)
   const [submissionError, setSubmissionError] = useState('')
-  const [scenarioMultiModelTestMessage, setScenarioMultiModelTestMessage] =
-    useState('')
-  const [scenarioMultiModelTestError, setScenarioMultiModelTestError] =
-    useState('')
   const [submitted, setSubmitted] = useState(false)
   const normalizedFormData = {
     ...initialFormData,
@@ -639,9 +577,6 @@ function App() {
   }
 
   function handleChange(name, value) {
-    setScenarioMultiModelTestMessage('')
-    setScenarioMultiModelTestError('')
-
     setFormData((currentData) => ({
       ...currentData,
       [name]: value,
@@ -681,48 +616,6 @@ function App() {
     if (Object.keys(nextErrors).length === 0) {
       setStep(4)
       window.scrollTo({ top: 0, behavior: 'smooth' })
-    }
-  }
-
-  async function handleScenarioMultiModelTestSubmit() {
-    const sectionOneErrors = validateSectionOne(normalizedFormData)
-    const sectionTwoErrors = validateSectionTwo(normalizedFormData)
-    const sectionThreeErrors = validateSectionThree(normalizedFormData)
-    const sectionFourErrors = validateSectionFour(normalizedFormData)
-    const scenarioPolyglotErrors = validateScenarioPolyglot(normalizedFormData)
-    const scenarioMultiModelErrors = validateScenarioMultiModel(normalizedFormData)
-    const nextErrors = {
-      ...sectionOneErrors,
-      ...sectionTwoErrors,
-      ...sectionThreeErrors,
-      ...sectionFourErrors,
-      ...scenarioPolyglotErrors,
-      ...scenarioMultiModelErrors,
-    }
-
-    setErrors(nextErrors)
-    setScenarioMultiModelTestMessage('')
-    setScenarioMultiModelTestError('')
-
-    if (Object.keys(nextErrors).length > 0) {
-      setScenarioMultiModelTestError(
-        'Please complete Sections 1, 2, 3, 4, 5_1, and 5_2 before submitting this test response.',
-      )
-      return
-    }
-
-    try {
-      setIsScenarioMultiModelTestSubmitting(true)
-      await submitSurvey(normalizedFormData)
-      setScenarioMultiModelTestMessage(
-        'Current response submitted successfully for testing.',
-      )
-    } catch {
-      setScenarioMultiModelTestError(
-        'Submission failed. Please check your connection and try again.',
-      )
-    } finally {
-      setIsScenarioMultiModelTestSubmitting(false)
     }
   }
 
@@ -913,10 +806,6 @@ function App() {
           onChange={handleChange}
           onBack={() => setStep(5)}
           onNext={handleScenarioMultiModelNext}
-          onTestSubmit={handleScenarioMultiModelTestSubmit}
-          isTestSubmitting={isScenarioMultiModelTestSubmitting}
-          testSubmissionMessage={scenarioMultiModelTestMessage}
-          testSubmissionError={scenarioMultiModelTestError}
         />
       )
     }

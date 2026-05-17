@@ -1,5 +1,5 @@
 const SCRIPT_URL =
-  'https://script.google.com/macros/s/AKfycbxKeweOMFTfnKSRpa1huTwqATVdV_MDEwUGrofgXH_m5lwRt5e9vF9uD4s4f9fKtjxf/exec';
+  'https://script.google.com/macros/s/AKfycbxoRTbHk3ubCXBnlXmAWZdBemqm7PSyGiRDxepMywCA9ttorLN95yPsi_eqp-OY5oXm/exec';
 const SURVEY_TOKEN = 'msc_schema_evolution_survey_2026';
 
 function joinArrayValue(value) {
@@ -136,18 +136,6 @@ export async function submitSurvey(formData) {
       overall_lower_risk_architecture: formData.overall_lower_risk_architecture,
       overall_less_coordination_architecture:
         formData.overall_less_coordination_architecture,
-      overall_easier_migration_architecture:
-        formData.overall_easier_migration_architecture,
-      overall_easier_testing_architecture:
-        formData.overall_easier_testing_architecture,
-      best_architecture_low_complexity:
-        formData.best_architecture_low_complexity,
-      best_architecture_breaking_change:
-        formData.best_architecture_breaking_change,
-      best_architecture_structural_change:
-        formData.best_architecture_structural_change,
-      best_architecture_cross_service_rule:
-        formData.best_architecture_cross_service_rule,
       most_difficult_schema_change_type:
         formData.most_difficult_schema_change_type,
       most_difficult_schema_change_type_other:
@@ -155,8 +143,6 @@ export async function submitSurvey(formData) {
       main_productivity_factor: formData.main_productivity_factor,
       main_productivity_factor_other: formData.main_productivity_factor_other,
       architecture_preference_reason: formData.architecture_preference_reason,
-      decision_recommendation_for_leads:
-        formData.decision_recommendation_for_leads,
     },
     tooling_practices: {
       used_schema_tools_practices: joinArrayValue(
@@ -168,27 +154,11 @@ export async function submitSurvey(formData) {
         formData.most_effective_migration_tooling,
       most_effective_migration_tooling_other:
         formData.most_effective_migration_tooling_other,
-      automated_migration_tool_usefulness:
-        formData.automated_migration_tool_usefulness,
-      automated_test_usefulness: formData.automated_test_usefulness,
-      api_versioning_usefulness: formData.api_versioning_usefulness,
-      event_schema_registry_usefulness:
-        formData.event_schema_registry_usefulness,
-      feature_flag_usefulness: formData.feature_flag_usefulness,
-      rollback_backup_usefulness: formData.rollback_backup_usefulness,
-      documentation_usefulness: formData.documentation_usefulness,
-      ai_tool_usefulness: formData.ai_tool_usefulness,
       ai_tool_usage_frequency: formData.ai_tool_usage_frequency,
       ai_tool_supported_tasks: joinArrayValue(formData.ai_tool_supported_tasks),
       ai_tool_supported_tasks_other: formData.ai_tool_supported_tasks_other,
       ai_tool_trust_level: formData.ai_tool_trust_level,
-      team_productivity_hack: formData.team_productivity_hack,
       schema_change_checklist_usage: formData.schema_change_checklist_usage,
-      recommended_schema_change_checklist_items: joinArrayValue(
-        formData.recommended_schema_change_checklist_items,
-      ),
-      recommended_schema_change_checklist_items_other:
-        formData.recommended_schema_change_checklist_items_other,
       organization_improvement_priority:
         formData.organization_improvement_priority,
       organization_improvement_priority_other:
@@ -201,15 +171,7 @@ export async function submitSurvey(formData) {
       missed_planning_factors: joinArrayValue(formData.missed_planning_factors),
       missed_planning_factors_other: formData.missed_planning_factors_other,
       release_timeline_impact: formData.release_timeline_impact,
-      developer_stress_impact: formData.developer_stress_impact,
       delivery_confidence_impact: formData.delivery_confidence_impact,
-      senior_architect_involvement_importance:
-        formData.senior_architect_involvement_importance,
-      cross_team_communication_importance:
-        formData.cross_team_communication_importance,
-      documentation_importance: formData.documentation_importance,
-      early_impact_analysis_importance:
-        formData.early_impact_analysis_importance,
       schema_change_estimation_owner: formData.schema_change_estimation_owner,
       delivery_risk_warning_signs: joinArrayValue(
         formData.delivery_risk_warning_signs,
@@ -220,8 +182,7 @@ export async function submitSurvey(formData) {
       most_useful_managerial_metric: formData.most_useful_managerial_metric,
       most_useful_managerial_metric_other:
         formData.most_useful_managerial_metric_other,
-      planning_advice_for_leads: formData.planning_advice_for_leads,
-      resource_allocation_advice: formData.resource_allocation_advice,
+      planning_resource_advice: formData.planning_resource_advice,
     },
     final_reflection: {
       biggest_hidden_cost: formData.biggest_hidden_cost,

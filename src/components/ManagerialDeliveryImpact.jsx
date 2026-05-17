@@ -45,8 +45,7 @@ const estimationOwnerOptions = [
 ]
 
 const warningSignOptions = [
-  'Multiple services depend on the same field or identifier',
-  'Multiple teams need to coordinate',
+  'Multiple services or teams need to coordinate',
   'Existing data must be migrated',
   'Backward compatibility is required',
   'Event/message schemas must change',
@@ -73,8 +72,7 @@ const bufferOptions = [
 ]
 
 const metricOptions = [
-  'Number of services affected',
-  'Number of teams affected',
+  'Number of services or teams affected',
   'Number of databases or data models affected',
   'Estimated migration effort',
   'Backward compatibility difficulty',
@@ -113,7 +111,7 @@ function TextareaQuestion({ label, name, value, onChange, placeholder }) {
     <div className="question">
       <label className="question-label" htmlFor={name}>
         {label}
-        <span className="optional-label"> Optional</span>
+        <span className="optional-label">Optional</span>
       </label>
       <textarea
         id={name}
@@ -121,7 +119,7 @@ function TextareaQuestion({ label, name, value, onChange, placeholder }) {
         value={value}
         onChange={(event) => onChange(name, event.target.value)}
         placeholder={placeholder}
-        rows="5"
+        rows="4"
       />
     </div>
   )
@@ -150,117 +148,37 @@ function ManagerialDeliveryImpact({
     <section>
       <h2>Section 8 — Managerial and Delivery Impact</h2>
       <p className="section-intro">
-        This section explores how schema evolution affects planning,
-        estimation, delivery timelines, coordination, team workload, release
-        confidence, and management decisions in microservice-based systems.
+        This section asks about planning and delivery impact during schema
+        evolution in microservice systems. Please answer based on your overall
+        experience. You may consider Polyglot Persistence, Multi-Model
+        Persistence, or both where relevant. This helps understand how schema
+        evolution affects estimation, release timelines, coordination, delivery
+        confidence, and resource planning.
       </p>
-      <p className="section-intro">
-        The goal is to understand how technical schema changes translate into
-        delivery impact, especially when multiple services, databases, APIs,
-        events, analytics pipelines, and teams are involved.
-      </p>
-
-      <div className="info-box section-definition">
-        <p>
-          Please answer from your practical experience, project exposure, or
-          professional judgement. This section is especially relevant to
-          developers, senior engineers, tech leads, architects, delivery
-          managers, Scrum Masters, and project planners.
-        </p>
-      </div>
 
       <div className="delivery-section">
-        <DeliveryGroup title="1. Planning and estimation">
-          <SelectQuestion
-            label="Q142. How often are schema changes underestimated during planning?"
-            name="schema_change_underestimation_frequency"
-            value={formData.schema_change_underestimation_frequency}
-            options={underestimationOptions}
-            required
-            onChange={onChange}
-            error={errors.schema_change_underestimation_frequency}
-          />
-          <CheckboxGroup
-            label="Q143. Which planning factors are often missed when estimating schema evolution work?"
-            name="missed_planning_factors"
-            values={missedPlanningFactors}
-            options={missedPlanningFactorOptions}
-            required
-            onChange={onChange}
-            error={errors.missed_planning_factors}
-          />
+        <DeliveryGroup title="Planning and delivery impact">
+          <SelectQuestion label="Q98. How often are schema changes underestimated during planning?" name="schema_change_underestimation_frequency" value={formData.schema_change_underestimation_frequency} options={underestimationOptions} required onChange={onChange} error={errors.schema_change_underestimation_frequency} />
+          <CheckboxGroup label="Q99. Which planning factors are often missed when estimating schema evolution work?" name="missed_planning_factors" values={missedPlanningFactors} options={missedPlanningFactorOptions} required onChange={onChange} error={errors.missed_planning_factors} />
           {missedPlanningFactors.includes('Other') && (
-            <OtherTextField
-              id="missed_planning_factors_other"
-              label="Please specify the missed planning factor"
-              value={formData.missed_planning_factors_other}
-              error={errors.missed_planning_factors_other}
-              onChange={onChange}
-            />
+            <OtherTextField id="missed_planning_factors_other" label="Please specify the missed planning factor" value={formData.missed_planning_factors_other} error={errors.missed_planning_factors_other} onChange={onChange} />
           )}
+          <ScaleQuestion label="Q100. How strongly do schema changes affect release timelines?" name="release_timeline_impact" value={formData.release_timeline_impact} required leftLabel="1 = No impact" rightLabel="5 = Very high impact" onChange={onChange} error={errors.release_timeline_impact} />
+          <ScaleQuestion label="Q101. How strongly do schema changes affect delivery confidence before release?" name="delivery_confidence_impact" value={formData.delivery_confidence_impact} required leftLabel="1 = No impact" rightLabel="5 = Very high impact" onChange={onChange} error={errors.delivery_confidence_impact} />
         </DeliveryGroup>
 
-        <DeliveryGroup title="2. Delivery impact">
-          <ScaleQuestion label="Q144. How strongly do schema changes affect release timelines?" name="release_timeline_impact" value={formData.release_timeline_impact} required leftLabel="1 = No impact" rightLabel="5 = Very high impact" onChange={onChange} error={errors.release_timeline_impact} />
-          <ScaleQuestion label="Q145. How strongly do schema changes affect developer stress or workload pressure?" name="developer_stress_impact" value={formData.developer_stress_impact} required leftLabel="1 = No impact" rightLabel="5 = Very high impact" onChange={onChange} error={errors.developer_stress_impact} />
-          <ScaleQuestion label="Q146. How strongly do schema changes affect delivery confidence before release?" name="delivery_confidence_impact" value={formData.delivery_confidence_impact} required leftLabel="1 = No impact" rightLabel="5 = Very high impact" onChange={onChange} error={errors.delivery_confidence_impact} />
-        </DeliveryGroup>
-
-        <DeliveryGroup title="3. Coordination and governance">
-          <ScaleQuestion label="Q147. How important is early involvement of senior engineers or architects in schema evolution planning?" name="senior_architect_involvement_importance" value={formData.senior_architect_involvement_importance} required leftLabel="1 = Not important" rightLabel="5 = Very important" onChange={onChange} error={errors.senior_architect_involvement_importance} />
-          <ScaleQuestion label="Q148. How important is cross-team communication for successful schema changes?" name="cross_team_communication_importance" value={formData.cross_team_communication_importance} required leftLabel="1 = Not important" rightLabel="5 = Very important" onChange={onChange} error={errors.cross_team_communication_importance} />
-          <ScaleQuestion label="Q149. How important is documentation for reducing schema evolution delivery risk?" name="documentation_importance" value={formData.documentation_importance} required leftLabel="1 = Not important" rightLabel="5 = Very important" onChange={onChange} error={errors.documentation_importance} />
-          <ScaleQuestion label="Q150. How important is early impact analysis before starting schema evolution work?" name="early_impact_analysis_importance" value={formData.early_impact_analysis_importance} required leftLabel="1 = Not important" rightLabel="5 = Very important" onChange={onChange} error={errors.early_impact_analysis_importance} />
-          <SelectQuestion label="Q151. Who should mainly be responsible for estimating schema evolution effort?" name="schema_change_estimation_owner" value={formData.schema_change_estimation_owner} options={estimationOwnerOptions} required onChange={onChange} error={errors.schema_change_estimation_owner} />
-        </DeliveryGroup>
-
-        <DeliveryGroup title="4. Risk warning signs and planning metrics">
-          <CheckboxGroup
-            label="Q152. What are the strongest warning signs that a schema change may become a delivery risk?"
-            name="delivery_risk_warning_signs"
-            values={deliveryRiskWarningSigns}
-            options={warningSignOptions}
-            required
-            onChange={onChange}
-            error={errors.delivery_risk_warning_signs}
-          />
+        <DeliveryGroup title="Ownership, risk, and planning metrics">
+          <SelectQuestion label="Q102. Who should mainly be responsible for estimating schema evolution effort?" name="schema_change_estimation_owner" value={formData.schema_change_estimation_owner} options={estimationOwnerOptions} required onChange={onChange} error={errors.schema_change_estimation_owner} />
+          <CheckboxGroup label="Q103. What are the strongest warning signs that a schema change may become a delivery risk?" name="delivery_risk_warning_signs" values={deliveryRiskWarningSigns} options={warningSignOptions} required onChange={onChange} error={errors.delivery_risk_warning_signs} />
           {deliveryRiskWarningSigns.includes('Other') && (
-            <OtherTextField
-              id="delivery_risk_warning_signs_other"
-              label="Please specify the delivery risk warning sign"
-              value={formData.delivery_risk_warning_signs_other}
-              error={errors.delivery_risk_warning_signs_other}
-              onChange={onChange}
-            />
+            <OtherTextField id="delivery_risk_warning_signs_other" label="Please specify the delivery risk warning sign" value={formData.delivery_risk_warning_signs_other} error={errors.delivery_risk_warning_signs_other} onChange={onChange} />
           )}
-          <SelectQuestion label="Q153. When planning schema evolution work, how much estimation buffer should usually be added?" name="recommended_estimation_buffer" value={formData.recommended_estimation_buffer} options={bufferOptions} required onChange={onChange} error={errors.recommended_estimation_buffer} />
-          <SelectQuestion label="Q154. Which metric would be most useful for managers when planning schema evolution work?" name="most_useful_managerial_metric" value={formData.most_useful_managerial_metric} options={metricOptions} required onChange={onChange} error={errors.most_useful_managerial_metric} />
+          <SelectQuestion label="Q104. When planning schema evolution work, how much estimation buffer should usually be added?" name="recommended_estimation_buffer" value={formData.recommended_estimation_buffer} options={bufferOptions} required onChange={onChange} error={errors.recommended_estimation_buffer} />
+          <SelectQuestion label="Q105. Which metric would be most useful for managers when planning schema evolution work?" name="most_useful_managerial_metric" value={formData.most_useful_managerial_metric} options={metricOptions} required onChange={onChange} error={errors.most_useful_managerial_metric} />
           {formData.most_useful_managerial_metric === 'Other' && (
-            <OtherTextField
-              id="most_useful_managerial_metric_other"
-              label="Please specify the managerial metric"
-              value={formData.most_useful_managerial_metric_other}
-              error={errors.most_useful_managerial_metric_other}
-              onChange={onChange}
-            />
+            <OtherTextField id="most_useful_managerial_metric_other" label="Please specify the managerial metric" value={formData.most_useful_managerial_metric_other} error={errors.most_useful_managerial_metric_other} onChange={onChange} />
           )}
-        </DeliveryGroup>
-
-        <DeliveryGroup title="5. Advice for leads and managers">
-          <TextareaQuestion
-            label="Q155. What advice would you give to technical leads or delivery managers when planning schema evolution work?"
-            name="planning_advice_for_leads"
-            value={formData.planning_advice_for_leads}
-            onChange={onChange}
-            placeholder="You may mention estimation, coordination, impact analysis, testing, rollback planning, documentation, or stakeholder communication."
-          />
-          <TextareaQuestion
-            label="Q156. What resource allocation advice would you give for complex schema evolution tasks?"
-            name="resource_allocation_advice"
-            value={formData.resource_allocation_advice}
-            onChange={onChange}
-            placeholder="For example: involve senior engineers early, allocate QA time, include data engineers, reserve DevOps support, involve analytics/reporting teams, or plan extra time for production monitoring."
-          />
+          <TextareaQuestion label="Q106. Optional: What planning or resource allocation advice would you give for complex schema evolution tasks?" name="planning_resource_advice" value={formData.planning_resource_advice} onChange={onChange} placeholder="You may mention estimation, coordination, impact analysis, testing, rollback planning, documentation, stakeholder communication, or resource allocation." />
         </DeliveryGroup>
       </div>
 
