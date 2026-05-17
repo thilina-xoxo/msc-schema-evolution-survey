@@ -42,36 +42,28 @@ const initialFormData = {
   schema_change_cognitive_load: '',
   schema_change_coordination_overhead: '',
   poly_s1_effort: '',
-  poly_s1_components_affected: '',
+  poly_s1_change_radius: '',
   poly_s1_cognitive_load: '',
   poly_s1_bug_risk: '',
   poly_s1_coordination_overhead: '',
-  poly_s1_affected_areas: [],
-  poly_s1_affected_areas_other: '',
-  poly_s1_main_challenge: '',
+  poly_s1_comment: '',
   poly_s2_effort: '',
-  poly_s2_components_affected: '',
+  poly_s2_change_radius: '',
   poly_s2_cognitive_load: '',
   poly_s2_bug_risk: '',
   poly_s2_coordination_overhead: '',
   poly_s2_backward_compatibility_difficulty: '',
-  poly_s2_affected_areas: [],
-  poly_s2_affected_areas_other: '',
-  poly_s2_main_challenge: '',
-  poly_s2_compatibility_strategy: '',
+  poly_s2_comment: '',
   poly_s3_effort: '',
-  poly_s3_components_affected: '',
+  poly_s3_change_radius: '',
   poly_s3_cognitive_load: '',
   poly_s3_data_risk: '',
   poly_s3_coordination_overhead: '',
   poly_s3_migration_difficulty: '',
   poly_s3_testing_difficulty: '',
-  poly_s3_affected_areas: [],
-  poly_s3_affected_areas_other: '',
-  poly_s3_implementation_approach: '',
-  poly_s3_biggest_risk: '',
+  poly_s3_comment: '',
   poly_s4_effort: '',
-  poly_s4_components_affected: '',
+  poly_s4_change_radius: '',
   poly_s4_cognitive_load: '',
   poly_s4_consistency_risk: '',
   poly_s4_coordination_overhead: '',
@@ -79,10 +71,7 @@ const initialFormData = {
   poly_s4_failure_handling_difficulty: '',
   poly_s4_preferred_implementation_approach: '',
   poly_s4_preferred_implementation_approach_other: '',
-  poly_s4_affected_areas: [],
-  poly_s4_affected_areas_other: '',
-  poly_s4_productivity_challenge: '',
-  poly_s4_complexity_reduction_practices: '',
+  poly_s4_comment: '',
   multi_s1_effort: '',
   multi_s1_components_affected: '',
   multi_s1_cognitive_load: '',
@@ -361,31 +350,31 @@ function validateScenarioPolyglot(formData) {
 
   const requiredFields = [
     ['poly_s1_effort', 'Please select the likely implementation effort.'],
-    ['poly_s1_components_affected', 'Please select how many components would likely need to be modified or checked.'],
+    ['poly_s1_change_radius', 'Please select the likely change impact radius.'],
     ['poly_s1_cognitive_load', 'Please rate the mental effort required.'],
-    ['poly_s1_bug_risk', 'Please rate the risk of bugs or inconsistencies.'],
-    ['poly_s1_coordination_overhead', 'Please rate the coordination required.'],
+    ['poly_s1_bug_risk', 'Please rate the risk of bugs or data issues.'],
+    ['poly_s1_coordination_overhead', 'Please rate the coordination overhead.'],
     ['poly_s2_effort', 'Please select the likely implementation effort.'],
-    ['poly_s2_components_affected', 'Please select how many components would likely need to be modified or checked.'],
+    ['poly_s2_change_radius', 'Please select the likely change impact radius.'],
     ['poly_s2_cognitive_load', 'Please rate the mental effort required.'],
     ['poly_s2_bug_risk', 'Please rate the risk of bugs or inconsistent data.'],
-    ['poly_s2_coordination_overhead', 'Please rate the coordination required.'],
+    ['poly_s2_coordination_overhead', 'Please rate the coordination overhead.'],
     ['poly_s2_backward_compatibility_difficulty', 'Please rate the backward compatibility difficulty.'],
     ['poly_s3_effort', 'Please select the likely implementation effort.'],
-    ['poly_s3_components_affected', 'Please select how many components would likely need to be modified or checked.'],
+    ['poly_s3_change_radius', 'Please select the likely change impact radius.'],
     ['poly_s3_cognitive_load', 'Please rate the mental effort required.'],
-    ['poly_s3_data_risk', 'Please rate the data risk.'],
-    ['poly_s3_coordination_overhead', 'Please rate the coordination required.'],
+    ['poly_s3_data_risk', 'Please rate the data, privacy, or compliance risk.'],
+    ['poly_s3_coordination_overhead', 'Please rate the coordination overhead.'],
     ['poly_s3_migration_difficulty', 'Please rate the data migration difficulty.'],
     ['poly_s3_testing_difficulty', 'Please rate the testing and validation difficulty.'],
     ['poly_s4_effort', 'Please select the likely implementation effort.'],
-    ['poly_s4_components_affected', 'Please select how many components would likely need to be modified or checked.'],
+    ['poly_s4_change_radius', 'Please select the likely change impact radius.'],
     ['poly_s4_cognitive_load', 'Please rate the mental effort required.'],
-    ['poly_s4_consistency_risk', 'Please rate the consistency risk.'],
-    ['poly_s4_coordination_overhead', 'Please rate the coordination required.'],
+    ['poly_s4_consistency_risk', 'Please rate the consistency or compliance risk.'],
+    ['poly_s4_coordination_overhead', 'Please rate the coordination overhead.'],
     ['poly_s4_rule_enforcement_difficulty', 'Please rate the rule enforcement difficulty.'],
-    ['poly_s4_failure_handling_difficulty', 'Please rate the rollback or failure handling difficulty.'],
-    ['poly_s4_preferred_implementation_approach', 'Please select the implementation approach you would most likely use.'],
+    ['poly_s4_failure_handling_difficulty', 'Please rate the failure handling or rollback difficulty.'],
+    ['poly_s4_preferred_implementation_approach', 'Please select the implementation approach you would most likely consider.'],
   ]
 
   requiredFields.forEach(([fieldName, message]) => {
@@ -394,53 +383,12 @@ function validateScenarioPolyglot(formData) {
     }
   })
 
-  const checkboxFields = [
-    ['poly_s1_affected_areas', 'Please select at least one affected area.'],
-    ['poly_s2_affected_areas', 'Please select at least one affected area.'],
-    ['poly_s3_affected_areas', 'Please select at least one affected area.'],
-    ['poly_s4_affected_areas', 'Please select at least one affected area.'],
-  ]
-
-  checkboxFields.forEach(([fieldName, message]) => {
-    if (formData[fieldName].length === 0) {
-      errors[fieldName] = message
-    }
-  })
-
-  if (
-    formData.poly_s1_affected_areas.includes('Other') &&
-    !formData.poly_s1_affected_areas_other.trim()
-  ) {
-    errors.poly_s1_affected_areas_other = 'Please specify the affected area.'
-  }
-
-  if (
-    formData.poly_s2_affected_areas.includes('Other') &&
-    !formData.poly_s2_affected_areas_other.trim()
-  ) {
-    errors.poly_s2_affected_areas_other = 'Please specify the affected area.'
-  }
-
-  if (
-    formData.poly_s3_affected_areas.includes('Other') &&
-    !formData.poly_s3_affected_areas_other.trim()
-  ) {
-    errors.poly_s3_affected_areas_other = 'Please specify the affected area.'
-  }
-
   if (
     formData.poly_s4_preferred_implementation_approach === 'Other' &&
     !formData.poly_s4_preferred_implementation_approach_other.trim()
   ) {
     errors.poly_s4_preferred_implementation_approach_other =
       'Please specify the implementation approach.'
-  }
-
-  if (
-    formData.poly_s4_affected_areas.includes('Other') &&
-    !formData.poly_s4_affected_areas_other.trim()
-  ) {
-    errors.poly_s4_affected_areas_other = 'Please specify the affected area.'
   }
 
   return errors
@@ -729,11 +677,13 @@ function App() {
   })
   const [errors, setErrors] = useState({})
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSectionFourTestSubmitting, setIsSectionFourTestSubmitting] =
+  const [isScenarioPolyglotTestSubmitting, setIsScenarioPolyglotTestSubmitting] =
     useState(false)
   const [submissionError, setSubmissionError] = useState('')
-  const [sectionFourTestMessage, setSectionFourTestMessage] = useState('')
-  const [sectionFourTestError, setSectionFourTestError] = useState('')
+  const [scenarioPolyglotTestMessage, setScenarioPolyglotTestMessage] =
+    useState('')
+  const [scenarioPolyglotTestError, setScenarioPolyglotTestError] =
+    useState('')
   const [submitted, setSubmitted] = useState(false)
   const normalizedFormData = {
     ...initialFormData,
@@ -741,8 +691,8 @@ function App() {
   }
 
   function handleChange(name, value) {
-    setSectionFourTestMessage('')
-    setSectionFourTestError('')
+    setScenarioPolyglotTestMessage('')
+    setScenarioPolyglotTestError('')
 
     setFormData((currentData) => ({
       ...currentData,
@@ -786,41 +736,43 @@ function App() {
     }
   }
 
-  async function handleSectionFourTestSubmit() {
+  async function handleScenarioPolyglotTestSubmit() {
     const sectionOneErrors = validateSectionOne(normalizedFormData)
     const sectionTwoErrors = validateSectionTwo(normalizedFormData)
     const sectionThreeErrors = validateSectionThree(normalizedFormData)
     const sectionFourErrors = validateSectionFour(normalizedFormData)
+    const scenarioPolyglotErrors = validateScenarioPolyglot(normalizedFormData)
     const nextErrors = {
       ...sectionOneErrors,
       ...sectionTwoErrors,
       ...sectionThreeErrors,
       ...sectionFourErrors,
+      ...scenarioPolyglotErrors,
     }
 
     setErrors(nextErrors)
-    setSectionFourTestMessage('')
-    setSectionFourTestError('')
+    setScenarioPolyglotTestMessage('')
+    setScenarioPolyglotTestError('')
 
     if (Object.keys(nextErrors).length > 0) {
-      setSectionFourTestError(
-        'Please complete Sections 1, 2, 3, and 4 before submitting this test response.',
+      setScenarioPolyglotTestError(
+        'Please complete Sections 1, 2, 3, 4, and 5_1 before submitting this test response.',
       )
       return
     }
 
     try {
-      setIsSectionFourTestSubmitting(true)
+      setIsScenarioPolyglotTestSubmitting(true)
       await submitSurvey(normalizedFormData)
-      setSectionFourTestMessage(
+      setScenarioPolyglotTestMessage(
         'Current response submitted successfully for testing.',
       )
     } catch {
-      setSectionFourTestError(
+      setScenarioPolyglotTestError(
         'Submission failed. Please check your connection and try again.',
       )
     } finally {
-      setIsSectionFourTestSubmitting(false)
+      setIsScenarioPolyglotTestSubmitting(false)
     }
   }
 
@@ -987,10 +939,6 @@ function App() {
           onChange={handleChange}
           onBack={() => setStep(3)}
           onNext={handleSectionFourNext}
-          onTestSubmit={handleSectionFourTestSubmit}
-          isTestSubmitting={isSectionFourTestSubmitting}
-          testSubmissionMessage={sectionFourTestMessage}
-          testSubmissionError={sectionFourTestError}
         />
       )
     }
@@ -1003,6 +951,10 @@ function App() {
           onChange={handleChange}
           onBack={() => setStep(4)}
           onNext={handleScenarioPolyglotNext}
+          onTestSubmit={handleScenarioPolyglotTestSubmit}
+          isTestSubmitting={isScenarioPolyglotTestSubmitting}
+          testSubmissionMessage={scenarioPolyglotTestMessage}
+          testSubmissionError={scenarioPolyglotTestError}
         />
       )
     }

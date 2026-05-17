@@ -544,6 +544,13 @@ tr:last-child td {
   font-weight: 600;
 }
 
+.question-helper {
+  margin: -6px 0 12px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
 .architecture-reminder {
   display: grid;
   gap: 18px;
@@ -596,6 +603,15 @@ tr:last-child td {
 .architecture-reminder a {
   color: var(--accent-strong);
   font-weight: 700;
+}
+
+.diagram-link-card {
+  gap: 12px;
+}
+
+.diagram-link-card a {
+  display: inline-flex;
+  width: fit-content;
 }
 
 .scenario-list {
