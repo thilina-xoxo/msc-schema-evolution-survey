@@ -233,6 +233,13 @@ code {
   font-weight: 700;
 }
 
+.form-success {
+  margin: 18px 0 0;
+  color: var(--success-text);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
 .placeholder-panel,
 .success-panel {
   padding: 24px;
@@ -423,6 +430,81 @@ tr:last-child td {
   max-width: 560px;
   margin: 0;
   color: var(--text-muted);
+}
+
+.section-three-compact {
+  display: grid;
+  gap: 20px;
+  margin-top: 24px;
+}
+
+.concept-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.concept-card,
+.compact-context-card {
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-raised);
+}
+
+.concept-card h3,
+.compact-context-card h3,
+.compact-diagram h3 {
+  margin: 0 0 10px;
+  color: var(--heading);
+  font-size: 1.08rem;
+  line-height: 1.35;
+}
+
+.concept-card p,
+.compact-context-card p,
+.compact-diagram p {
+  margin: 0 0 12px;
+  color: var(--text);
+}
+
+.concept-card p:last-child,
+.compact-context-card p:last-child,
+.compact-diagram p:last-child {
+  margin-bottom: 0;
+}
+
+.compact-list-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.compact-list-grid li {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 650;
+}
+
+.compact-diagram {
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-raised);
+}
+
+.compact-diagram .iframe-wrap {
+  min-height: 440px;
+}
+
+.compact-question-section {
+  margin-top: 26px;
 }
 
 .question-section {
@@ -809,6 +891,11 @@ tr:last-child td {
   margin-top: 32px;
 }
 
+.button-row.inline-actions {
+  align-items: center;
+  margin-top: 0;
+}
+
 .button-row.end {
   justify-content: flex-end;
 }
@@ -913,6 +1000,21 @@ button:disabled {
 
   .comparison-reminder {
     grid-template-columns: 1fr;
+  }
+
+  .concept-card-grid,
+  .compact-list-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .concept-card,
+  .compact-context-card,
+  .compact-diagram {
+    padding: 16px;
+  }
+
+  .compact-diagram .iframe-wrap {
+    min-height: 360px;
   }
 
   .scenario-questions > .question {

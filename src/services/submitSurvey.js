@@ -1,5 +1,5 @@
 const SCRIPT_URL =
-  'https://script.google.com/macros/s/AKfycbyNT6Mt-WvUO6hBPqJAwqsRmjZqoBbCBYAl-lJW_EdIao7flBx-IZUNh0hfxm-XGIvf/exec';
+  'https://script.google.com/macros/s/AKfycbxw9tGgloDBJHxKY5RGzsjOX3M5KTJhmqyExGg7_Qi3OTz7qSQA6gRnRPhAH7sEQZgz/exec';
 const SURVEY_TOKEN = 'msc_schema_evolution_survey_2026';
 
 function joinArrayValue(value) {
@@ -32,17 +32,6 @@ export async function submitSurvey(formData) {
     architecture_context: {
       architecture_context_clarity: formData.architecture_context_clarity,
       architecture_difference_clarity: formData.architecture_difference_clarity,
-      analytics_layer_clarity: formData.analytics_layer_clarity,
-      architecture_understanding: formData.architecture_understanding,
-      perceived_operational_complexity:
-        formData.perceived_operational_complexity,
-      perceived_schema_reasoning_ease: formData.perceived_schema_reasoning_ease,
-      perceived_downstream_impacts: joinArrayValue(
-        formData.perceived_downstream_impacts,
-      ),
-      perceived_downstream_impacts_other:
-        formData.perceived_downstream_impacts_other,
-      biggest_architecture_challenge: formData.biggest_architecture_challenge,
     },
     schema_evolution_experience: {
       schema_change_frequency: formData.schema_change_frequency,

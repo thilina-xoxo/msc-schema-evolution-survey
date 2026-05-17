@@ -33,13 +33,6 @@ const initialFormData = {
   production_schema_change_experience: '',
   architecture_context_clarity: '',
   architecture_difference_clarity: '',
-  analytics_layer_clarity: '',
-  architecture_understanding: '',
-  perceived_operational_complexity: '',
-  perceived_schema_reasoning_ease: '',
-  perceived_downstream_impacts: [],
-  perceived_downstream_impacts_other: '',
-  biggest_architecture_challenge: '',
   schema_change_frequency: '',
   experienced_schema_change_types: [],
   experienced_schema_change_types_other: '',
@@ -310,45 +303,12 @@ function validateSectionThree(formData) {
 
   if (!formData.architecture_context_clarity) {
     errors.architecture_context_clarity =
-      'Please rate the clarity of the ModaVista business and technical context.'
+      'Please rate the clarity of the reference architecture context.'
   }
 
   if (!formData.architecture_difference_clarity) {
     errors.architecture_difference_clarity =
-      'Please rate the clarity of the difference between the two architectures.'
-  }
-
-  if (!formData.analytics_layer_clarity) {
-    errors.analytics_layer_clarity =
-      'Please rate the clarity of the central Data Lakehouse / Data Warehouse role.'
-  }
-
-  if (!formData.architecture_understanding) {
-    errors.architecture_understanding =
-      'Please select the statement that best describes your understanding.'
-  }
-
-  if (!formData.perceived_operational_complexity) {
-    errors.perceived_operational_complexity =
-      'Please select which architecture appears more operationally complex.'
-  }
-
-  if (!formData.perceived_schema_reasoning_ease) {
-    errors.perceived_schema_reasoning_ease =
-      'Please select which architecture appears easier to reason about during schema changes.'
-  }
-
-  if (formData.perceived_downstream_impacts.length === 0) {
-    errors.perceived_downstream_impacts =
-      'Please select at least one downstream impact.'
-  }
-
-  if (
-    formData.perceived_downstream_impacts.includes('Other') &&
-    !formData.perceived_downstream_impacts_other.trim()
-  ) {
-    errors.perceived_downstream_impacts_other =
-      'Please specify the downstream impact.'
+      'Please rate the clarity of the difference between Polyglot Persistence and Multi-Model Persistence.'
   }
 
   return errors
@@ -828,7 +788,11 @@ function App() {
   })
   const [errors, setErrors] = useState({})
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSectionThreeTestSubmitting, setIsSectionThreeTestSubmitting] =
+    useState(false)
   const [submissionError, setSubmissionError] = useState('')
+  const [sectionThreeTestMessage, setSectionThreeTestMessage] = useState('')
+  const [sectionThreeTestError, setSectionThreeTestError] = useState('')
   const [submitted, setSubmitted] = useState(false)
   const normalizedFormData = {
     ...initialFormData,
@@ -836,6 +800,9 @@ function App() {
   }
 
   function handleChange(name, value) {
+    setSectionThreeTestMessage('')
+    setSectionThreeTestError('')
+
     setFormData((currentData) => ({
       ...currentData,
       [name]: value,
@@ -875,6 +842,42 @@ function App() {
     if (Object.keys(nextErrors).length === 0) {
       setStep(4)
       window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }
+
+  async function handleSectionThreeTestSubmit() {
+    const sectionOneErrors = validateSectionOne(normalizedFormData)
+    const sectionTwoErrors = validateSectionTwo(normalizedFormData)
+    const sectionThreeErrors = validateSectionThree(normalizedFormData)
+    const nextErrors = {
+      ...sectionOneErrors,
+      ...sectionTwoErrors,
+      ...sectionThreeErrors,
+    }
+
+    setErrors(nextErrors)
+    setSectionThreeTestMessage('')
+    setSectionThreeTestError('')
+
+    if (Object.keys(nextErrors).length > 0) {
+      setSectionThreeTestError(
+        'Please complete Sections 1, 2, and 3 before submitting this test response.',
+      )
+      return
+    }
+
+    try {
+      setIsSectionThreeTestSubmitting(true)
+      await submitSurvey(normalizedFormData)
+      setSectionThreeTestMessage(
+        'Current response submitted successfully for testing.',
+      )
+    } catch {
+      setSectionThreeTestError(
+        'Submission failed. Please check your connection and try again.',
+      )
+    } finally {
+      setIsSectionThreeTestSubmitting(false)
     }
   }
 
@@ -1029,6 +1032,10 @@ function App() {
           onChange={handleChange}
           onBack={() => setStep(2)}
           onNext={handleSectionThreeNext}
+          onTestSubmit={handleSectionThreeTestSubmit}
+          isTestSubmitting={isSectionThreeTestSubmitting}
+          testSubmissionMessage={sectionThreeTestMessage}
+          testSubmissionError={sectionThreeTestError}
         />
       )
     }

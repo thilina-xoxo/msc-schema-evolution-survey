@@ -36,13 +36,6 @@ const ARCHITECTURE_CONTEXT_HEADERS = [
   'participant_id',
   'architecture_context_clarity',
   'architecture_difference_clarity',
-  'analytics_layer_clarity',
-  'architecture_understanding',
-  'perceived_operational_complexity',
-  'perceived_schema_reasoning_ease',
-  'perceived_downstream_impacts',
-  'perceived_downstream_impacts_other',
-  'biggest_architecture_challenge',
 ];
 
 const SCHEMA_EVOLUTION_EXPERIENCE_HEADERS = [
@@ -393,6 +386,18 @@ function getOrCreateSheet(spreadsheet, sheetName, headers) {
 
   if (sheet.getLastRow() === 0) {
     sheet.appendRow(headers);
+  } else {
+    const width = Math.max(sheet.getLastColumn(), headers.length);
+    const currentHeaders = sheet.getRange(1, 1, 1, width).getValues()[0];
+    const headersChanged =
+      currentHeaders.length !== headers.length ||
+      headers.some((header, index) => currentHeaders[index] !== header) ||
+      currentHeaders.slice(headers.length).some((header) => header !== '');
+
+    if (headersChanged) {
+      sheet.getRange(1, 1, 1, width).clearContent();
+      sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
+    }
   }
 
   return sheet;
