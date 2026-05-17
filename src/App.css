@@ -101,6 +101,18 @@ section h2 {
   color: var(--text-muted);
 }
 
+.section-divider {
+  height: 1px;
+  margin: 30px 0;
+  border: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--border-strong),
+    transparent
+  );
+}
+
 .question {
   margin: 0 0 26px;
   padding: 0;

@@ -29,21 +29,10 @@ function FinalReflection({
     <section>
       <h2>Section 9 — Final Reflection</h2>
       <p className="section-intro">
-        This final section allows you to share broader reflections about schema
-        evolution, persistence strategy, developer productivity, and delivery
-        planning in microservice-based systems. This helps capture practical
-        insights, hidden costs, and improvement opportunities that may not have
-        been covered by the structured questions.
+        This final section allows you to share any broader reflections about
+        schema evolution, persistence strategy, developer productivity, and
+        delivery planning in microservice-based systems.
       </p>
-
-      <div className="privacy-note">
-        <h3>Privacy Note</h3>
-        <p>
-          No personally identifiable information should be entered in this
-          section. Please do not include names, email addresses, organization
-          names, phone numbers, or any other direct identifiers in your answers.
-        </p>
-      </div>
 
       <div className="reflection-section">
         <TextareaQuestion
@@ -69,14 +58,10 @@ function FinalReflection({
       </div>
 
       <div className="final-thank-you-card">
-        <h3>Final Note</h3>
-        <p>Thank you for your valuable time and contribution to this research.</p>
         <p>
-          Your responses will help identify practical challenges, useful
-          practices, and planning considerations related to schema evolution in
-          Polyglot and Multi-Model microservice architectures.
+          Thank you very much for your valuable time and thoughtful contribution
+          to this research.
         </p>
-        <p>Please click Submit to complete the survey.</p>
       </div>
 
       {submissionError && <p className="form-error">{submissionError}</p>}
