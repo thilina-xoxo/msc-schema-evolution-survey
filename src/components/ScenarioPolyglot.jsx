@@ -157,10 +157,6 @@ function ScenarioPolyglot({
   onChange,
   onBack,
   onNext,
-  onTestSubmit,
-  isTestSubmitting,
-  testSubmissionMessage,
-  testSubmissionError,
 }) {
   const storyPointHelper =
     'Assume 1 story point is approximately equal to 1 working day of engineering effort.'
@@ -583,29 +579,13 @@ function ScenarioPolyglot({
         </ScenarioCard>
       </div>
 
-      {testSubmissionMessage && (
-        <p className="form-success">{testSubmissionMessage}</p>
-      )}
-      {testSubmissionError && <p className="form-error">{testSubmissionError}</p>}
-
       <div className="button-row split">
         <button type="button" className="secondary-button" onClick={onBack}>
           Back
         </button>
-        <div className="button-row inline-actions">
-          {/* TEMPORARY TEST BUTTON: Remove this after Section 5_1 submission testing. */}
-          <button
-            type="button"
-            className="secondary-button"
-            onClick={onTestSubmit}
-            disabled={isTestSubmitting}
-          >
-            {isTestSubmitting ? 'Submitting...' : 'Submit Current Response'}
-          </button>
-          <button type="button" className="primary-button" onClick={onNext}>
-            Next
-          </button>
-        </div>
+        <button type="button" className="primary-button" onClick={onNext}>
+          Next
+        </button>
       </div>
     </section>
   )

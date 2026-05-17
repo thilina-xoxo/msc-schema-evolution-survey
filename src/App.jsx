@@ -73,36 +73,28 @@ const initialFormData = {
   poly_s4_preferred_implementation_approach_other: '',
   poly_s4_comment: '',
   multi_s1_effort: '',
-  multi_s1_components_affected: '',
+  multi_s1_change_radius: '',
   multi_s1_cognitive_load: '',
   multi_s1_bug_risk: '',
   multi_s1_coordination_overhead: '',
-  multi_s1_affected_areas: [],
-  multi_s1_affected_areas_other: '',
-  multi_s1_main_challenge: '',
+  multi_s1_comment: '',
   multi_s2_effort: '',
-  multi_s2_components_affected: '',
+  multi_s2_change_radius: '',
   multi_s2_cognitive_load: '',
   multi_s2_bug_risk: '',
   multi_s2_coordination_overhead: '',
   multi_s2_backward_compatibility_difficulty: '',
-  multi_s2_affected_areas: [],
-  multi_s2_affected_areas_other: '',
-  multi_s2_main_challenge: '',
-  multi_s2_compatibility_strategy: '',
+  multi_s2_comment: '',
   multi_s3_effort: '',
-  multi_s3_components_affected: '',
+  multi_s3_change_radius: '',
   multi_s3_cognitive_load: '',
   multi_s3_data_risk: '',
   multi_s3_coordination_overhead: '',
   multi_s3_migration_difficulty: '',
   multi_s3_testing_difficulty: '',
-  multi_s3_affected_areas: [],
-  multi_s3_affected_areas_other: '',
-  multi_s3_implementation_approach: '',
-  multi_s3_biggest_risk: '',
+  multi_s3_comment: '',
   multi_s4_effort: '',
-  multi_s4_components_affected: '',
+  multi_s4_change_radius: '',
   multi_s4_cognitive_load: '',
   multi_s4_consistency_risk: '',
   multi_s4_coordination_overhead: '',
@@ -110,10 +102,7 @@ const initialFormData = {
   multi_s4_failure_handling_difficulty: '',
   multi_s4_preferred_implementation_approach: '',
   multi_s4_preferred_implementation_approach_other: '',
-  multi_s4_affected_areas: [],
-  multi_s4_affected_areas_other: '',
-  multi_s4_productivity_challenge: '',
-  multi_s4_complexity_reduction_practices: '',
+  multi_s4_comment: '',
   overall_easier_architecture: '',
   overall_less_effort_architecture: '',
   overall_lower_cognitive_load_architecture: '',
@@ -399,31 +388,31 @@ function validateScenarioMultiModel(formData) {
 
   const requiredFields = [
     ['multi_s1_effort', 'Please select the likely implementation effort.'],
-    ['multi_s1_components_affected', 'Please select how many components would likely need to be modified or checked.'],
+    ['multi_s1_change_radius', 'Please select the likely change impact radius.'],
     ['multi_s1_cognitive_load', 'Please rate the mental effort required.'],
-    ['multi_s1_bug_risk', 'Please rate the risk of bugs or inconsistencies.'],
-    ['multi_s1_coordination_overhead', 'Please rate the coordination required.'],
+    ['multi_s1_bug_risk', 'Please rate the risk of bugs or data issues.'],
+    ['multi_s1_coordination_overhead', 'Please rate the coordination overhead.'],
     ['multi_s2_effort', 'Please select the likely implementation effort.'],
-    ['multi_s2_components_affected', 'Please select how many components would likely need to be modified or checked.'],
+    ['multi_s2_change_radius', 'Please select the likely change impact radius.'],
     ['multi_s2_cognitive_load', 'Please rate the mental effort required.'],
     ['multi_s2_bug_risk', 'Please rate the risk of bugs or inconsistent data.'],
-    ['multi_s2_coordination_overhead', 'Please rate the coordination required.'],
+    ['multi_s2_coordination_overhead', 'Please rate the coordination overhead.'],
     ['multi_s2_backward_compatibility_difficulty', 'Please rate the backward compatibility difficulty.'],
     ['multi_s3_effort', 'Please select the likely implementation effort.'],
-    ['multi_s3_components_affected', 'Please select how many components would likely need to be modified or checked.'],
+    ['multi_s3_change_radius', 'Please select the likely change impact radius.'],
     ['multi_s3_cognitive_load', 'Please rate the mental effort required.'],
-    ['multi_s3_data_risk', 'Please rate the data risk.'],
-    ['multi_s3_coordination_overhead', 'Please rate the coordination required.'],
+    ['multi_s3_data_risk', 'Please rate the data, privacy, or compliance risk.'],
+    ['multi_s3_coordination_overhead', 'Please rate the coordination overhead.'],
     ['multi_s3_migration_difficulty', 'Please rate the data migration difficulty.'],
     ['multi_s3_testing_difficulty', 'Please rate the testing and validation difficulty.'],
     ['multi_s4_effort', 'Please select the likely implementation effort.'],
-    ['multi_s4_components_affected', 'Please select how many components would likely need to be modified or checked.'],
+    ['multi_s4_change_radius', 'Please select the likely change impact radius.'],
     ['multi_s4_cognitive_load', 'Please rate the mental effort required.'],
-    ['multi_s4_consistency_risk', 'Please rate the consistency risk.'],
-    ['multi_s4_coordination_overhead', 'Please rate the coordination required.'],
+    ['multi_s4_consistency_risk', 'Please rate the consistency or compliance risk.'],
+    ['multi_s4_coordination_overhead', 'Please rate the coordination overhead.'],
     ['multi_s4_rule_enforcement_difficulty', 'Please rate the rule enforcement difficulty.'],
     ['multi_s4_failure_handling_difficulty', 'Please rate the rollback or failure handling difficulty.'],
-    ['multi_s4_preferred_implementation_approach', 'Please select the implementation approach you would most likely use.'],
+    ['multi_s4_preferred_implementation_approach', 'Please select the implementation approach you would most likely consider.'],
   ]
 
   requiredFields.forEach(([fieldName, message]) => {
@@ -432,53 +421,12 @@ function validateScenarioMultiModel(formData) {
     }
   })
 
-  const checkboxFields = [
-    ['multi_s1_affected_areas', 'Please select at least one affected area.'],
-    ['multi_s2_affected_areas', 'Please select at least one affected area.'],
-    ['multi_s3_affected_areas', 'Please select at least one affected area.'],
-    ['multi_s4_affected_areas', 'Please select at least one affected area.'],
-  ]
-
-  checkboxFields.forEach(([fieldName, message]) => {
-    if (formData[fieldName].length === 0) {
-      errors[fieldName] = message
-    }
-  })
-
-  if (
-    formData.multi_s1_affected_areas.includes('Other') &&
-    !formData.multi_s1_affected_areas_other.trim()
-  ) {
-    errors.multi_s1_affected_areas_other = 'Please specify the affected area.'
-  }
-
-  if (
-    formData.multi_s2_affected_areas.includes('Other') &&
-    !formData.multi_s2_affected_areas_other.trim()
-  ) {
-    errors.multi_s2_affected_areas_other = 'Please specify the affected area.'
-  }
-
-  if (
-    formData.multi_s3_affected_areas.includes('Other') &&
-    !formData.multi_s3_affected_areas_other.trim()
-  ) {
-    errors.multi_s3_affected_areas_other = 'Please specify the affected area.'
-  }
-
   if (
     formData.multi_s4_preferred_implementation_approach === 'Other' &&
     !formData.multi_s4_preferred_implementation_approach_other.trim()
   ) {
     errors.multi_s4_preferred_implementation_approach_other =
       'Please specify the implementation approach.'
-  }
-
-  if (
-    formData.multi_s4_affected_areas.includes('Other') &&
-    !formData.multi_s4_affected_areas_other.trim()
-  ) {
-    errors.multi_s4_affected_areas_other = 'Please specify the affected area.'
   }
 
   return errors
@@ -677,12 +625,12 @@ function App() {
   })
   const [errors, setErrors] = useState({})
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isScenarioPolyglotTestSubmitting, setIsScenarioPolyglotTestSubmitting] =
+  const [isScenarioMultiModelTestSubmitting, setIsScenarioMultiModelTestSubmitting] =
     useState(false)
   const [submissionError, setSubmissionError] = useState('')
-  const [scenarioPolyglotTestMessage, setScenarioPolyglotTestMessage] =
+  const [scenarioMultiModelTestMessage, setScenarioMultiModelTestMessage] =
     useState('')
-  const [scenarioPolyglotTestError, setScenarioPolyglotTestError] =
+  const [scenarioMultiModelTestError, setScenarioMultiModelTestError] =
     useState('')
   const [submitted, setSubmitted] = useState(false)
   const normalizedFormData = {
@@ -691,8 +639,8 @@ function App() {
   }
 
   function handleChange(name, value) {
-    setScenarioPolyglotTestMessage('')
-    setScenarioPolyglotTestError('')
+    setScenarioMultiModelTestMessage('')
+    setScenarioMultiModelTestError('')
 
     setFormData((currentData) => ({
       ...currentData,
@@ -736,43 +684,45 @@ function App() {
     }
   }
 
-  async function handleScenarioPolyglotTestSubmit() {
+  async function handleScenarioMultiModelTestSubmit() {
     const sectionOneErrors = validateSectionOne(normalizedFormData)
     const sectionTwoErrors = validateSectionTwo(normalizedFormData)
     const sectionThreeErrors = validateSectionThree(normalizedFormData)
     const sectionFourErrors = validateSectionFour(normalizedFormData)
     const scenarioPolyglotErrors = validateScenarioPolyglot(normalizedFormData)
+    const scenarioMultiModelErrors = validateScenarioMultiModel(normalizedFormData)
     const nextErrors = {
       ...sectionOneErrors,
       ...sectionTwoErrors,
       ...sectionThreeErrors,
       ...sectionFourErrors,
       ...scenarioPolyglotErrors,
+      ...scenarioMultiModelErrors,
     }
 
     setErrors(nextErrors)
-    setScenarioPolyglotTestMessage('')
-    setScenarioPolyglotTestError('')
+    setScenarioMultiModelTestMessage('')
+    setScenarioMultiModelTestError('')
 
     if (Object.keys(nextErrors).length > 0) {
-      setScenarioPolyglotTestError(
-        'Please complete Sections 1, 2, 3, 4, and 5_1 before submitting this test response.',
+      setScenarioMultiModelTestError(
+        'Please complete Sections 1, 2, 3, 4, 5_1, and 5_2 before submitting this test response.',
       )
       return
     }
 
     try {
-      setIsScenarioPolyglotTestSubmitting(true)
+      setIsScenarioMultiModelTestSubmitting(true)
       await submitSurvey(normalizedFormData)
-      setScenarioPolyglotTestMessage(
+      setScenarioMultiModelTestMessage(
         'Current response submitted successfully for testing.',
       )
     } catch {
-      setScenarioPolyglotTestError(
+      setScenarioMultiModelTestError(
         'Submission failed. Please check your connection and try again.',
       )
     } finally {
-      setIsScenarioPolyglotTestSubmitting(false)
+      setIsScenarioMultiModelTestSubmitting(false)
     }
   }
 
@@ -951,10 +901,6 @@ function App() {
           onChange={handleChange}
           onBack={() => setStep(4)}
           onNext={handleScenarioPolyglotNext}
-          onTestSubmit={handleScenarioPolyglotTestSubmit}
-          isTestSubmitting={isScenarioPolyglotTestSubmitting}
-          testSubmissionMessage={scenarioPolyglotTestMessage}
-          testSubmissionError={scenarioPolyglotTestError}
         />
       )
     }
@@ -967,6 +913,10 @@ function App() {
           onChange={handleChange}
           onBack={() => setStep(5)}
           onNext={handleScenarioMultiModelNext}
+          onTestSubmit={handleScenarioMultiModelTestSubmit}
+          isTestSubmitting={isScenarioMultiModelTestSubmitting}
+          testSubmissionMessage={scenarioMultiModelTestMessage}
+          testSubmissionError={scenarioMultiModelTestError}
         />
       )
     }

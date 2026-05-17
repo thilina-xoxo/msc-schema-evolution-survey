@@ -614,6 +614,14 @@ tr:last-child td {
   width: fit-content;
 }
 
+.test-submit-button {
+  color: var(--text-muted);
+}
+
+.test-submit-button:hover:not(:disabled) {
+  color: var(--text);
+}
+
 .scenario-list {
   display: grid;
   gap: 34px;
