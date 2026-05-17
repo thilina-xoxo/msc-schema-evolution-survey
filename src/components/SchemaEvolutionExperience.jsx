@@ -29,24 +29,6 @@ const schemaChangeTypeOptions = [
   'Other',
 ]
 
-const impactLayerOptions = [
-  'Operational database',
-  'Application/service code',
-  'API request/response contracts',
-  'Event/message schemas',
-  'Search index',
-  'Cache/session data',
-  'Data warehouse / data lake / lakehouse',
-  'BI dashboards or reports',
-  'ML feature datasets',
-  'Automated tests',
-  'CI/CD deployment pipeline',
-  'Monitoring or alerting',
-  'Documentation',
-  'I am not sure',
-  'Other',
-]
-
 const difficultyFactorOptions = [
   'Understanding the existing data model',
   'Identifying affected services',
@@ -66,55 +48,6 @@ const difficultyFactorOptions = [
   'Different databases requiring different skills',
   'Downstream analytics/reporting dependencies',
   'Unclear ownership of data or schema',
-  'Other',
-]
-
-const relativeRiskOptions = [
-  'Much less risky',
-  'Slightly less risky',
-  'About the same risk',
-  'Slightly more risky',
-  'Much more risky',
-  'I am not sure',
-]
-
-const delayReasonOptions = [
-  'Data migration takes longer than expected',
-  'More services are affected than expected',
-  'API compatibility issues appear late',
-  'Event/message compatibility issues appear late',
-  'Testing effort is underestimated',
-  'Coordination between teams takes time',
-  'Production risk causes delays',
-  'Analytics/reporting dependencies are discovered late',
-  'Lack of clear ownership',
-  'I have not observed this',
-  'Other',
-]
-
-const persistenceStrategyOptions = [
-  'Polyglot Persistence',
-  'Multi-Model Database',
-  'Both are similar',
-  'It depends on the scenario',
-  'I am not sure',
-]
-
-const helpfulPracticeOptions = [
-  'Clear API versioning',
-  'Event schema versioning',
-  'Automated migration scripts',
-  'Automated regression tests',
-  'Contract testing',
-  'Feature flags',
-  'Backward-compatible changes',
-  'Blue-green or canary deployment',
-  'Database rollback plan',
-  'Better documentation',
-  'Early involvement of senior engineers/architects',
-  'Cross-team planning meetings',
-  'AI-assisted development tools',
-  'I have not used any specific practice',
   'Other',
 ]
 
@@ -143,27 +76,34 @@ function SchemaEvolutionExperience({
   onChange,
   onBack,
   onNext,
+  onTestSubmit,
+  isTestSubmitting,
+  testSubmissionMessage,
+  testSubmissionError,
 }) {
+  const experiencedSchemaChangeTypes =
+    formData.experienced_schema_change_types || []
+  const difficultyFactors = formData.schema_evolution_difficulty_factors || []
+
   return (
     <section>
       <h2>Section 4 — General Experience with Schema Evolution</h2>
       <p className="section-intro">
-        This section collects your general experience with schema evolution,
-        database migration, API changes, event payload changes, and downstream
-        data impacts in software systems.
+        This section captures your general experience with schema evolution
+        before the scenario-based questions.
       </p>
       <div className="info-box section-definition">
         <p>
           In this survey, schema evolution refers to changes in data structures
-          used by software systems. These may include database schema changes,
-          document structure changes, API response changes, event/message schema
+          used by software systems, including database schema changes, document
+          structure changes, API response changes, event/message schema
           changes, search index changes, or analytical pipeline changes.
         </p>
       </div>
 
       <div className="question-section schema-experience-section">
         <SelectQuestion
-          label="Q22. In your experience, how often do database schemas or data structures change during software development?"
+          label="Q16. In your experience, how often do database schemas or data structures change during software development?"
           name="schema_change_frequency"
           value={formData.schema_change_frequency}
           options={schemaChangeFrequencyOptions}
@@ -173,15 +113,15 @@ function SchemaEvolutionExperience({
         />
 
         <CheckboxGroup
-          label="Q23. Which types of schema or data structure changes have you experienced?"
+          label="Q17. Which types of schema or data structure changes have you experienced?"
           name="experienced_schema_change_types"
-          values={formData.experienced_schema_change_types}
+          values={experiencedSchemaChangeTypes}
           options={schemaChangeTypeOptions}
           required
           onChange={onChange}
           error={errors.experienced_schema_change_types}
         />
-        {formData.experienced_schema_change_types.includes('Other') && (
+        {experiencedSchemaChangeTypes.includes('Other') && (
           <OtherTextField
             id="experienced_schema_change_types_other"
             label="Please specify the schema or data structure change type"
@@ -192,34 +132,15 @@ function SchemaEvolutionExperience({
         )}
 
         <CheckboxGroup
-          label="Q24. In which layers have you seen schema evolution create impact?"
-          name="schema_change_impact_layers"
-          values={formData.schema_change_impact_layers}
-          options={impactLayerOptions}
-          required
-          onChange={onChange}
-          error={errors.schema_change_impact_layers}
-        />
-        {formData.schema_change_impact_layers.includes('Other') && (
-          <OtherTextField
-            id="schema_change_impact_layers_other"
-            label="Please specify the impacted layer"
-            value={formData.schema_change_impact_layers_other}
-            error={errors.schema_change_impact_layers_other}
-            onChange={onChange}
-          />
-        )}
-
-        <CheckboxGroup
-          label="Q25. In your experience, what usually makes schema evolution difficult?"
+          label="Q18. In your experience, what usually makes schema evolution difficult?"
           name="schema_evolution_difficulty_factors"
-          values={formData.schema_evolution_difficulty_factors}
+          values={difficultyFactors}
           options={difficultyFactorOptions}
           required
           onChange={onChange}
           error={errors.schema_evolution_difficulty_factors}
         />
-        {formData.schema_evolution_difficulty_factors.includes('Other') && (
+        {difficultyFactors.includes('Other') && (
           <OtherTextField
             id="schema_evolution_difficulty_factors_other"
             label="Please specify the difficulty factor"
@@ -230,29 +151,29 @@ function SchemaEvolutionExperience({
         )}
 
         <ScaleQuestion
-          label="Q26. How much do schema changes affect developer productivity in microservice systems?"
+          label="Q19. How much do schema changes affect developer productivity in microservice systems?"
           name="schema_change_productivity_impact"
           value={formData.schema_change_productivity_impact}
           required
-          leftLabel="1 = Very low impact"
+          leftLabel="1 = No impact"
           rightLabel="5 = Very high impact"
           onChange={onChange}
           error={errors.schema_change_productivity_impact}
         />
 
         <ScaleQuestion
-          label="Q27. How much mental effort is usually required to understand the full impact of a schema change?"
+          label="Q20. How much mental effort is usually required to understand the full impact of a schema change?"
           name="schema_change_cognitive_load"
           value={formData.schema_change_cognitive_load}
           required
-          leftLabel="1 = Very low mental effort"
-          rightLabel="5 = Very high mental effort"
+          leftLabel="1 = Very low effort"
+          rightLabel="5 = Very high effort"
           onChange={onChange}
           error={errors.schema_change_cognitive_load}
         />
 
         <ScaleQuestion
-          label="Q28. How much coordination is usually required when schema changes affect more than one service or team?"
+          label="Q21. How much coordination is usually required when schema changes affect more than one service or team?"
           name="schema_change_coordination_overhead"
           value={formData.schema_change_coordination_overhead}
           required
@@ -261,122 +182,31 @@ function SchemaEvolutionExperience({
           onChange={onChange}
           error={errors.schema_change_coordination_overhead}
         />
-
-        <SelectQuestion
-          label="Q29. How risky are schema changes compared to normal application logic changes?"
-          name="schema_change_relative_risk"
-          value={formData.schema_change_relative_risk}
-          options={relativeRiskOptions}
-          required
-          onChange={onChange}
-          error={errors.schema_change_relative_risk}
-        />
-
-        <SelectQuestion
-          label="Q30. What is the most common reason schema changes become delayed or underestimated?"
-          name="schema_change_delay_reason"
-          value={formData.schema_change_delay_reason}
-          options={delayReasonOptions}
-          required
-          onChange={onChange}
-          error={errors.schema_change_delay_reason}
-        />
-        {formData.schema_change_delay_reason === 'Other' && (
-          <OtherTextField
-            id="schema_change_delay_reason_other"
-            label="Please specify the delay or underestimation reason"
-            value={formData.schema_change_delay_reason_other}
-            error={errors.schema_change_delay_reason_other}
-            onChange={onChange}
-          />
-        )}
-
-        <SelectQuestion
-          label="Q31. In your opinion, which persistence strategy is generally easier to maintain during schema evolution?"
-          name="easier_persistence_strategy_general"
-          value={formData.easier_persistence_strategy_general}
-          options={persistenceStrategyOptions}
-          required
-          onChange={onChange}
-          error={errors.easier_persistence_strategy_general}
-        />
-
-        <div className="question">
-          <label
-            className="question-label"
-            htmlFor="easier_persistence_strategy_reason"
-          >
-            Q32. Why do you think that persistence strategy is easier or harder
-            to maintain?
-            <span className="optional-label"> Optional</span>
-          </label>
-          <textarea
-            id="easier_persistence_strategy_reason"
-            name="easier_persistence_strategy_reason"
-            value={formData.easier_persistence_strategy_reason}
-            onChange={(event) =>
-              onChange('easier_persistence_strategy_reason', event.target.value)
-            }
-            rows="5"
-          />
-        </div>
-
-        <SelectQuestion
-          label="Q33. Which practice has helped you most when handling schema evolution?"
-          name="most_helpful_schema_practice"
-          value={formData.most_helpful_schema_practice}
-          options={helpfulPracticeOptions}
-          required
-          onChange={onChange}
-          error={errors.most_helpful_schema_practice}
-        />
-        {formData.most_helpful_schema_practice === 'Other' && (
-          <OtherTextField
-            id="most_helpful_schema_practice_other"
-            label="Please specify the helpful schema evolution practice"
-            value={formData.most_helpful_schema_practice_other}
-            error={errors.most_helpful_schema_practice_other}
-            onChange={onChange}
-          />
-        )}
-
-        <div className="question">
-          <label
-            className="question-label"
-            htmlFor="schema_evolution_experience_example"
-          >
-            Q34. Briefly describe one schema evolution challenge you have
-            personally experienced or observed.
-            <span className="optional-label"> Optional</span>
-          </label>
-          <textarea
-            id="schema_evolution_experience_example"
-            name="schema_evolution_experience_example"
-            value={formData.schema_evolution_experience_example}
-            onChange={(event) =>
-              onChange('schema_evolution_experience_example', event.target.value)
-            }
-            placeholder="Example: a field type change, API contract break, failed migration, reporting issue, event schema mismatch, or production defect."
-            rows="5"
-          />
-        </div>
       </div>
 
+      {testSubmissionMessage && (
+        <p className="form-success">{testSubmissionMessage}</p>
+      )}
+      {testSubmissionError && <p className="form-error">{testSubmissionError}</p>}
+
       <div className="button-row split">
-        <button
-          type="button"
-          className="secondary-button"
-          onClick={onBack}
-        >
+        <button type="button" className="secondary-button" onClick={onBack}>
           Back
         </button>
-        <button
-          type="button"
-          className="primary-button"
-          onClick={onNext}
-        >
-          Next
-        </button>
+        <div className="button-row inline-actions">
+          {/* TEMPORARY TEST BUTTON: Remove this after Section 4 submission testing. */}
+          <button
+            type="button"
+            className="secondary-button"
+            onClick={onTestSubmit}
+            disabled={isTestSubmitting}
+          >
+            {isTestSubmitting ? 'Submitting...' : 'Submit Current Response'}
+          </button>
+          <button type="button" className="primary-button" onClick={onNext}>
+            Next
+          </button>
+        </div>
       </div>
     </section>
   )

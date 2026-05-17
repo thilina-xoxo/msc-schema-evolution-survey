@@ -1,5 +1,5 @@
 const SCRIPT_URL =
-  'https://script.google.com/macros/s/AKfycbxw9tGgloDBJHxKY5RGzsjOX3M5KTJhmqyExGg7_Qi3OTz7qSQA6gRnRPhAH7sEQZgz/exec';
+  'https://script.google.com/macros/s/AKfycbwN-oIrDQ-PQiarjf5S24WL0-pWL4zSGskTnG-BOzdkTRGrm73_7aRLNm4pchkZZtuV/exec';
 const SURVEY_TOKEN = 'msc_schema_evolution_survey_2026';
 
 function joinArrayValue(value) {
@@ -40,11 +40,6 @@ export async function submitSurvey(formData) {
       ),
       experienced_schema_change_types_other:
         formData.experienced_schema_change_types_other,
-      schema_change_impact_layers: joinArrayValue(
-        formData.schema_change_impact_layers,
-      ),
-      schema_change_impact_layers_other:
-        formData.schema_change_impact_layers_other,
       schema_evolution_difficulty_factors: joinArrayValue(
         formData.schema_evolution_difficulty_factors,
       ),
@@ -55,19 +50,6 @@ export async function submitSurvey(formData) {
       schema_change_cognitive_load: formData.schema_change_cognitive_load,
       schema_change_coordination_overhead:
         formData.schema_change_coordination_overhead,
-      schema_change_relative_risk: formData.schema_change_relative_risk,
-      schema_change_delay_reason: formData.schema_change_delay_reason,
-      schema_change_delay_reason_other:
-        formData.schema_change_delay_reason_other,
-      easier_persistence_strategy_general:
-        formData.easier_persistence_strategy_general,
-      easier_persistence_strategy_reason:
-        formData.easier_persistence_strategy_reason,
-      most_helpful_schema_practice: formData.most_helpful_schema_practice,
-      most_helpful_schema_practice_other:
-        formData.most_helpful_schema_practice_other,
-      schema_evolution_experience_example:
-        formData.schema_evolution_experience_example,
     },
     scenario_polyglot: {
       poly_s1_effort: formData.poly_s1_effort,

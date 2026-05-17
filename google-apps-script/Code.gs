@@ -44,21 +44,11 @@ const SCHEMA_EVOLUTION_EXPERIENCE_HEADERS = [
   'schema_change_frequency',
   'experienced_schema_change_types',
   'experienced_schema_change_types_other',
-  'schema_change_impact_layers',
-  'schema_change_impact_layers_other',
   'schema_evolution_difficulty_factors',
   'schema_evolution_difficulty_factors_other',
   'schema_change_productivity_impact',
   'schema_change_cognitive_load',
   'schema_change_coordination_overhead',
-  'schema_change_relative_risk',
-  'schema_change_delay_reason',
-  'schema_change_delay_reason_other',
-  'easier_persistence_strategy_general',
-  'easier_persistence_strategy_reason',
-  'most_helpful_schema_practice',
-  'most_helpful_schema_practice_other',
-  'schema_evolution_experience_example',
 ];
 
 const SCENARIO_POLYGLOT_HEADERS = [

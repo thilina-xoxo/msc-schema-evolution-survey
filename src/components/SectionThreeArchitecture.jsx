@@ -63,10 +63,6 @@ function SectionThreeArchitecture({
   onChange,
   onBack,
   onNext,
-  onTestSubmit,
-  isTestSubmitting,
-  testSubmissionMessage,
-  testSubmissionError,
 }) {
   return (
     <section>
@@ -165,29 +161,13 @@ function SectionThreeArchitecture({
         />
       </div>
 
-      {testSubmissionMessage && (
-        <p className="form-success">{testSubmissionMessage}</p>
-      )}
-      {testSubmissionError && <p className="form-error">{testSubmissionError}</p>}
-
       <div className="button-row split">
         <button type="button" className="secondary-button" onClick={onBack}>
           Back
         </button>
-        <div className="button-row inline-actions">
-          {/* TEMPORARY TEST BUTTON: Remove this after Section 3 submission testing. */}
-          <button
-            type="button"
-            className="secondary-button"
-            onClick={onTestSubmit}
-            disabled={isTestSubmitting}
-          >
-            {isTestSubmitting ? 'Submitting...' : 'Submit Current Response'}
-          </button>
-          <button type="button" className="primary-button" onClick={onNext}>
-            Next
-          </button>
-        </div>
+        <button type="button" className="primary-button" onClick={onNext}>
+          Next
+        </button>
       </div>
     </section>
   )
