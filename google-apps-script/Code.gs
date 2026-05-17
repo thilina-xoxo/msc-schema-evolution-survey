@@ -8,6 +8,7 @@ const SCENARIO_MULTIMODEL_SHEET = 'scenario_multimodel';
 const COMPARATIVE_EVALUATION_SHEET = 'comparative_evaluation';
 const TOOLING_PRACTICES_SHEET = 'tooling_practices';
 const MANAGERIAL_DELIVERY_IMPACT_SHEET = 'managerial_delivery_impact';
+const FINAL_REFLECTION_SHEET = 'final_reflection';
 
 const PARTICIPANT_BACKGROUND_HEADERS = [
   'timestamp',
@@ -234,6 +235,14 @@ const MANAGERIAL_DELIVERY_IMPACT_HEADERS = [
   'resource_allocation_advice',
 ];
 
+const FINAL_REFLECTION_HEADERS = [
+  'timestamp',
+  'participant_id',
+  'biggest_hidden_cost',
+  'one_process_improvement',
+  'additional_comments',
+];
+
 function doPost(e) {
   try {
     const payload = JSON.parse(e.postData.contents || '{}');
@@ -289,6 +298,11 @@ function doPost(e) {
       spreadsheet,
       MANAGERIAL_DELIVERY_IMPACT_SHEET,
       MANAGERIAL_DELIVERY_IMPACT_HEADERS
+    );
+    const finalReflectionSheet = getOrCreateSheet(
+      spreadsheet,
+      FINAL_REFLECTION_SHEET,
+      FINAL_REFLECTION_HEADERS
     );
 
     participantBackgroundSheet.appendRow(
@@ -353,6 +367,14 @@ function doPost(e) {
         participantId,
         payload.managerial_delivery_impact || {},
         MANAGERIAL_DELIVERY_IMPACT_HEADERS
+      )
+    );
+    finalReflectionSheet.appendRow(
+      buildRow(
+        timestamp,
+        participantId,
+        payload.final_reflection || {},
+        FINAL_REFLECTION_HEADERS
       )
     );
 

@@ -1,5 +1,5 @@
 const SCRIPT_URL =
-  'https://script.google.com/macros/s/AKfycbwx2orwicnWCJSerjmQ6uRaNa3UoN_1oYSPzPk-ZWhU9H7VGDAshfqOBqLsVI6rsH93/exec';
+  'https://script.google.com/macros/s/AKfycbyNT6Mt-WvUO6hBPqJAwqsRmjZqoBbCBYAl-lJW_EdIao7flBx-IZUNh0hfxm-XGIvf/exec';
 const SURVEY_TOKEN = 'msc_schema_evolution_survey_2026';
 
 function joinArrayValue(value) {
@@ -252,9 +252,7 @@ export async function submitSurvey(formData) {
     managerial_delivery_impact: {
       schema_change_underestimation_frequency:
         formData.schema_change_underestimation_frequency,
-      missed_planning_factors: joinArrayValue(
-        formData.missed_planning_factors,
-      ),
+      missed_planning_factors: joinArrayValue(formData.missed_planning_factors),
       missed_planning_factors_other: formData.missed_planning_factors_other,
       release_timeline_impact: formData.release_timeline_impact,
       developer_stress_impact: formData.developer_stress_impact,
@@ -278,6 +276,11 @@ export async function submitSurvey(formData) {
         formData.most_useful_managerial_metric_other,
       planning_advice_for_leads: formData.planning_advice_for_leads,
       resource_allocation_advice: formData.resource_allocation_advice,
+    },
+    final_reflection: {
+      biggest_hidden_cost: formData.biggest_hidden_cost,
+      one_process_improvement: formData.one_process_improvement,
+      additional_comments: formData.additional_comments,
     },
   };
 

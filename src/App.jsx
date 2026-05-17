@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import ComparativeEvaluation from './components/ComparativeEvaluation'
 import ConsentSection from './components/ConsentSection'
+import FinalReflection from './components/FinalReflection'
 import ManagerialDeliveryImpact from './components/ManagerialDeliveryImpact'
 import ParticipantBackground from './components/ParticipantBackground'
 import ScenarioMultiModel from './components/ScenarioMultiModel'
@@ -199,6 +200,9 @@ const initialFormData = {
   most_useful_managerial_metric_other: '',
   planning_advice_for_leads: '',
   resource_allocation_advice: '',
+  biggest_hidden_cost: '',
+  one_process_improvement: '',
+  additional_comments: '',
 }
 
 function validateSectionOne(formData) {
@@ -924,6 +928,16 @@ function App() {
     }
   }
 
+  function handleManagerialDeliveryImpactNext() {
+    const nextErrors = validateManagerialDeliveryImpact(normalizedFormData)
+    setErrors(nextErrors)
+
+    if (Object.keys(nextErrors).length === 0) {
+      setStep(10)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }
+
   async function handleSubmit() {
     const sectionOneErrors = validateSectionOne(normalizedFormData)
     const sectionTwoErrors = validateSectionTwo(normalizedFormData)
@@ -1079,12 +1093,23 @@ function App() {
       )
     }
 
+    if (step === 9) {
+      return (
+        <ManagerialDeliveryImpact
+          formData={normalizedFormData}
+          errors={errors}
+          onChange={handleChange}
+          onBack={() => setStep(8)}
+          onNext={handleManagerialDeliveryImpactNext}
+        />
+      )
+    }
+
     return (
-      <ManagerialDeliveryImpact
+      <FinalReflection
         formData={normalizedFormData}
-        errors={errors}
         onChange={handleChange}
-        onBack={() => setStep(8)}
+        onBack={() => setStep(9)}
         onSubmit={handleSubmit}
         isSubmitting={isSubmitting}
         submissionError={submissionError}
@@ -1099,12 +1124,12 @@ function App() {
           <header className="survey-header">
             <p className="eyebrow">MSc Research Survey</p>
             <h1>Schema Evolution in Microservice Persistence</h1>
-            <div className="progress-wrap" aria-label={`Step ${step} of 9`}>
-              <div className="progress-text">Step {step} of 9</div>
+            <div className="progress-wrap" aria-label={`Step ${step} of 10`}>
+              <div className="progress-text">Step {step} of 10</div>
               <div className="progress-track">
                 <div
                   className="progress-fill"
-                  style={{ width: `${(step / 9) * 100}%` }}
+                  style={{ width: `${(step / 10) * 100}%` }}
                 />
               </div>
             </div>

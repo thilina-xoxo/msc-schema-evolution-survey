@@ -743,6 +743,56 @@ tr:last-child td {
   border-left: 3px solid var(--border-strong);
 }
 
+.privacy-note {
+  margin: 28px 0;
+  padding: 18px;
+  border: 1px solid rgba(255, 138, 138, 0.34);
+  border-left: 4px solid var(--danger);
+  border-radius: 8px;
+  background: var(--danger-bg);
+}
+
+.privacy-note h3,
+.final-thank-you-card h3 {
+  margin: 0 0 10px;
+  color: var(--heading);
+  font-size: 1.1rem;
+  line-height: 1.35;
+}
+
+.privacy-note p,
+.final-thank-you-card p {
+  margin: 0 0 12px;
+  color: var(--text);
+}
+
+.privacy-note p:last-child,
+.final-thank-you-card p:last-child {
+  margin-bottom: 0;
+}
+
+.reflection-section {
+  display: grid;
+  gap: 18px;
+}
+
+.reflection-section > .question {
+  margin-bottom: 0;
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-raised);
+}
+
+.final-thank-you-card {
+  margin-top: 28px;
+  padding: 22px;
+  border: 1px solid rgba(74, 222, 128, 0.34);
+  border-left: 4px solid var(--success-text);
+  border-radius: 8px;
+  background: var(--success-bg);
+}
+
 .placeholder-panel p,
 .success-panel p {
   margin: 0;
@@ -899,6 +949,12 @@ button:disabled {
 
   .delivery-group > .question.nested {
     margin-left: 0;
+  }
+
+  .privacy-note,
+  .reflection-section > .question,
+  .final-thank-you-card {
+    padding: 16px;
   }
 
   .iframe-wrap {

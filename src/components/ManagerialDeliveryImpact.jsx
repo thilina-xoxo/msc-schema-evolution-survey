@@ -141,9 +141,7 @@ function ManagerialDeliveryImpact({
   errors,
   onChange,
   onBack,
-  onSubmit,
-  isSubmitting,
-  submissionError,
+  onNext,
 }) {
   const missedPlanningFactors = formData.missed_planning_factors || []
   const deliveryRiskWarningSigns = formData.delivery_risk_warning_signs || []
@@ -266,14 +264,12 @@ function ManagerialDeliveryImpact({
         </DeliveryGroup>
       </div>
 
-      {submissionError && <p className="form-error">{submissionError}</p>}
-
       <div className="button-row split">
-        <button type="button" className="secondary-button" onClick={onBack} disabled={isSubmitting}>
+        <button type="button" className="secondary-button" onClick={onBack}>
           Back
         </button>
-        <button type="button" className="primary-button" onClick={onSubmit} disabled={isSubmitting}>
-          {isSubmitting ? 'Submitting...' : 'Submit Current Response'}
+        <button type="button" className="primary-button" onClick={onNext}>
+          Next
         </button>
       </div>
     </section>
