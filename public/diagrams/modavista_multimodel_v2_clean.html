@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans,sans-serif);background:transparent;overflow-x:auto;padding:8px 0}
+svg text{font-family:var(--font-sans,sans-serif)}
+</style>
+</head>
+<body>
+<svg width="100%" viewBox="0 0 1600 1020" xmlns="http://www.w3.org/2000/svg">
+<title>ModaVista Multi-Model Persistence Architecture</title>
+<defs>
+  <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+    <path d="M2 2L8 5L2 8" fill="none" stroke="context-stroke" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
+
+<!-- ═══════════════════════════════════════════════════════
+     COLUMN BACKGROUNDS  y=26 → y=626
+     col w=238, gap=14, start x=14
+     centres: 133, 385, 637, 889, 1141, 1393
+═══════════════════════════════════════════════════════ -->
+<rect x="14"   y="26" width="238" height="600" rx="10" fill="#E6F1FB" fill-opacity=".13" stroke="#378ADD" stroke-width="0.8" stroke-dasharray="5,4"/>
+<rect x="266"  y="26" width="238" height="600" rx="10" fill="#EAF3DE" fill-opacity=".13" stroke="#639922" stroke-width="0.8" stroke-dasharray="5,4"/>
+<rect x="518"  y="26" width="238" height="600" rx="10" fill="#FAEEDA" fill-opacity=".13" stroke="#BA7517" stroke-width="0.8" stroke-dasharray="5,4"/>
+<rect x="770"  y="26" width="238" height="600" rx="10" fill="#FAECE7" fill-opacity=".13" stroke="#D85A30" stroke-width="0.8" stroke-dasharray="5,4"/>
+<rect x="1022" y="26" width="238" height="600" rx="10" fill="#EEEDFE" fill-opacity=".13" stroke="#7F77DD" stroke-width="0.8" stroke-dasharray="5,4"/>
+<rect x="1274" y="26" width="238" height="600" rx="10" fill="#E1F5EE" fill-opacity=".13" stroke="#1D9E75" stroke-width="0.8" stroke-dasharray="5,4"/>
+
+<!-- ═══════════════════════════════════════════════════════
+     ROW 0 — CUSTOMER CHANNELS  y=34 h=50
+═══════════════════════════════════════════════════════ -->
+<rect x="14" y="34" width="1572" height="50" rx="8" fill="#E6F1FB" fill-opacity=".28" stroke="#378ADD" stroke-width="0.6"/>
+<text font-size="9" font-weight="500" fill="#185FA5" x="28" y="44" dominant-baseline="central" opacity=".65">Customer channels</text>
+<!-- Web -->
+<rect x="60"   y="38" width="146" height="38" rx="6" fill="#E6F1FB" stroke="#378ADD" stroke-width="1.2"/>
+<text font-size="11" font-weight="500" fill="#0C447C" text-anchor="middle" x="133" y="52" dominant-baseline="central">Web storefront</text>
+<text font-size="9"  fill="#185FA5" text-anchor="middle" x="133" y="67" dominant-baseline="central">React / Next.js · HTTPS</text>
+<!-- Mobile -->
+<rect x="726"  y="38" width="146" height="38" rx="6" fill="#E6F1FB" stroke="#378ADD" stroke-width="1.2"/>
+<text font-size="11" font-weight="500" fill="#0C447C" text-anchor="middle" x="799" y="52" dominant-baseline="central">Mobile app</text>
+<text font-size="9"  fill="#185FA5" text-anchor="middle" x="799" y="67" dominant-baseline="central">React Native · HTTPS</text>
+<!-- Admin -->
+<rect x="1394" y="38" width="146" height="38" rx="6" fill="#F1EFE8" stroke="#888780" stroke-width="1.2"/>
+<text font-size="11" font-weight="500" fill="#444441" text-anchor="middle" x="1467" y="52" dominant-baseline="central">Admin portal</text>
+<text font-size="9"  fill="#5F5E5A" text-anchor="middle" x="1467" y="67" dominant-baseline="central">Internal ops · HTTPS</text>
+
+<!-- ═══════════════════════════════════════════════════════
+     ROW 1 — API GATEWAY + BFF  y=100 h=46
+═══════════════════════════════════════════════════════ -->
+<rect x="14" y="100" width="1572" height="46" rx="8" fill="#EEEDFE" fill-opacity=".22" stroke="#534AB7" stroke-width="0.6"/>
+<text font-size="9" font-weight="500" fill="#534AB7" x="28" y="110" dominant-baseline="central" opacity=".65">API &amp; experience layer</text>
+<!-- GW -->
+<rect x="416" y="104" width="208" height="36" rx="7" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.5"/>
+<text font-size="11" font-weight="500" fill="#3C3489" text-anchor="middle" x="520" y="117" dominant-baseline="central">API Gateway</text>
+<text font-size="9"  fill="#534AB7" text-anchor="middle" x="520" y="131" dominant-baseline="central">Kong · Auth · Rate-limit · Routing</text>
+<!-- BFF -->
+<rect x="946" y="104" width="208" height="36" rx="7" fill="#EEEDFE" stroke="#534AB7" stroke-width="1.5"/>
+<text font-size="11" font-weight="500" fill="#3C3489" text-anchor="middle" x="1050" y="117" dominant-baseline="central">BFF / Experience API</text>
+<text font-size="9"  fill="#534AB7" text-anchor="middle" x="1050" y="131" dominant-baseline="central">Node.js · GraphQL · SET Team</text>
+
+<!-- Client → GW / BFF via shared rail y=92 -->
+<line x1="133"  y1="76" x2="133"  y2="92" stroke="#378ADD" stroke-width="1.2" fill="none"/>
+<line x1="799"  y1="76" x2="799"  y2="92" stroke="#378ADD" stroke-width="1.2" fill="none"/>
+<line x1="1467" y1="76" x2="1467" y2="92" stroke="#888780" stroke-width="1.2" fill="none"/>
+<path d="M133 92 L520 92 L520 104"  stroke="#378ADD" stroke-width="1.2" fill="none" marker-end="url(#a)"/>
+<path d="M799 92 L520 92"          stroke="#378ADD" stroke-width="1.2" fill="none"/>
+<path d="M1467 92 L1050 92 L1050 104" stroke="#888780" stroke-width="1.2" fill="none" marker-end="url(#a)"/>
+<!-- GW ↔ BFF -->
+<line x1="624" y1="122" x2="946" y2="122" stroke="#7F77DD" stroke-width="1.2" fill="none" marker-end="url(#a)"/>
+
+<!-- ═══════════════════════════════════════════════════════
+     ROW 2 — TEAM LABELS  y=162 h=20
+═══════════════════════════════════════════════════════ -->
+<rect x="22"   y="162" width="222" height="18" rx="4" fill="#E6F1FB" stroke="#378ADD" stroke-width="0.6"/>
+<text font-size="8.5" font-weight="500" fill="#0C447C" text-anchor="middle" x="133" y="171" dominant-baseline="central">CIT — Customer Identity &amp; Trust</text>
+<rect x="274"  y="162" width="222" height="18" rx="4" fill="#EAF3DE" stroke="#639922" stroke-width="0.6"/>
+<text font-size="8.5" font-weight="500" fill="#27500A" text-anchor="middle" x="385" y="171" dominant-baseline="central">CAT — Catalogue Intelligence</text>
+<rect x="526"  y="162" width="222" height="18" rx="4" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.6"/>
+<text font-size="8.5" font-weight="500" fill="#633806" text-anchor="middle" x="637" y="171" dominant-baseline="central">COT — Checkout &amp; Orders</text>
+<rect x="778"  y="162" width="222" height="18" rx="4" fill="#FAECE7" stroke="#D85A30" stroke-width="0.6"/>
+<text font-size="8.5" font-weight="500" fill="#712B13" text-anchor="middle" x="889" y="171" dominant-baseline="central">SFT — Stock &amp; Fulfilment</text>
+<rect x="1030" y="162" width="222" height="18" rx="4" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.6"/>
+<text font-size="8.5" font-weight="500" fill="#3C3489" text-anchor="middle" x="1141" y="171" dominant-baseline="central">PDT — Personalization &amp; Discovery</text>
+<rect x="1282" y="162" width="222" height="18" rx="4" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.6"/>
+<text font-size="8.5" font-weight="500" fill="#085041" text-anchor="middle" x="1393" y="171" dominant-baseline="central">SET — Search Experience</text>
+
+<!-- ═══════════════════════════════════════════════════════
+     ROW 3 — SERVICES  y=188  h=78
+     Bottom of services = 266
+     Producer/Consumer badges sit inside box, no overlap
+═══════════════════════════════════════════════════════ -->
+
+<!-- CIT: Customer Service -->
+<rect x="26"  y="188" width="214" height="78" rx="7" fill="#E6F1FB" stroke="#378ADD" stroke-width="1.4"/>
+<text font-size="11" font-weight="500" fill="#0C447C" text-anchor="middle" x="133" y="207" dominant-baseline="central">Customer Service</text>
+<text font-size="9"  fill="#185FA5" text-anchor="middle" x="133" y="223" dominant-baseline="central">Identity · profile · GDPR</text>
+<text font-size="8"  fill="#854F0B" text-anchor="middle" x="133" y="238" dominant-baseline="central">→ Document model</text>
+<rect x="82"  y="249" width="52" height="13" rx="3" fill="#D85A30" fill-opacity=".12" stroke="#D85A30" stroke-width="0.7"/>
+<text font-size="7.5" font-weight="500" fill="#712B13" text-anchor="middle" x="108" y="256" dominant-baseline="central">Producer</text>
+
+<!-- CAT: Product Catalogue -->
+<rect x="278" y="188" width="214" height="78" rx="7" fill="#EAF3DE" stroke="#639922" stroke-width="1.4"/>
+<text font-size="11" font-weight="500" fill="#27500A" text-anchor="middle" x="385" y="207" dominant-baseline="central">Product Catalogue Svc</text>
+<text font-size="9"  fill="#3B6D11" text-anchor="middle" x="385" y="223" dominant-baseline="central">SKU · variants · pricing</text>
+<text font-size="8"  fill="#854F0B" text-anchor="middle" x="385" y="238" dominant-baseline="central">→ Document + Relational</text>
+<rect x="334" y="249" width="52" height="13" rx="3" fill="#D85A30" fill-opacity=".12" stroke="#D85A30" stroke-width="0.7"/>
+<text font-size="7.5" font-weight="500" fill="#712B13" text-anchor="middle" x="360" y="256" dominant-baseline="central">Producer</text>
+
+<!-- COT: Cart -->
+<rect x="530" y="188" width="98" height="78" rx="7" fill="#FAEEDA" stroke="#BA7517" stroke-width="1.4"/>
+<text font-size="10" font-weight="500" fill="#633806" text-anchor="middle" x="579" y="207" dominant-baseline="central">Cart Svc</text>
+<text font-size="9"  fill="#854F0B" text-anchor="middle" x="579" y="223" dominant-baseline="central">Session · TTL</text>
+<text font-size="8"  fill="#854F0B" text-anchor="middle" x="579" y="238" dominant-baseline="central">→ Key-Value</text>
+
+<!-- COT: Order -->
+<rect x="640" y="188" width="108" height="78" rx="7" fill="#FAEEDA" stroke="#BA7517" stroke-width="1.4"/>
+<text font-size="10" font-weight="500" fill="#633806" text-anchor="middle" x="694" y="207" dominant-baseline="central">Order Svc</text>
+<text font-size="9"  fill="#854F0B" text-anchor="middle" x="694" y="223" dominant-baseline="central">Lifecycle · status</text>
+<text font-size="8"  fill="#854F0B" text-anchor="middle" x="694" y="238" dominant-baseline="central">→ Relational</text>
+<rect x="648" y="249" width="64" height="13" rx="3" fill="#D85A30" fill-opacity=".12" stroke="#D85A30" stroke-width="0.7"/>
+<text font-size="7.5" font-weight="500" fill="#712B13" text-anchor="middle" x="680" y="256" dominant-baseline="central">Producer</text>
+
+<!-- COT: Payment badge -->
+<rect x="640" y="272" width="108" height="24" rx="5" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.9"/>
+<text font-size="8.5" font-weight="500" fill="#633806" text-anchor="middle" x="694" y="284" dominant-baseline="central">Payment Ref → Relational</text>
+
+<!-- SFT: Inventory -->
+<rect x="782"  y="188" width="104" height="78" rx="7" fill="#FAECE7" stroke="#D85A30" stroke-width="1.4"/>
+<text font-size="10" font-weight="500" fill="#712B13" text-anchor="middle" x="834" y="207" dominant-baseline="central">Inventory Svc</text>
+<text font-size="9"  fill="#993C1D" text-anchor="middle" x="834" y="223" dominant-baseline="central">Stock · reserve</text>
+<text font-size="8"  fill="#854F0B" text-anchor="middle" x="834" y="238" dominant-baseline="central">→ Relational</text>
+<rect x="806"  y="249" width="56" height="13" rx="3" fill="#D85A30" fill-opacity=".12" stroke="#D85A30" stroke-width="0.7"/>
+<text font-size="7.5" font-weight="500" fill="#712B13" text-anchor="middle" x="834" y="256" dominant-baseline="central">Producer</text>
+
+<!-- SFT: Fulfilment -->
+<rect x="896"  y="188" width="104" height="78" rx="7" fill="#FAECE7" stroke="#D85A30" stroke-width="1.4"/>
+<text font-size="10" font-weight="500" fill="#712B13" text-anchor="middle" x="948" y="207" dominant-baseline="central">Fulfilment Svc</text>
+<text font-size="9"  fill="#993C1D" text-anchor="middle" x="948" y="223" dominant-baseline="central">Shipment · track</text>
+<text font-size="8"  fill="#854F0B" text-anchor="middle" x="948" y="238" dominant-baseline="central">→ Relational</text>
+<rect x="920"  y="249" width="56" height="13" rx="3" fill="#D85A30" fill-opacity=".12" stroke="#D85A30" stroke-width="0.7"/>
+<text font-size="7.5" font-weight="500" fill="#712B13" text-anchor="middle" x="948" y="256" dominant-baseline="central">Producer</text>
+
+<!-- SFT: Returns badge -->
+<rect x="820"  y="272" width="148" height="24" rx="5" fill="#FAECE7" stroke="#D85A30" stroke-width="0.9"/>
+<text font-size="8.5" font-weight="500" fill="#712B13" text-anchor="middle" x="894" y="284" dominant-baseline="central">Returns Svc → Relational</text>
+
+<!-- PDT: Recom -->
+<rect x="1034" y="188" width="104" height="78" rx="7" fill="#EEEDFE" stroke="#7F77DD" stroke-width="1.4"/>
+<text font-size="10" font-weight="500" fill="#3C3489" text-anchor="middle" x="1086" y="207" dominant-baseline="central">Recom. Svc</text>
+<text font-size="9"  fill="#534AB7" text-anchor="middle" x="1086" y="223" dominant-baseline="central">Graph · suggest</text>
+<text font-size="8"  fill="#854F0B" text-anchor="middle" x="1086" y="238" dominant-baseline="central">→ Graph model</text>
+<rect x="1042" y="249" width="88" height="13" rx="3" fill="#1D9E75" fill-opacity=".12" stroke="#1D9E75" stroke-width="0.7"/>
+<text font-size="7.5" font-weight="500" fill="#085041" text-anchor="middle" x="1086" y="256" dominant-baseline="central">Consumer</text>
+
+<!-- PDT: Personal -->
+<rect x="1150" y="188" width="104" height="78" rx="7" fill="#EEEDFE" stroke="#7F77DD" stroke-width="1.4"/>
+<text font-size="10" font-weight="500" fill="#3C3489" text-anchor="middle" x="1202" y="207" dominant-baseline="central">Personal. Svc</text>
+<text font-size="9"  fill="#534AB7" text-anchor="middle" x="1202" y="223" dominant-baseline="central">Behaviour model</text>
+<text font-size="8"  fill="#854F0B" text-anchor="middle" x="1202" y="238" dominant-baseline="central">→ Doc + Graph</text>
+<rect x="1156" y="249" width="92" height="13" rx="3" fill="#1D9E75" fill-opacity=".12" stroke="#1D9E75" stroke-width="0.7"/>
+<text font-size="7.5" font-weight="500" fill="#085041" text-anchor="middle" x="1202" y="256" dominant-baseline="central">Consumer</text>
+
+<!-- SET: Search -->
+<rect x="1286" y="188" width="104" height="78" rx="7" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1.4"/>
+<text font-size="10" font-weight="500" fill="#085041" text-anchor="middle" x="1338" y="207" dominant-baseline="central">Search Svc</text>
+<text font-size="9"  fill="#0F6E56" text-anchor="middle" x="1338" y="223" dominant-baseline="central">Index · filter</text>
+<text font-size="8"  fill="#854F0B" text-anchor="middle" x="1338" y="238" dominant-baseline="central">→ Elasticsearch</text>
+<rect x="1290" y="249" width="96" height="13" rx="3" fill="#1D9E75" fill-opacity=".12" stroke="#1D9E75" stroke-width="0.7"/>
+<text font-size="7.5" font-weight="500" fill="#085041" text-anchor="middle" x="1338" y="256" dominant-baseline="central">Consumer</text>
+
+<!-- SET: Experience API -->
+<rect x="1402" y="188" width="104" height="78" rx="7" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1.4"/>
+<text font-size="10" font-weight="500" fill="#085041" text-anchor="middle" x="1454" y="207" dominant-baseline="central">Experience API</text>
+<text font-size="9"  fill="#0F6E56" text-anchor="middle" x="1454" y="223" dominant-baseline="central">Aggregates BFF</text>
+
+<!-- GW/BFF → services fan via shared rail y=180 -->
+<path d="M520 140 L520 180 L133 180 L133 188"  stroke="#7F77DD" stroke-width="1" stroke-dasharray="5,3" fill="none" marker-end="url(#a)"/>
+<path d="M520 140 L520 180 L385 180 L385 188"  stroke="#7F77DD" stroke-width="1" stroke-dasharray="5,3" fill="none" marker-end="url(#a)"/>
+<path d="M520 140 L520 180 L579 180 L579 188"  stroke="#7F77DD" stroke-width="1" stroke-dasharray="5,3" fill="none" marker-end="url(#a)"/>
+<path d="M520 140 L520 180 L694 180 L694 188"  stroke="#7F77DD" stroke-width="1" stroke-dasharray="5,3" fill="none" marker-end="url(#a)"/>
+<path d="M1050 140 L1050 180 L1086 180 L1086 188" stroke="#7F77DD" stroke-width="1" stroke-dasharray="5,3" fill="none" marker-end="url(#a)"/>
+<path d="M1050 140 L1050 180 L1202 180 L1202 188" stroke="#7F77DD" stroke-width="1" stroke-dasharray="5,3" fill="none" marker-end="url(#a)"/>
+<path d="M1050 140 L1050 180 L1338 180 L1338 188" stroke="#7F77DD" stroke-width="1" stroke-dasharray="5,3" fill="none" marker-end="url(#a)"/>
+<path d="M1050 140 L1050 180 L1454 180 L1454 188" stroke="#7F77DD" stroke-width="1" stroke-dasharray="5,3" fill="none" marker-end="url(#a)"/>
+
+<!-- ═══════════════════════════════════════════════════════
+     KAFKA EVENT BUS  y=314 h=60
+     Producer arrows: service bottom (266) → drop to y=306 rail → kafka top (314)
+     Consumer arrows: kafka bottom (374) → rise to y=382 rail → up to service bottom (266)
+═══════════════════════════════════════════════════════ -->
+<rect x="14" y="314" width="1572" height="60" rx="10" fill="#FAECE7" fill-opacity=".45" stroke="#D85A30" stroke-width="1.2"/>
+
+<!-- Kafka core box -->
+<rect x="330" y="322" width="640" height="44" rx="7" fill="#FAECE7" stroke="#D85A30" stroke-width="1.6"/>
+<text font-size="12" font-weight="500" fill="#712B13" text-anchor="middle" x="650" y="340" dominant-baseline="central">Apache Kafka — Event Bus</text>
+<text font-size="8.5" fill="#993C1D" text-anchor="middle" x="650" y="356" dominant-baseline="central">CustomerRegistered · ProductUpdated · OrderCreated · InventoryReserved · ShipmentDispatched · ReturnRequested</text>
+
+<!-- Schema Registry -->
+<rect x="1086" y="324" width="180" height="40" rx="6" fill="#FBEAF0" stroke="#D4537E" stroke-width="1.2"/>
+<text font-size="10" font-weight="500" fill="#72243E" text-anchor="middle" x="1176" y="338" dominant-baseline="central">Schema Registry</text>
+<text font-size="8.5" fill="#993556" text-anchor="middle" x="1176" y="354" dominant-baseline="central">Confluent · Avro · versioning</text>
+<line x1="1086" y1="344" x2="970" y2="344" stroke="#D4537E" stroke-width="1" fill="none" marker-end="url(#a)"/>
+
+<!-- Producer drop rail y=306 -->
+<line x1="133" y1="266" x2="133" y2="306" stroke="#D85A30" stroke-width="1.3" fill="none"/>
+<path d="M133 306 L133 314" stroke="#D85A30" stroke-width="1.3" fill="none" marker-end="url(#a)"/>
+
+<line x1="385" y1="266" x2="385" y2="306" stroke="#D85A30" stroke-width="1.3" fill="none"/>
+<path d="M385 306 L385 314" stroke="#D85A30" stroke-width="1.3" fill="none" marker-end="url(#a)"/>
+
+<line x1="694" y1="266" x2="694" y2="306" stroke="#D85A30" stroke-width="1.3" fill="none"/>
+<path d="M694 306 L694 314" stroke="#D85A30" stroke-width="1.3" fill="none" marker-end="url(#a)"/>
+
+<line x1="834" y1="266" x2="834" y2="306" stroke="#D85A30" stroke-width="1.3" fill="none"/>
+<path d="M834 306 L834 314" stroke="#D85A30" stroke-width="1.3" fill="none" marker-end="url(#a)"/>
+
+<line x1="948" y1="266" x2="948" y2="306" stroke="#D85A30" stroke-width="1.3" fill="none"/>
+<path d="M948 306 L948 314" stroke="#D85A30" stroke-width="1.3" fill="none" marker-end="url(#a)"/>
+
+<!-- Consumer rise rail y=382 → up into consumer services -->
+<!-- Recom x=1086 -->
+<path d="M620 374 L620 390 L1086 390 L1086 266" stroke="#1D9E75" stroke-width="1.3" fill="none" marker-end="url(#a)"/>
+<!-- Personal x=1202 -->
+<path d="M634 374 L634 398 L1202 398 L1202 266" stroke="#1D9E75" stroke-width="1.3" fill="none" marker-end="url(#a)"/>
+<!-- Search x=1338 -->
+<path d="M648 374 L648 406 L1338 406 L1338 266" stroke="#1D9E75" stroke-width="1.3" fill="none" marker-end="url(#a)"/>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION LABEL — operational persistence zone
+     y=426 (between Kafka bottom 374 and platform top 434)
+═══════════════════════════════════════════════════════ -->
+<text font-size="8.5" fill="#5F5E5A" x="14" y="422" dominant-baseline="central">Operational persistence — all teams write into one unified platform; each team retains logical ownership of its own data namespace</text>
+
+<!-- ═══════════════════════════════════════════════════════
+     UNIFIED MULTI-MODEL PLATFORM  y=432 h=198
+     Service bottom = 266 (or 296 for badges)
+     Write arrows: drop from service to y=424 rail → into platform top (432)
+     Keep arrows OUTSIDE the kafka band by routing through y=306 gap on LEFT side
+═══════════════════════════════════════════════════════ -->
+
+<!-- Platform outer -->
+<rect x="14" y="432" width="1358" height="200" rx="12" fill="#534AB7" fill-opacity=".05" stroke="#534AB7" stroke-width="1.8"/>
+
+<!-- Platform title — sits at top of platform with enough clearance -->
+<text font-size="12" font-weight="600" fill="#3C3489" text-anchor="middle" x="693" y="450" dominant-baseline="central">Unified Multi-Model Operational Persistence Platform</text>
+<text font-size="8.5" fill="#534AB7" text-anchor="middle" x="693" y="465" dominant-baseline="central">e.g. ArangoDB · FaunaDB · CosmosDB · Couchbase — one engine, multiple models, unified governance</text>
+
+<!-- Four model boxes — y=474, h=116 -->
+<!-- Document x=26 w=318 -->
+<rect x="26"  y="474" width="318" height="118" rx="7" fill="#E6F1FB" stroke="#378ADD" stroke-width="1.3"/>
+<text font-size="10" font-weight="500" fill="#0C447C" text-anchor="middle" x="185" y="492" dominant-baseline="central">Document Model</text>
+<text font-size="8.5" fill="#185FA5" text-anchor="middle" x="185" y="508" dominant-baseline="central">Flexible JSON-style documents</text>
+<text font-size="8.5" fill="#185FA5" text-anchor="middle" x="185" y="523" dominant-baseline="central">Customer profiles · preferences · consent</text>
+<text font-size="8.5" fill="#185FA5" text-anchor="middle" x="185" y="538" dominant-baseline="central">Product views · enrichment data</text>
+<text font-size="8.5" fill="#185FA5" text-anchor="middle" x="185" y="553" dominant-baseline="central">Personalization behaviour signals</text>
+<rect x="52"  y="566" width="266" height="20" rx="3" fill="#0C447C" fill-opacity=".07" stroke="#378ADD" stroke-width="0.5"/>
+<text font-size="7.5" fill="#0C447C" text-anchor="middle" x="185" y="576" dominant-baseline="central">CIT (Customer) · CAT (Product views) · PDT (Personal.)</text>
+
+<!-- Relational x=358 w=318 -->
+<rect x="358" y="474" width="318" height="118" rx="7" fill="#EAF3DE" stroke="#639922" stroke-width="1.3"/>
+<text font-size="10" font-weight="500" fill="#27500A" text-anchor="middle" x="517" y="492" dominant-baseline="central">Relational / Tabular Model</text>
+<text font-size="8.5" fill="#3B6D11" text-anchor="middle" x="517" y="508" dominant-baseline="central">Structured rows · ACID transactions</text>
+<text font-size="8.5" fill="#3B6D11" text-anchor="middle" x="517" y="523" dominant-baseline="central">Product master data · SKU · categories</text>
+<text font-size="8.5" fill="#3B6D11" text-anchor="middle" x="517" y="538" dominant-baseline="central">Orders · payments · invoices</text>
+<text font-size="8.5" fill="#3B6D11" text-anchor="middle" x="517" y="553" dominant-baseline="central">Inventory · fulfilment · returns</text>
+<rect x="368" y="566" width="298" height="20" rx="3" fill="#27500A" fill-opacity=".06" stroke="#639922" stroke-width="0.5"/>
+<text font-size="7.5" fill="#27500A" text-anchor="middle" x="517" y="576" dominant-baseline="central">CAT · COT (Order + Payment) · SFT (all 3 svcs)</text>
+
+<!-- Graph x=690 w=270 -->
+<rect x="690" y="474" width="270" height="118" rx="7" fill="#EEEDFE" stroke="#7F77DD" stroke-width="1.3"/>
+<text font-size="10" font-weight="500" fill="#3C3489" text-anchor="middle" x="825" y="492" dominant-baseline="central">Graph Model</text>
+<text font-size="8.5" fill="#534AB7" text-anchor="middle" x="825" y="508" dominant-baseline="central">Nodes · edges · traversal queries</text>
+<text font-size="8.5" fill="#534AB7" text-anchor="middle" x="825" y="523" dominant-baseline="central">Product similarity graph</text>
+<text font-size="8.5" fill="#534AB7" text-anchor="middle" x="825" y="538" dominant-baseline="central">Customer–product interactions</text>
+<text font-size="8.5" fill="#534AB7" text-anchor="middle" x="825" y="553" dominant-baseline="central">"Customers also bought" signals</text>
+<rect x="706" y="566" width="238" height="20" rx="3" fill="#3C3489" fill-opacity=".06" stroke="#7F77DD" stroke-width="0.5"/>
+<text font-size="7.5" fill="#3C3489" text-anchor="middle" x="825" y="576" dominant-baseline="central">PDT Team (Recom. + Personal.)</text>
+
+<!-- Key-Value x=974 w=234 -->
+<rect x="974" y="474" width="234" height="118" rx="7" fill="#FAEEDA" stroke="#BA7517" stroke-width="1.3"/>
+<text font-size="10" font-weight="500" fill="#633806" text-anchor="middle" x="1091" y="492" dominant-baseline="central">Key-Value Model</text>
+<text font-size="8.5" fill="#854F0B" text-anchor="middle" x="1091" y="508" dominant-baseline="central">Sub-millisecond lookups</text>
+<text font-size="8.5" fill="#854F0B" text-anchor="middle" x="1091" y="523" dominant-baseline="central">Cart sessions · TTL expiry</text>
+<text font-size="8.5" fill="#854F0B" text-anchor="middle" x="1091" y="538" dominant-baseline="central">Ephemeral state</text>
+<text font-size="8.5" fill="#854F0B" text-anchor="middle" x="1091" y="553" dominant-baseline="central">No separate Redis needed</text>
+<rect x="990" y="566" width="202" height="20" rx="3" fill="#633806" fill-opacity=".06" stroke="#BA7517" stroke-width="0.5"/>
+<text font-size="7.5" fill="#633806" text-anchor="middle" x="1091" y="576" dominant-baseline="central">COT Team (Cart Svc only)</text>
+
+<!-- Governance bar -->
+<rect x="26" y="600" width="1330" height="22" rx="5" fill="#534AB7" fill-opacity=".09" stroke="#534AB7" stroke-width="0.8"/>
+<text font-size="8.5" font-weight="500" fill="#3C3489" text-anchor="middle" x="691" y="611" dominant-baseline="central">Unified Governance — shared query engine · access control · backup &amp; recovery · monitoring · schema versioning · PRT Team oversight</text>
+
+<!-- ═══════════════════════════════════════════════════════
+     ELASTICSEARCH — separate, right of platform  y=432
+═══════════════════════════════════════════════════════ -->
+<rect x="1386" y="432" width="200" height="200" rx="10" fill="#FAEEDA" fill-opacity=".5" stroke="#BA7517" stroke-width="1.4" stroke-dasharray="6,3"/>
+<text font-size="9" font-weight="500" fill="#633806" text-anchor="middle" x="1486" y="450" dominant-baseline="central">Specialised Search</text>
+<text font-size="8.5" fill="#854F0B" text-anchor="middle" x="1486" y="464" dominant-baseline="central">Projection (separate engine)</text>
+<rect x="1398" y="474" width="176" height="118" rx="7" fill="#FAEEDA" stroke="#BA7517" stroke-width="1.3"/>
+<text font-size="11" font-weight="500" fill="#633806" text-anchor="middle" x="1486" y="494" dominant-baseline="central">Elasticsearch</text>
+<text font-size="8.5" fill="#854F0B" text-anchor="middle" x="1486" y="511" dominant-baseline="central">Inverted index</text>
+<text font-size="8.5" fill="#854F0B" text-anchor="middle" x="1486" y="527" dominant-baseline="central">Product search · filters</text>
+<text font-size="8.5" fill="#854F0B" text-anchor="middle" x="1486" y="543" dominant-baseline="central">Ranking · autocomplete</text>
+<rect x="1406" y="566" width="160" height="20" rx="3" fill="#633806" fill-opacity=".07" stroke="#BA7517" stroke-width="0.5"/>
+<text font-size="7.5" fill="#633806" text-anchor="middle" x="1486" y="576" dominant-baseline="central">Rebuilt from Kafka events</text>
+<!-- Governance placeholder row for Elastic col alignment -->
+<rect x="1386" y="600" width="200" height="22" rx="5" fill="#BA7517" fill-opacity=".07" stroke="#BA7517" stroke-width="0.5"/>
+<text font-size="8" fill="#854F0B" text-anchor="middle" x="1486" y="611" dominant-baseline="central">SET Team · Search Svc only</text>
+
+<!-- Service → Platform write arrows
+     Route: straight down from service bottom (266), skip across Kafka band
+     using a LEFT side bypass corridor x=20, connecting to platform top (432)
+     Then L-bend right to each model centre -->
+
+<!-- CIT Customer(133) → Document(185) -->
+<line x1="133" y1="266" x2="133" y2="306" stroke="#378ADD" stroke-width="1.1" stroke-dasharray="4,3" fill="none"/>
+<!-- skip kafka 314-374 via left corridor x=22 -->
+<path d="M133 306 L22 306 L22 424 L185 424 L185 474" stroke="#378ADD" stroke-width="1.1" stroke-dasharray="4,3" fill="none" marker-end="url(#a)"/>
+
+<!-- CAT Product(385) → Document(185) + Relational(517) -->
+<line x1="362" y1="266" x2="362" y2="308" stroke="#378ADD" stroke-width="1" stroke-dasharray="4,3" fill="none"/>
+<path d="M362 308 L32 308 L32 426 L165 426 L165 474" stroke="#378ADD" stroke-width="1" stroke-dasharray="4,3" fill="none" marker-end="url(#a)"/>
+<line x1="408" y1="266" x2="408" y2="310" stroke="#639922" stroke-width="1" stroke-dasharray="4,3" fill="none"/>
+<path d="M408 310 L42 310 L42 428 L517 428 L517 474" stroke="#639922" stroke-width="1" stroke-dasharray="4,3" fill="none" marker-end="url(#a)"/>
+
+<!-- COT Cart(579) → Key-Value(1091) -->
+<line x1="579" y1="266" x2="579" y2="308" stroke="#BA7517" stroke-width="1.1" stroke-dasharray="4,3" fill="none"/>
+<path d="M579 308 L52 308 L52 428 L1091 428 L1091 474" stroke="#BA7517" stroke-width="1.1" stroke-dasharray="4,3" fill="none" marker-end="url(#a)"/>
+
+<!-- COT Order(694) → Relational(517) -->
+<line x1="694" y1="266" x2="694" y2="310" stroke="#639922" stroke-width="1.1" stroke-dasharray="4,3" fill="none"/>
+<path d="M694 310 L62 310 L62 430 L537 430 L537 474" stroke="#639922" stroke-width="1.1" stroke-dasharray="4,3" fill="none" marker-end="url(#a)"/>
+
+<!-- SFT Inventory(834) → Relational(517) -->
+<line x1="834" y1="266" x2="834" y2="308" stroke="#888780" stroke-width="1.1" stroke-dasharray="4,3" fill="none"/>
+<path d="M834 308 L72 308 L72 432 L557 432 L557 474" stroke="#888780" stroke-width="1.1" stroke-dasharray="4,3" fill="none" marker-end="url(#a)"/>
+
+<!-- SFT Fulfilment(948) → Relational(517) -->
+<line x1="948" y1="266" x2="948" y2="310" stroke="#888780" stroke-width="1.1" stroke-dasharray="4,3" fill="none"/>
+<path d="M948 310 L82 310 L82 434 L577 434 L577 474" stroke="#888780" stroke-width="1.1" stroke-dasharray="4,3" fill="none" marker-end="url(#a)"/>
+
+<!-- PDT Recom(1086) → Graph(825) -->
+<line x1="1086" y1="266" x2="1086" y2="308" stroke="#7F77DD" stroke-width="1.1" stroke-dasharray="4,3" fill="none"/>
+<path d="M1086 308 L92 308 L92 436 L825 436 L825 474" stroke="#7F77DD" stroke-width="1.1" stroke-dasharray="4,3" fill="none" marker-end="url(#a)"/>
+
+<!-- PDT Personal(1202) → Document(185) + Graph(825) -->
+<line x1="1185" y1="266" x2="1185" y2="310" stroke="#378ADD" stroke-width="1" stroke-dasharray="4,3" fill="none"/>
+<path d="M1185 310 L102 310 L102 438 L205 438 L205 474" stroke="#378ADD" stroke-width="1" stroke-dasharray="4,3" fill="none" marker-end="url(#a)"/>
+<line x1="1219" y1="266" x2="1219" y2="312" stroke="#7F77DD" stroke-width="1" stroke-dasharray="4,3" fill="none"/>
+<path d="M1219 312 L112 312 L112 440 L845 440 L845 474" stroke="#7F77DD" stroke-width="1" stroke-dasharray="4,3" fill="none" marker-end="url(#a)"/>
+
+<!-- SET Search(1338) → Elasticsearch(1486) -->
+<line x1="1338" y1="266" x2="1338" y2="308" stroke="#BA7517" stroke-width="1.1" stroke-dasharray="4,3" fill="none"/>
+<path d="M1338 308 L1578 308 L1578 440 L1486 440 L1486 474" stroke="#BA7517" stroke-width="1.1" stroke-dasharray="4,3" fill="none" marker-end="url(#a)"/>
+
+<!-- ═══════════════════════════════════════════════════════
+     ANALYTICS PLATFORM  y=648 h=148
+═══════════════════════════════════════════════════════ -->
+<rect x="14" y="648" width="1572" height="150" rx="10" fill="#E1F5EE" fill-opacity=".18" stroke="#1D9E75" stroke-width="1"/>
+<text font-size="8.5" font-weight="500" fill="#085041" x="28" y="661" dominant-baseline="central">Central data &amp; analytics platform — DPA Team · async pipelines only · not an operational source of truth</text>
+
+<!-- Data Lake -->
+<rect x="26"  y="668" width="328" height="122" rx="7" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1.4"/>
+<text font-size="11" font-weight="500" fill="#085041" text-anchor="middle" x="190" y="690" dominant-baseline="central">Data Lake / Lakehouse</text>
+<text font-size="8.5" fill="#0F6E56" text-anchor="middle" x="190" y="708" dominant-baseline="central">S3 · Delta Lake · raw + curated zones</text>
+<text font-size="8.5" fill="#0F6E56" text-anchor="middle" x="190" y="724" dominant-baseline="central">ELT / CDC from unified platform</text>
+<text font-size="8.5" fill="#0F6E56" text-anchor="middle" x="190" y="740" dominant-baseline="central">Simpler vs polyglot's 7 adapters</text>
+<text font-size="8.5" fill="#0F6E56" text-anchor="middle" x="190" y="756" dominant-baseline="central">+ Kafka event streams</text>
+<!-- Warehouse -->
+<rect x="368" y="668" width="268" height="122" rx="7" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1.4"/>
+<text font-size="11" font-weight="500" fill="#085041" text-anchor="middle" x="502" y="690" dominant-baseline="central">Data Warehouse</text>
+<text font-size="8.5" fill="#0F6E56" text-anchor="middle" x="502" y="708" dominant-baseline="central">Snowflake / Redshift</text>
+<text font-size="8.5" fill="#0F6E56" text-anchor="middle" x="502" y="724" dominant-baseline="central">Modelled analytical tables</text>
+<text font-size="8.5" fill="#0F6E56" text-anchor="middle" x="502" y="740" dominant-baseline="central">Sales · inventory · returns</text>
+<!-- BI -->
+<rect x="650" y="668" width="248" height="122" rx="7" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1.4"/>
+<text font-size="11" font-weight="500" fill="#085041" text-anchor="middle" x="774" y="690" dominant-baseline="central">BI Dashboards</text>
+<text font-size="8.5" fill="#0F6E56" text-anchor="middle" x="774" y="708" dominant-baseline="central">Looker / Tableau</text>
+<text font-size="8.5" fill="#0F6E56" text-anchor="middle" x="774" y="724" dominant-baseline="central">Revenue · campaigns</text>
+<text font-size="8.5" fill="#0F6E56" text-anchor="middle" x="774" y="740" dominant-baseline="central">Executive reporting</text>
+<!-- ML -->
+<rect x="912" y="668" width="248" height="122" rx="7" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1.4"/>
+<text font-size="11" font-weight="500" fill="#085041" text-anchor="middle" x="1036" y="690" dominant-baseline="central">ML Feature Store</text>
+<text font-size="8.5" fill="#0F6E56" text-anchor="middle" x="1036" y="708" dominant-baseline="central">Feast / SageMaker</text>
+<text font-size="8.5" fill="#0F6E56" text-anchor="middle" x="1036" y="724" dominant-baseline="central">Recom. training datasets</text>
+<text font-size="8.5" fill="#0F6E56" text-anchor="middle" x="1036" y="740" dominant-baseline="central">Model experiments</text>
+<!-- PRT -->
+<rect x="1174" y="668" width="398" height="122" rx="7" fill="#F1EFE8" stroke="#888780" stroke-width="1.2"/>
+<text font-size="11" font-weight="500" fill="#444441" text-anchor="middle" x="1373" y="690" dominant-baseline="central">PRT Team — Platform Reliability</text>
+<text font-size="8.5" fill="#5F5E5A" text-anchor="middle" x="1373" y="708" dominant-baseline="central">CI/CD · Kubernetes · Cloud infra</text>
+<text font-size="8.5" fill="#5F5E5A" text-anchor="middle" x="1373" y="724" dominant-baseline="central">Monitoring · alerting · DB governance</text>
+<text font-size="8.5" fill="#5F5E5A" text-anchor="middle" x="1373" y="740" dominant-baseline="central">Backup · recovery · security policies</text>
+<text font-size="8.5" fill="#5F5E5A" text-anchor="middle" x="1373" y="756" dominant-baseline="central">Governs unified platform + analytics</text>
+
+<!-- Lake → Warehouse → BI → ML -->
+<line x1="354" y1="729" x2="368" y2="729" stroke="#1D9E75" stroke-width="1.3" fill="none" marker-end="url(#a)"/>
+<line x1="636" y1="729" x2="650" y2="729" stroke="#1D9E75" stroke-width="1.3" fill="none" marker-end="url(#a)"/>
+<line x1="898" y1="729" x2="912" y2="729" stroke="#1D9E75" stroke-width="1.3" fill="none" marker-end="url(#a)"/>
+
+<!-- Unified platform governance → Lake (single CDC arrow) -->
+<path d="M691 630 L691 642 L190 642 L190 668" stroke="#1D9E75" stroke-width="1.2" stroke-dasharray="6,3" fill="none" marker-end="url(#a)"/>
+<text font-size="8" fill="#085041" text-anchor="middle" x="430" y="638" dominant-baseline="central">ELT / CDC — single unified extract</text>
+
+<!-- Kafka → Lake -->
+<path d="M330 374 L330 642 L190 642" stroke="#1D9E75" stroke-width="0.9" stroke-dasharray="6,3" fill="none"/>
+
+<!-- Elasticsearch → Lake -->
+<path d="M1486 632 L1486 642 L210 642" stroke="#1D9E75" stroke-width="0.9" stroke-dasharray="6,3" fill="none"/>
+
+<!-- ═══════════════════════════════════════════════════════
+     LEGEND  y=810
+═══════════════════════════════════════════════════════ -->
+<rect x="14" y="808" width="1572" height="36" rx="6" fill="none" stroke="#D3D1C7" stroke-width="0.7"/>
+<line x1="32"   y1="826" x2="62"   y2="826" stroke="#7F77DD" stroke-width="1.2" stroke-dasharray="5,3" fill="none" marker-end="url(#a)"/>
+<text font-size="8.5" fill="#5F5E5A" x="68"   y="826" dominant-baseline="central">API / service call</text>
+<line x1="200"  y1="826" x2="230"  y2="826" stroke="#D85A30" stroke-width="1.3" fill="none" marker-end="url(#a)"/>
+<text font-size="8.5" fill="#5F5E5A" x="236"  y="826" dominant-baseline="central">Event → Kafka (producer)</text>
+<line x1="420"  y1="826" x2="450"  y2="826" stroke="#1D9E75" stroke-width="1.3" fill="none" marker-end="url(#a)"/>
+<text font-size="8.5" fill="#5F5E5A" x="456"  y="826" dominant-baseline="central">Kafka → service (consumer)</text>
+<line x1="650"  y1="826" x2="680"  y2="826" stroke="#534AB7" stroke-width="1.2" stroke-dasharray="4,3" fill="none" marker-end="url(#a)"/>
+<text font-size="8.5" fill="#5F5E5A" x="686"  y="826" dominant-baseline="central">Service → unified model (write, left-bypass routing)</text>
+<line x1="960"  y1="826" x2="990"  y2="826" stroke="#1D9E75" stroke-width="1" stroke-dasharray="6,3" fill="none" marker-end="url(#a)"/>
+<text font-size="8.5" fill="#5F5E5A" x="996"  y="826" dominant-baseline="central">ELT / CDC → analytics (async)</text>
+<rect x="1196" y="819" width="11" height="11" rx="2" fill="#534AB7" fill-opacity=".1" stroke="#534AB7" stroke-width="0.7"/>
+<text font-size="8.5" fill="#5F5E5A" x="1212" y="826" dominant-baseline="central">One platform · multiple models · shared governance</text>
+<rect x="1468" y="819" width="11" height="11" rx="2" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.7" stroke-dasharray="3,2"/>
+<text font-size="8.5" fill="#5F5E5A" x="1484" y="826" dominant-baseline="central">Elastic separate</text>
+</svg>
+</body></html>
