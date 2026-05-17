@@ -249,6 +249,36 @@ export async function submitSurvey(formData) {
         formData.organization_improvement_priority_other,
       tooling_gap_observation: formData.tooling_gap_observation,
     },
+    managerial_delivery_impact: {
+      schema_change_underestimation_frequency:
+        formData.schema_change_underestimation_frequency,
+      missed_planning_factors: joinArrayValue(
+        formData.missed_planning_factors,
+      ),
+      missed_planning_factors_other: formData.missed_planning_factors_other,
+      release_timeline_impact: formData.release_timeline_impact,
+      developer_stress_impact: formData.developer_stress_impact,
+      delivery_confidence_impact: formData.delivery_confidence_impact,
+      senior_architect_involvement_importance:
+        formData.senior_architect_involvement_importance,
+      cross_team_communication_importance:
+        formData.cross_team_communication_importance,
+      documentation_importance: formData.documentation_importance,
+      early_impact_analysis_importance:
+        formData.early_impact_analysis_importance,
+      schema_change_estimation_owner: formData.schema_change_estimation_owner,
+      delivery_risk_warning_signs: joinArrayValue(
+        formData.delivery_risk_warning_signs,
+      ),
+      delivery_risk_warning_signs_other:
+        formData.delivery_risk_warning_signs_other,
+      recommended_estimation_buffer: formData.recommended_estimation_buffer,
+      most_useful_managerial_metric: formData.most_useful_managerial_metric,
+      most_useful_managerial_metric_other:
+        formData.most_useful_managerial_metric_other,
+      planning_advice_for_leads: formData.planning_advice_for_leads,
+      resource_allocation_advice: formData.resource_allocation_advice,
+    },
   };
 
   await fetch(SCRIPT_URL, {

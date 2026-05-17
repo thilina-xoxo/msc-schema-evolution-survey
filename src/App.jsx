@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import ComparativeEvaluation from './components/ComparativeEvaluation'
 import ConsentSection from './components/ConsentSection'
+import ManagerialDeliveryImpact from './components/ManagerialDeliveryImpact'
 import ParticipantBackground from './components/ParticipantBackground'
 import ScenarioMultiModel from './components/ScenarioMultiModel'
 import ScenarioPolyglot from './components/ScenarioPolyglot'
@@ -180,6 +181,24 @@ const initialFormData = {
   organization_improvement_priority: '',
   organization_improvement_priority_other: '',
   tooling_gap_observation: '',
+  schema_change_underestimation_frequency: '',
+  missed_planning_factors: [],
+  missed_planning_factors_other: '',
+  release_timeline_impact: '',
+  developer_stress_impact: '',
+  delivery_confidence_impact: '',
+  senior_architect_involvement_importance: '',
+  cross_team_communication_importance: '',
+  documentation_importance: '',
+  early_impact_analysis_importance: '',
+  schema_change_estimation_owner: '',
+  delivery_risk_warning_signs: [],
+  delivery_risk_warning_signs_other: '',
+  recommended_estimation_buffer: '',
+  most_useful_managerial_metric: '',
+  most_useful_managerial_metric_other: '',
+  planning_advice_for_leads: '',
+  resource_allocation_advice: '',
 }
 
 function validateSectionOne(formData) {
@@ -737,6 +756,65 @@ function validateToolingPractices(formData) {
   return errors
 }
 
+function validateManagerialDeliveryImpact(formData) {
+  const errors = {}
+  const requiredFields = [
+    ['schema_change_underestimation_frequency', 'Please select how often schema changes are underestimated.'],
+    ['release_timeline_impact', 'Please rate the impact on release timelines.'],
+    ['developer_stress_impact', 'Please rate the impact on developer stress or workload pressure.'],
+    ['delivery_confidence_impact', 'Please rate the impact on delivery confidence.'],
+    ['senior_architect_involvement_importance', 'Please rate the importance of senior engineer or architect involvement.'],
+    ['cross_team_communication_importance', 'Please rate the importance of cross-team communication.'],
+    ['documentation_importance', 'Please rate the importance of documentation.'],
+    ['early_impact_analysis_importance', 'Please rate the importance of early impact analysis.'],
+    ['schema_change_estimation_owner', 'Please select who should mainly estimate schema evolution effort.'],
+    ['recommended_estimation_buffer', 'Please select the recommended estimation buffer.'],
+    ['most_useful_managerial_metric', 'Please select the most useful managerial metric.'],
+  ]
+
+  requiredFields.forEach(([fieldName, message]) => {
+    if (!formData[fieldName]) {
+      errors[fieldName] = message
+    }
+  })
+
+  if (formData.missed_planning_factors.length === 0) {
+    errors.missed_planning_factors =
+      'Please select at least one missed planning factor.'
+  }
+
+  if (
+    formData.missed_planning_factors.includes('Other') &&
+    !formData.missed_planning_factors_other.trim()
+  ) {
+    errors.missed_planning_factors_other =
+      'Please specify the missed planning factor.'
+  }
+
+  if (formData.delivery_risk_warning_signs.length === 0) {
+    errors.delivery_risk_warning_signs =
+      'Please select at least one delivery risk warning sign.'
+  }
+
+  if (
+    formData.delivery_risk_warning_signs.includes('Other') &&
+    !formData.delivery_risk_warning_signs_other.trim()
+  ) {
+    errors.delivery_risk_warning_signs_other =
+      'Please specify the delivery risk warning sign.'
+  }
+
+  if (
+    formData.most_useful_managerial_metric === 'Other' &&
+    !formData.most_useful_managerial_metric_other.trim()
+  ) {
+    errors.most_useful_managerial_metric_other =
+      'Please specify the managerial metric.'
+  }
+
+  return errors
+}
+
 function App() {
   const participantId = useMemo(() => getParticipantId(), [])
   const [step, setStep] = useState(1)
@@ -836,6 +914,16 @@ function App() {
     }
   }
 
+  function handleToolingPracticesNext() {
+    const nextErrors = validateToolingPractices(normalizedFormData)
+    setErrors(nextErrors)
+
+    if (Object.keys(nextErrors).length === 0) {
+      setStep(9)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }
+
   async function handleSubmit() {
     const sectionOneErrors = validateSectionOne(normalizedFormData)
     const sectionTwoErrors = validateSectionTwo(normalizedFormData)
@@ -846,6 +934,8 @@ function App() {
     const comparativeEvaluationErrors =
       validateComparativeEvaluation(normalizedFormData)
     const toolingPracticesErrors = validateToolingPractices(normalizedFormData)
+    const managerialDeliveryImpactErrors =
+      validateManagerialDeliveryImpact(normalizedFormData)
     const nextErrors = {
       ...sectionOneErrors,
       ...sectionTwoErrors,
@@ -855,6 +945,7 @@ function App() {
       ...scenarioMultiModelErrors,
       ...comparativeEvaluationErrors,
       ...toolingPracticesErrors,
+      ...managerialDeliveryImpactErrors,
     }
 
     setErrors(nextErrors)
@@ -862,7 +953,7 @@ function App() {
 
     if (Object.keys(nextErrors).length > 0) {
       setSubmissionError(
-        'Please complete all required consent, eligibility, background, architecture context, schema evolution experience, scenario, comparative evaluation, and tooling practices questions before submitting.',
+        'Please complete all required consent, eligibility, background, architecture context, schema evolution experience, scenario, comparative evaluation, tooling practices, and managerial delivery impact questions before submitting.',
       )
       return
     }
@@ -976,12 +1067,24 @@ function App() {
       )
     }
 
+    if (step === 8) {
+      return (
+        <ToolingPractices
+          formData={normalizedFormData}
+          errors={errors}
+          onChange={handleChange}
+          onBack={() => setStep(7)}
+          onNext={handleToolingPracticesNext}
+        />
+      )
+    }
+
     return (
-      <ToolingPractices
+      <ManagerialDeliveryImpact
         formData={normalizedFormData}
         errors={errors}
         onChange={handleChange}
-        onBack={() => setStep(7)}
+        onBack={() => setStep(8)}
         onSubmit={handleSubmit}
         isSubmitting={isSubmitting}
         submissionError={submissionError}
@@ -996,12 +1099,12 @@ function App() {
           <header className="survey-header">
             <p className="eyebrow">MSc Research Survey</p>
             <h1>Schema Evolution in Microservice Persistence</h1>
-            <div className="progress-wrap" aria-label={`Step ${step} of 8`}>
-              <div className="progress-text">Step {step} of 8</div>
+            <div className="progress-wrap" aria-label={`Step ${step} of 9`}>
+              <div className="progress-text">Step {step} of 9</div>
               <div className="progress-track">
                 <div
                   className="progress-fill"
-                  style={{ width: `${(step / 8) * 100}%` }}
+                  style={{ width: `${(step / 9) * 100}%` }}
                 />
               </div>
             </div>

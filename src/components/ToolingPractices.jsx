@@ -180,9 +180,7 @@ function ToolingPractices({
   errors,
   onChange,
   onBack,
-  onSubmit,
-  isSubmitting,
-  submissionError,
+  onNext,
 }) {
   const usedSchemaToolsPractices = formData.used_schema_tools_practices || []
   const aiToolSupportedTasks = formData.ai_tool_supported_tasks || []
@@ -262,14 +260,12 @@ function ToolingPractices({
         </ToolingGroup>
       </div>
 
-      {submissionError && <p className="form-error">{submissionError}</p>}
-
       <div className="button-row split">
-        <button type="button" className="secondary-button" onClick={onBack} disabled={isSubmitting}>
+        <button type="button" className="secondary-button" onClick={onBack}>
           Back
         </button>
-        <button type="button" className="primary-button" onClick={onSubmit} disabled={isSubmitting}>
-          {isSubmitting ? 'Submitting...' : 'Submit Current Response'}
+        <button type="button" className="primary-button" onClick={onNext}>
+          Next
         </button>
       </div>
     </section>

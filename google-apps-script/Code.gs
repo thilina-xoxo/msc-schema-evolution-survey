@@ -7,6 +7,7 @@ const SCENARIO_POLYGLOT_SHEET = 'scenario_polyglot';
 const SCENARIO_MULTIMODEL_SHEET = 'scenario_multimodel';
 const COMPARATIVE_EVALUATION_SHEET = 'comparative_evaluation';
 const TOOLING_PRACTICES_SHEET = 'tooling_practices';
+const MANAGERIAL_DELIVERY_IMPACT_SHEET = 'managerial_delivery_impact';
 
 const PARTICIPANT_BACKGROUND_HEADERS = [
   'timestamp',
@@ -210,6 +211,29 @@ const TOOLING_PRACTICES_HEADERS = [
   'tooling_gap_observation',
 ];
 
+const MANAGERIAL_DELIVERY_IMPACT_HEADERS = [
+  'timestamp',
+  'participant_id',
+  'schema_change_underestimation_frequency',
+  'missed_planning_factors',
+  'missed_planning_factors_other',
+  'release_timeline_impact',
+  'developer_stress_impact',
+  'delivery_confidence_impact',
+  'senior_architect_involvement_importance',
+  'cross_team_communication_importance',
+  'documentation_importance',
+  'early_impact_analysis_importance',
+  'schema_change_estimation_owner',
+  'delivery_risk_warning_signs',
+  'delivery_risk_warning_signs_other',
+  'recommended_estimation_buffer',
+  'most_useful_managerial_metric',
+  'most_useful_managerial_metric_other',
+  'planning_advice_for_leads',
+  'resource_allocation_advice',
+];
+
 function doPost(e) {
   try {
     const payload = JSON.parse(e.postData.contents || '{}');
@@ -260,6 +284,11 @@ function doPost(e) {
       spreadsheet,
       TOOLING_PRACTICES_SHEET,
       TOOLING_PRACTICES_HEADERS
+    );
+    const managerialDeliveryImpactSheet = getOrCreateSheet(
+      spreadsheet,
+      MANAGERIAL_DELIVERY_IMPACT_SHEET,
+      MANAGERIAL_DELIVERY_IMPACT_HEADERS
     );
 
     participantBackgroundSheet.appendRow(
@@ -316,6 +345,14 @@ function doPost(e) {
         participantId,
         payload.tooling_practices || {},
         TOOLING_PRACTICES_HEADERS
+      )
+    );
+    managerialDeliveryImpactSheet.appendRow(
+      buildRow(
+        timestamp,
+        participantId,
+        payload.managerial_delivery_impact || {},
+        MANAGERIAL_DELIVERY_IMPACT_HEADERS
       )
     );
 
