@@ -16,23 +16,6 @@ const roleOptions = [
   'Other',
 ]
 
-const totalExperienceOptions = [
-  'Less than 1 year',
-  '1–2 years',
-  '3–5 years',
-  '6–8 years',
-  '9–12 years',
-  'More than 12 years',
-]
-
-const microserviceYearsOptions = [
-  'No experience',
-  'Less than 1 year',
-  '1–2 years',
-  '3–5 years',
-  'More than 5 years',
-]
-
 const systemTypeOptions = [
   'Monolithic applications',
   'Microservice-based applications',
@@ -62,15 +45,6 @@ const databaseTechnologyOptions = [
   'Other',
 ]
 
-const persistenceStrategyOptions = [
-  'Mostly single relational database',
-  'Database-per-service architecture',
-  'Polyglot persistence using different databases for different services',
-  'Multi-model database system',
-  'Shared database across multiple services',
-  'I am not sure',
-]
-
 const schemaChangeOptions = [
   'Yes, many times',
   'Yes, a few times',
@@ -90,12 +64,12 @@ function ParticipantBackground({
     <section>
       <h2>Section 2 — Participant Background</h2>
       <p className="section-intro">
-        These questions help categorize responses by professional context and
-        technical experience.
+        This section collects only basic background information needed to
+        interpret survey responses.
       </p>
 
       <SelectQuestion
-        label="Q4. What is your current or most recent role?"
+        label="Q2. What best describes your current or most recent role?"
         name="current_role"
         value={formData.current_role}
         options={roleOptions}
@@ -121,28 +95,8 @@ function ParticipantBackground({
         </div>
       )}
 
-      <SelectQuestion
-        label="Q5. How many years of software development or related technical experience do you have?"
-        name="total_experience"
-        value={formData.total_experience}
-        options={totalExperienceOptions}
-        required
-        onChange={onChange}
-        error={errors.total_experience}
-      />
-
-      <SelectQuestion
-        label="Q6. How many years of experience do you have with microservice-based systems?"
-        name="microservice_years"
-        value={formData.microservice_years}
-        options={microserviceYearsOptions}
-        required
-        onChange={onChange}
-        error={errors.microservice_years}
-      />
-
       <CheckboxGroup
-        label="Q7. What type of systems have you mainly worked on?"
+        label="Q3. What types of systems have you worked with or studied?"
         name="system_types"
         values={formData.system_types}
         options={systemTypeOptions}
@@ -169,7 +123,7 @@ function ParticipantBackground({
       )}
 
       <CheckboxGroup
-        label="Q8. Which database technologies have you used?"
+        label="Q4. Which database technologies have you used or studied?"
         name="database_technologies"
         values={formData.database_technologies}
         options={databaseTechnologyOptions}
@@ -201,51 +155,19 @@ function ParticipantBackground({
         </div>
       )}
 
-      <SelectQuestion
-        label="Q9. Which persistence strategy have you worked with most?"
-        name="main_persistence_strategy"
-        value={formData.main_persistence_strategy}
-        options={persistenceStrategyOptions}
-        required
-        onChange={onChange}
-        error={errors.main_persistence_strategy}
-      />
-
       <ScaleQuestion
-        label="Q10. How familiar are you with Polyglot Persistence?"
-        name="polyglot_familiarity"
-        value={formData.polyglot_familiarity}
-        required
-        leftLabel="1 = Not familiar at all"
-        rightLabel="5 = Very familiar / used in real projects"
-        onChange={onChange}
-        error={errors.polyglot_familiarity}
-      />
-
-      <ScaleQuestion
-        label="Q11. How familiar are you with Multi-Model Databases?"
-        name="multimodel_familiarity"
-        value={formData.multimodel_familiarity}
-        required
-        leftLabel="1 = Not familiar at all"
-        rightLabel="5 = Very familiar / used in real projects"
-        onChange={onChange}
-        error={errors.multimodel_familiarity}
-      />
-
-      <ScaleQuestion
-        label="Q12. How familiar are you with schema evolution or database migration activities?"
+        label="Q5. How familiar are you with schema evolution, database migration, or data structure changes?"
         name="schema_evolution_familiarity"
         value={formData.schema_evolution_familiarity}
         required
         leftLabel="1 = Not familiar"
-        rightLabel="5 = Highly experienced"
+        rightLabel="5 = Very familiar"
         onChange={onChange}
         error={errors.schema_evolution_familiarity}
       />
 
       <SelectQuestion
-        label="Q13. Have you personally handled database schema changes in a production or production-like system?"
+        label="Q6. Have you handled schema changes in production or production-like environments?"
         name="production_schema_change_experience"
         value={formData.production_schema_change_experience}
         options={schemaChangeOptions}

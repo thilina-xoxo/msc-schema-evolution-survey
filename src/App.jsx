@@ -15,20 +15,13 @@ import './App.css'
 
 const initialFormData = {
   participant_id: '',
-  consent: '',
   technical_involvement: '',
-  microservice_experience: '',
   current_role: '',
   current_role_other: '',
-  total_experience: '',
-  microservice_years: '',
   system_types: [],
   system_types_other: '',
   database_technologies: [],
   database_technologies_other: '',
-  main_persistence_strategy: '',
-  polyglot_familiarity: '',
-  multimodel_familiarity: '',
   schema_evolution_familiarity: '',
   production_schema_change_experience: '',
   architecture_context_clarity: '',
@@ -142,14 +135,11 @@ const initialFormData = {
   additional_comments: '',
 }
 
+// TEMPORARY TESTING MODE: Set to false before real survey distribution.
+const TEMP_SKIP_VALIDATION_FOR_TESTING = true
+
 function validateSectionOne(formData) {
   const errors = {}
-
-  if (!formData.consent) {
-    errors.consent = 'Please indicate whether you agree to participate.'
-  } else if (formData.consent === 'No, I do not agree') {
-    errors.consent = 'You must agree to participate before continuing.'
-  }
 
   if (!formData.technical_involvement) {
     errors.technical_involvement =
@@ -157,11 +147,6 @@ function validateSectionOne(formData) {
   } else if (formData.technical_involvement === 'No') {
     errors.technical_involvement =
       'This survey is intended for participants with software, architecture, DevOps, database, or related technical experience.'
-  }
-
-  if (!formData.microservice_experience) {
-    errors.microservice_experience =
-      'Please select your microservice architecture experience.'
   }
 
   return errors
@@ -179,15 +164,6 @@ function validateSectionTwo(formData) {
     !formData.current_role_other.trim()
   ) {
     errors.current_role_other = 'Please specify your role.'
-  }
-
-  if (!formData.total_experience) {
-    errors.total_experience = 'Please select your total technical experience.'
-  }
-
-  if (!formData.microservice_years) {
-    errors.microservice_years =
-      'Please select your microservice-based systems experience.'
   }
 
   if (formData.system_types.length === 0) {
@@ -212,21 +188,6 @@ function validateSectionTwo(formData) {
   ) {
     errors.database_technologies_other =
       'Please specify the database technology.'
-  }
-
-  if (!formData.main_persistence_strategy) {
-    errors.main_persistence_strategy =
-      'Please select the persistence strategy you have worked with most.'
-  }
-
-  if (!formData.polyglot_familiarity) {
-    errors.polyglot_familiarity =
-      'Please rate your familiarity with Polyglot Persistence.'
-  }
-
-  if (!formData.multimodel_familiarity) {
-    errors.multimodel_familiarity =
-      'Please rate your familiarity with Multi-Model Databases.'
   }
 
   if (!formData.schema_evolution_familiarity) {
@@ -593,7 +554,11 @@ function App() {
     const nextErrors = validateSectionOne(normalizedFormData)
     setErrors(nextErrors)
 
-    if (Object.keys(nextErrors).length === 0) {
+    if (
+      TEMP_SKIP_VALIDATION_FOR_TESTING ||
+      Object.keys(nextErrors).length === 0
+    ) {
+      setErrors({})
       setStep(2)
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
@@ -603,7 +568,11 @@ function App() {
     const nextErrors = validateSectionTwo(normalizedFormData)
     setErrors(nextErrors)
 
-    if (Object.keys(nextErrors).length === 0) {
+    if (
+      TEMP_SKIP_VALIDATION_FOR_TESTING ||
+      Object.keys(nextErrors).length === 0
+    ) {
+      setErrors({})
       setStep(3)
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
@@ -613,7 +582,11 @@ function App() {
     const nextErrors = validateSectionThree(normalizedFormData)
     setErrors(nextErrors)
 
-    if (Object.keys(nextErrors).length === 0) {
+    if (
+      TEMP_SKIP_VALIDATION_FOR_TESTING ||
+      Object.keys(nextErrors).length === 0
+    ) {
+      setErrors({})
       setStep(4)
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
@@ -623,7 +596,11 @@ function App() {
     const nextErrors = validateSectionFour(normalizedFormData)
     setErrors(nextErrors)
 
-    if (Object.keys(nextErrors).length === 0) {
+    if (
+      TEMP_SKIP_VALIDATION_FOR_TESTING ||
+      Object.keys(nextErrors).length === 0
+    ) {
+      setErrors({})
       setStep(5)
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
@@ -633,7 +610,11 @@ function App() {
     const nextErrors = validateScenarioPolyglot(normalizedFormData)
     setErrors(nextErrors)
 
-    if (Object.keys(nextErrors).length === 0) {
+    if (
+      TEMP_SKIP_VALIDATION_FOR_TESTING ||
+      Object.keys(nextErrors).length === 0
+    ) {
+      setErrors({})
       setStep(6)
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
@@ -643,7 +624,11 @@ function App() {
     const nextErrors = validateScenarioMultiModel(normalizedFormData)
     setErrors(nextErrors)
 
-    if (Object.keys(nextErrors).length === 0) {
+    if (
+      TEMP_SKIP_VALIDATION_FOR_TESTING ||
+      Object.keys(nextErrors).length === 0
+    ) {
+      setErrors({})
       setStep(7)
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
@@ -653,7 +638,11 @@ function App() {
     const nextErrors = validateComparativeEvaluation(normalizedFormData)
     setErrors(nextErrors)
 
-    if (Object.keys(nextErrors).length === 0) {
+    if (
+      TEMP_SKIP_VALIDATION_FOR_TESTING ||
+      Object.keys(nextErrors).length === 0
+    ) {
+      setErrors({})
       setStep(8)
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
@@ -663,7 +652,11 @@ function App() {
     const nextErrors = validateToolingPractices(normalizedFormData)
     setErrors(nextErrors)
 
-    if (Object.keys(nextErrors).length === 0) {
+    if (
+      TEMP_SKIP_VALIDATION_FOR_TESTING ||
+      Object.keys(nextErrors).length === 0
+    ) {
+      setErrors({})
       setStep(9)
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
@@ -673,7 +666,11 @@ function App() {
     const nextErrors = validateManagerialDeliveryImpact(normalizedFormData)
     setErrors(nextErrors)
 
-    if (Object.keys(nextErrors).length === 0) {
+    if (
+      TEMP_SKIP_VALIDATION_FOR_TESTING ||
+      Object.keys(nextErrors).length === 0
+    ) {
+      setErrors({})
       setStep(10)
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
@@ -708,7 +705,7 @@ function App() {
 
     if (Object.keys(nextErrors).length > 0) {
       setSubmissionError(
-        'Please complete all required consent, eligibility, background, architecture context, schema evolution experience, scenario, comparative evaluation, tooling practices, and managerial delivery impact questions before submitting.',
+        'Please complete all required eligibility, background, architecture context, schema evolution experience, scenario, comparative evaluation, tooling practices, and managerial delivery impact questions before submitting.',
       )
       return
     }
@@ -874,6 +871,11 @@ function App() {
                 />
               </div>
             </div>
+            {TEMP_SKIP_VALIDATION_FOR_TESTING && (
+              <p className="testing-mode-badge">
+                Testing mode: validation is temporarily skipped for navigation.
+              </p>
+            )}
           </header>
         )}
 
