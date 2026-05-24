@@ -206,11 +206,6 @@ function validateSectionTwo(formData) {
 function validateSectionThree(formData) {
   const errors = {}
 
-  if (!formData.architecture_context_clarity) {
-    errors.architecture_context_clarity =
-      'Please rate the clarity of the reference architecture context.'
-  }
-
   if (!formData.architecture_difference_clarity) {
     errors.architecture_difference_clarity =
       'Please rate the clarity of the difference between Polyglot Persistence and Multi-Model Persistence.'

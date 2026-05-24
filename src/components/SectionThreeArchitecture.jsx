@@ -1,55 +1,14 @@
 import ScaleQuestion from './ScaleQuestion'
 
-const teams = [
-  'Customer Identity and Trust Team',
-  'Catalogue Intelligence Team',
-  'Checkout and Orders Team',
-  'Stock and Fulfilment Team',
-  'Personalization and Discovery Team',
-  'Search Experience Team',
-  'Platform Reliability Team',
-  'Data Platform and Analytics Team',
-]
-
-const principles = [
-  'Database-per-service ownership',
-  'Domain-driven service boundaries',
-  'API-first integration',
-  'Event-driven integration',
-  'Independent deployment',
-  'Continuous delivery',
-  'Schema evolution discipline',
-  'Separation of operational and analytical data',
-]
-
-function CompactList({ items }) {
-  return (
-    <ul className="compact-list-grid">
-      {items.map((item) => (
-        <li key={item}>{item}</li>
-      ))}
-    </ul>
-  )
-}
-
-function ConceptCard({ title, children }) {
-  return (
-    <article className="concept-card">
-      <h3>{title}</h3>
-      <p>{children}</p>
-    </article>
-  )
-}
-
-function DiagramCard({ title, description, src, caption }) {
+function DiagramCard({ title, description, src, caption, showTitle = true }) {
   return (
     <figure className="diagram-frame compact-diagram">
-      <h3>{title}</h3>
+      {showTitle && <h3>{title}</h3>}
       <p>{description}</p>
       <div className="iframe-wrap">
         <iframe src={src} title={title} />
       </div>
-      <figcaption>{caption}</figcaption>
+      {caption && <figcaption>{caption}</figcaption>}
       <a href={src} target="_blank" rel="noreferrer">
         Open diagram in a new tab
       </a>
@@ -68,89 +27,97 @@ function SectionThreeArchitecture({
     <section>
       <h2>Section 3 — Baseline Understanding of Reference Architecture</h2>
       <p className="section-intro">
-        This survey uses a hypothetical microservice-based company system to
-        evaluate schema evolution under two persistence strategies: Polyglot
-        Persistence and Multi-Model Persistence.
-      </p>
-      <p className="section-intro">
-        The following architecture overview is provided only to give enough
-        context before the later scenario-based questions.
+        The following reference architecture context is provided before the
+        scenario-based questions.
       </p>
 
-      <div className="section-three-compact">
-        <div className="concept-card-grid">
-          <ConceptCard title="Architecture A — Polyglot Persistence">
-            In Polyglot Persistence, different microservices use different
-            database technologies based on their workload. For example, one
-            service may use a document database, another may use a relational
-            database, and another may use a graph database. This provides
-            technology specialization but can increase coordination, tooling,
-            and migration complexity during schema evolution.
-          </ConceptCard>
-          <ConceptCard title="Architecture B — Multi-Model Persistence">
-            In Multi-Model Persistence, services use a unified operational
-            database platform that supports multiple data models such as
-            document, relational/tabular, graph, and key-value models. This can
-            reduce operational fragmentation, but service ownership, API
-            contracts, event schemas, and data governance still need careful
-            management.
-          </ConceptCard>
-        </div>
-
-        <article className="compact-context-card">
-          <h3>ModaVista Group Reference System</h3>
+      <div className="section-three-layout">
+        <article className="section-three-card">
+          <h3>Reference Company Context</h3>
           <p>
-            ModaVista Group is a fictional fashion-commerce platform used as
-            the reference system for this survey. It contains several
-            domain-aligned microservices such as customer, product, order,
-            inventory, fulfilment, returns, recommendation, personalization,
-            search, and experience API services.
+            This survey uses a hypothetical microservice-based company system
+            called ModaVista Group to evaluate schema evolution under two
+            persistence strategies: Polyglot Persistence and Multi-Model
+            Persistence.
           </p>
           <p>
-            The system is evaluated under two different persistence strategies,
-            while the business domain and service boundaries remain the same.
+            The company contains domain-oriented teams such as Customer
+            Identity and Trust, Catalogue Intelligence, Checkout and Orders,
+            Stock and Fulfilment, Personalization and Discovery, Search
+            Experience, Platform Reliability, and Data Platform and Analytics.
+          </p>
+          <p>
+            These teams can be modelled as microservice teams. Each team owns a
+            bounded context, and services communicate mainly through
+            asynchronous events such as CustomerUpdated, ProductChanged,
+            OrderPlaced, and StockReserved.
           </p>
         </article>
 
-        <article className="compact-context-card">
-          <h3>Engineering Teams</h3>
-          <CompactList items={teams} />
+        <article className="section-three-card persistence-card">
+          <h3>Persistence Layer Model A — Polyglot Persistence</h3>
+          <p>
+            Polyglot Persistence means using different database technologies
+            for different domain or workload requirements.
+          </p>
+          <p>
+            For example, a bounded context may need both a relational database
+            for transactional records and a NoSQL document database for
+            flexible profile or catalogue data. In that case, the team may use
+            two separate database technologies inside its own service boundary.
+          </p>
+          <p>
+            In this model, different teams may use different database products
+            depending on their domain needs.
+          </p>
+
+          <DiagramCard
+            title="Persistence Layer Model A — Polyglot Persistence"
+            description="Diagram: Polyglot persistence data-layer diagram."
+            src="/diagrams/modavista_arch_v3_clean.html"
+            showTitle={false}
+          />
         </article>
 
-        <article className="compact-context-card">
-          <h3>Architectural Principles</h3>
-          <CompactList items={principles} />
+        <article className="section-three-card persistence-card">
+          <h3>Persistence Layer Model B — Multi-Model Persistence</h3>
+          <p>
+            Multi-Model Persistence means using a database platform that
+            supports multiple data models, such as document, graph, key-value,
+            and relational/tabular models, within the same database platform.
+          </p>
+          <p>
+            If ModaVista is modelled using Multi-Model Persistence, some domain
+            teams can take advantage of this when their bounded context requires
+            multiple data models. For example, one team may use document data
+            for product details and graph data for relationships within the
+            same database platform.
+          </p>
+          <p>
+            However, this does not mean every team must use multiple models.
+            Some teams may still use only one data model if their domain
+            requirement is simple.
+          </p>
+          <p>
+            The important point is that service ownership still remains with
+            the domain team. Other teams should not directly access another
+            team’s internal collections, tables, or graph structures. They
+            should interact through APIs or events.
+          </p>
+
+          <DiagramCard
+            title="Persistence Layer Model B — Multi-Model Persistence"
+            description="Diagram: Multi-model persistence data-layer diagram."
+            src="/diagrams/modavista_multimodel_v2_clean.html"
+            showTitle={false}
+          />
         </article>
-
-        <DiagramCard
-          title="Architecture A — Polyglot Persistence"
-          description="Polyglot architecture shows service-owned operational databases using different database technologies such as document, relational, key-value, graph, and search-oriented stores."
-          src="/diagrams/modavista_arch_v3_clean.html"
-          caption="Figure 1. ModaVista Group — Polyglot Persistence Reference Architecture"
-        />
-
-        <DiagramCard
-          title="Architecture B — Multi-Model Persistence"
-          description="Multi-Model architecture shows service-owned logical data models managed through a unified operational persistence platform, while search and analytics remain separate supporting capabilities."
-          src="/diagrams/modavista_multimodel_v2_clean.html"
-          caption="Figure 2. ModaVista Group — Multi-Model Persistence Reference Architecture"
-        />
       </div>
 
       <div className="question-section compact-question-section">
         <h3>Section 3 Questions</h3>
         <ScaleQuestion
-          label="Q14. How clear is the reference architecture context?"
-          name="architecture_context_clarity"
-          value={formData.architecture_context_clarity}
-          required
-          leftLabel="1 = Not clear"
-          rightLabel="5 = Very clear"
-          onChange={onChange}
-          error={errors.architecture_context_clarity}
-        />
-        <ScaleQuestion
-          label="Q15. How clear is the difference between Polyglot Persistence and Multi-Model Persistence?"
+          label="Q14. How clear is the difference between Polyglot Persistence and Multi-Model Persistence usage for ModaVista’s persistence-layer implementation?"
           name="architecture_difference_clarity"
           value={formData.architecture_difference_clarity}
           required

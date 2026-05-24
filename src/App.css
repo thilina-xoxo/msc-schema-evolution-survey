@@ -614,6 +614,62 @@ tr:last-child td {
   margin-top: 24px;
 }
 
+.section-three-layout {
+  display: grid;
+  gap: 18px;
+  width: min(100%, 820px);
+  margin-top: 22px;
+}
+
+.section-three-card {
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-soft);
+}
+
+.section-three-card h3 {
+  margin: 0 0 12px;
+  color: var(--heading);
+  font-size: 1.08rem;
+  line-height: 1.35;
+}
+
+.section-three-card p {
+  margin: 0 0 12px;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.section-three-card > p:last-child {
+  margin-bottom: 0;
+}
+
+.persistence-card {
+  display: grid;
+  gap: 4px;
+}
+
+.persistence-card .compact-diagram {
+  margin-top: 8px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.persistence-card .compact-diagram p {
+  margin-bottom: 10px;
+  color: var(--text-muted);
+  font-size: 0.94rem;
+  font-weight: 700;
+}
+
+.persistence-card .compact-diagram a {
+  margin-top: 10px;
+}
+
 .concept-card-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1084,6 +1140,7 @@ button:disabled {
   .team-card,
   .principle-card,
   .concept-card,
+  .section-three-card,
   .compact-context-card,
   .compact-diagram,
   .info-box,
@@ -1128,6 +1185,10 @@ button:disabled {
 
   .compact-diagram .iframe-wrap {
     min-height: 360px;
+  }
+
+  .persistence-card .compact-diagram {
+    padding: 12px;
   }
 
   .iframe-wrap {
