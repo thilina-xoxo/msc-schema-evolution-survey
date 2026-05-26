@@ -907,6 +907,14 @@ tr:last-child td {
   color: var(--danger);
 }
 
+.scenario-scope {
+  margin: -8px 0 14px;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  font-weight: 750;
+  line-height: 1.45;
+}
+
 .scenario-description {
   margin-bottom: 18px;
   padding: 16px;
@@ -932,6 +940,10 @@ tr:last-child td {
   margin: 0 0 12px;
   padding-left: 22px;
   line-height: 1.5;
+}
+
+.scenario-description .polyglot-scenario-points {
+  grid-template-columns: 1fr;
 }
 
 .scenario-questions,

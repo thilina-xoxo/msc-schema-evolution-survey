@@ -6,7 +6,6 @@ import ManagerialDeliveryImpact from './components/ManagerialDeliveryImpact'
 import ParticipantBackground from './components/ParticipantBackground'
 import ScenarioMultiModel from './components/ScenarioMultiModel'
 import ScenarioPolyglot from './components/ScenarioPolyglot'
-import SchemaEvolutionExperience from './components/SchemaEvolutionExperience'
 import SectionThreeArchitecture from './components/SectionThreeArchitecture'
 import ToolingPractices from './components/ToolingPractices'
 import { submitSurvey } from './services/submitSurvey'
@@ -24,47 +23,24 @@ const initialFormData = {
   database_technologies_other: '',
   schema_evolution_familiarity: '',
   production_schema_change_experience: '',
-  architecture_context_clarity: '',
   architecture_difference_clarity: '',
-  schema_change_frequency: '',
-  experienced_schema_change_types: [],
-  experienced_schema_change_types_other: '',
-  schema_evolution_difficulty_factors: [],
-  schema_evolution_difficulty_factors_other: '',
-  schema_change_productivity_impact: '',
-  schema_change_cognitive_load: '',
-  schema_change_coordination_overhead: '',
-  poly_s1_effort: '',
-  poly_s1_change_radius: '',
-  poly_s1_cognitive_load: '',
-  poly_s1_bug_risk: '',
-  poly_s1_coordination_overhead: '',
-  poly_s1_comment: '',
-  poly_s2_effort: '',
-  poly_s2_change_radius: '',
-  poly_s2_cognitive_load: '',
-  poly_s2_bug_risk: '',
-  poly_s2_coordination_overhead: '',
-  poly_s2_backward_compatibility_difficulty: '',
-  poly_s2_comment: '',
-  poly_s3_effort: '',
-  poly_s3_change_radius: '',
-  poly_s3_cognitive_load: '',
-  poly_s3_data_risk: '',
-  poly_s3_coordination_overhead: '',
-  poly_s3_migration_difficulty: '',
-  poly_s3_testing_difficulty: '',
-  poly_s3_comment: '',
-  poly_s4_effort: '',
-  poly_s4_change_radius: '',
-  poly_s4_cognitive_load: '',
-  poly_s4_consistency_risk: '',
-  poly_s4_coordination_overhead: '',
-  poly_s4_rule_enforcement_difficulty: '',
-  poly_s4_failure_handling_difficulty: '',
-  poly_s4_preferred_implementation_approach: '',
-  poly_s4_preferred_implementation_approach_other: '',
-  poly_s4_comment: '',
+  polyglot_s1_effort_story_points: '',
+  polyglot_s1_mental_effort: '',
+  polyglot_s1_bug_data_risk: '',
+  polyglot_s1_coordination_overhead: '',
+  polyglot_s1_productivity_impact: '',
+  polyglot_s1_architecture_benefits: [],
+  polyglot_s1_architecture_challenges: [],
+  polyglot_s1_optional_comment: '',
+  polyglot_s2_effort_story_points: '',
+  polyglot_s2_mental_effort: '',
+  polyglot_s2_bug_data_risk: '',
+  polyglot_s2_coordination_overhead: '',
+  polyglot_s2_backward_compatibility_difficulty: '',
+  polyglot_s2_productivity_impact: '',
+  polyglot_s2_architecture_benefits: [],
+  polyglot_s2_architecture_challenges: [],
+  polyglot_s2_optional_comment: '',
   multi_s1_effort: '',
   multi_s1_change_radius: '',
   multi_s1_cognitive_load: '',
@@ -137,6 +113,7 @@ const initialFormData = {
 
 // TEMPORARY TESTING MODE: Set to false before real survey distribution.
 const TEMP_SKIP_VALIDATION_FOR_TESTING = true
+const TOTAL_STEPS = 9
 
 function validateSectionOne(formData) {
   const errors = {}
@@ -214,88 +191,46 @@ function validateSectionThree(formData) {
   return errors
 }
 
-function validateSectionFour(formData) {
-  const errors = {}
-
-  if (!formData.schema_change_frequency) {
-    errors.schema_change_frequency =
-      'Please select how often schemas or data structures change in your experience.'
-  }
-
-  if (formData.experienced_schema_change_types.length === 0) {
-    errors.experienced_schema_change_types =
-      'Please select at least one schema or data structure change type.'
-  }
-
-  if (
-    formData.experienced_schema_change_types.includes('Other') &&
-    !formData.experienced_schema_change_types_other.trim()
-  ) {
-    errors.experienced_schema_change_types_other =
-      'Please specify the schema or data structure change type.'
-  }
-
-  if (formData.schema_evolution_difficulty_factors.length === 0) {
-    errors.schema_evolution_difficulty_factors =
-      'Please select at least one factor that makes schema evolution difficult.'
-  }
-
-  if (
-    formData.schema_evolution_difficulty_factors.includes('Other') &&
-    !formData.schema_evolution_difficulty_factors_other.trim()
-  ) {
-    errors.schema_evolution_difficulty_factors_other =
-      'Please specify the difficulty factor.'
-  }
-
-  if (!formData.schema_change_productivity_impact) {
-    errors.schema_change_productivity_impact =
-      'Please rate how schema changes affect developer productivity.'
-  }
-
-  if (!formData.schema_change_cognitive_load) {
-    errors.schema_change_cognitive_load =
-      'Please rate the mental effort required to understand schema change impact.'
-  }
-
-  if (!formData.schema_change_coordination_overhead) {
-    errors.schema_change_coordination_overhead =
-      'Please rate the coordination required for cross-service or cross-team schema changes.'
-  }
-
-  return errors
-}
-
 function validateScenarioPolyglot(formData) {
   const errors = {}
 
+  const requiredNumericFields = [
+    [
+      'polyglot_s1_effort_story_points',
+      'Please enter the estimated total implementation effort.',
+    ],
+    [
+      'polyglot_s2_effort_story_points',
+      'Please enter the estimated total implementation effort.',
+    ],
+  ]
+
+  requiredNumericFields.forEach(([fieldName, message]) => {
+    const value = formData[fieldName]
+    const numericValue = Number(value)
+
+    if (!value) {
+      errors[fieldName] = message
+    } else if (
+      !Number.isFinite(numericValue) ||
+      numericValue <= 0 ||
+      numericValue > 500
+    ) {
+      errors[fieldName] =
+        'Please enter a reasonable positive numeric story point value.'
+    }
+  })
+
   const requiredFields = [
-    ['poly_s1_effort', 'Please select the likely implementation effort.'],
-    ['poly_s1_change_radius', 'Please select the likely change impact radius.'],
-    ['poly_s1_cognitive_load', 'Please rate the mental effort required.'],
-    ['poly_s1_bug_risk', 'Please rate the risk of bugs or data issues.'],
-    ['poly_s1_coordination_overhead', 'Please rate the coordination overhead.'],
-    ['poly_s2_effort', 'Please select the likely implementation effort.'],
-    ['poly_s2_change_radius', 'Please select the likely change impact radius.'],
-    ['poly_s2_cognitive_load', 'Please rate the mental effort required.'],
-    ['poly_s2_bug_risk', 'Please rate the risk of bugs or inconsistent data.'],
-    ['poly_s2_coordination_overhead', 'Please rate the coordination overhead.'],
-    ['poly_s2_backward_compatibility_difficulty', 'Please rate the backward compatibility difficulty.'],
-    ['poly_s3_effort', 'Please select the likely implementation effort.'],
-    ['poly_s3_change_radius', 'Please select the likely change impact radius.'],
-    ['poly_s3_cognitive_load', 'Please rate the mental effort required.'],
-    ['poly_s3_data_risk', 'Please rate the data, privacy, or compliance risk.'],
-    ['poly_s3_coordination_overhead', 'Please rate the coordination overhead.'],
-    ['poly_s3_migration_difficulty', 'Please rate the data migration difficulty.'],
-    ['poly_s3_testing_difficulty', 'Please rate the testing and validation difficulty.'],
-    ['poly_s4_effort', 'Please select the likely implementation effort.'],
-    ['poly_s4_change_radius', 'Please select the likely change impact radius.'],
-    ['poly_s4_cognitive_load', 'Please rate the mental effort required.'],
-    ['poly_s4_consistency_risk', 'Please rate the consistency or compliance risk.'],
-    ['poly_s4_coordination_overhead', 'Please rate the coordination overhead.'],
-    ['poly_s4_rule_enforcement_difficulty', 'Please rate the rule enforcement difficulty.'],
-    ['poly_s4_failure_handling_difficulty', 'Please rate the failure handling or rollback difficulty.'],
-    ['poly_s4_preferred_implementation_approach', 'Please select the implementation approach you would most likely consider.'],
+    ['polyglot_s1_mental_effort', 'Please rate the mental effort required.'],
+    ['polyglot_s1_bug_data_risk', 'Please rate the risk of bugs or data issues.'],
+    ['polyglot_s1_coordination_overhead', 'Please rate the coordination overhead.'],
+    ['polyglot_s1_productivity_impact', 'Please rate the productivity impact.'],
+    ['polyglot_s2_mental_effort', 'Please rate the mental effort required.'],
+    ['polyglot_s2_bug_data_risk', 'Please rate the risk of bugs or data inconsistency.'],
+    ['polyglot_s2_coordination_overhead', 'Please rate the coordination overhead.'],
+    ['polyglot_s2_backward_compatibility_difficulty', 'Please rate the backward compatibility difficulty.'],
+    ['polyglot_s2_productivity_impact', 'Please rate the productivity impact.'],
   ]
 
   requiredFields.forEach(([fieldName, message]) => {
@@ -304,15 +239,45 @@ function validateScenarioPolyglot(formData) {
     }
   })
 
-  if (
-    formData.poly_s4_preferred_implementation_approach === 'Other' &&
-    !formData.poly_s4_preferred_implementation_approach_other.trim()
-  ) {
-    errors.poly_s4_preferred_implementation_approach_other =
-      'Please specify the implementation approach.'
-  }
+  validateLimitedCheckbox(
+    errors,
+    formData,
+    'polyglot_s1_architecture_benefits',
+    'No clear benefit from Polyglot Persistence in this scenario.',
+  )
+  validateLimitedCheckbox(
+    errors,
+    formData,
+    'polyglot_s1_architecture_challenges',
+    'No clear disadvantage from Polyglot Persistence in this scenario.',
+  )
+  validateLimitedCheckbox(
+    errors,
+    formData,
+    'polyglot_s2_architecture_benefits',
+    'No clear benefit from Polyglot Persistence in this scenario.',
+  )
+  validateLimitedCheckbox(
+    errors,
+    formData,
+    'polyglot_s2_architecture_challenges',
+    'No clear disadvantage from Polyglot Persistence in this scenario.',
+  )
 
   return errors
+}
+
+function validateLimitedCheckbox(errors, formData, fieldName, exclusiveOption) {
+  const values = formData[fieldName]
+
+  if (!Array.isArray(values) || values.length === 0) {
+    errors[fieldName] = 'Please select at least one option.'
+  } else if (values.length > 2) {
+    errors[fieldName] = 'Please select up to two options.'
+  } else if (values.includes(exclusiveOption) && values.length > 1) {
+    errors[fieldName] =
+      'Please select this option by itself, or choose other options instead.'
+  }
 }
 
 function validateScenarioMultiModel(formData) {
@@ -587,20 +552,6 @@ function App() {
     }
   }
 
-  function handleSectionFourNext() {
-    const nextErrors = validateSectionFour(normalizedFormData)
-    setErrors(nextErrors)
-
-    if (
-      TEMP_SKIP_VALIDATION_FOR_TESTING ||
-      Object.keys(nextErrors).length === 0
-    ) {
-      setErrors({})
-      setStep(5)
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    }
-  }
-
   function handleScenarioPolyglotNext() {
     const nextErrors = validateScenarioPolyglot(normalizedFormData)
     setErrors(nextErrors)
@@ -610,7 +561,7 @@ function App() {
       Object.keys(nextErrors).length === 0
     ) {
       setErrors({})
-      setStep(6)
+      setStep(5)
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
   }
@@ -624,7 +575,7 @@ function App() {
       Object.keys(nextErrors).length === 0
     ) {
       setErrors({})
-      setStep(7)
+      setStep(6)
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
   }
@@ -638,7 +589,7 @@ function App() {
       Object.keys(nextErrors).length === 0
     ) {
       setErrors({})
-      setStep(8)
+      setStep(7)
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
   }
@@ -652,7 +603,7 @@ function App() {
       Object.keys(nextErrors).length === 0
     ) {
       setErrors({})
-      setStep(9)
+      setStep(8)
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
   }
@@ -666,7 +617,7 @@ function App() {
       Object.keys(nextErrors).length === 0
     ) {
       setErrors({})
-      setStep(10)
+      setStep(9)
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
   }
@@ -675,7 +626,6 @@ function App() {
     const sectionOneErrors = validateSectionOne(normalizedFormData)
     const sectionTwoErrors = validateSectionTwo(normalizedFormData)
     const sectionThreeErrors = validateSectionThree(normalizedFormData)
-    const sectionFourErrors = validateSectionFour(normalizedFormData)
     const scenarioPolyglotErrors = validateScenarioPolyglot(normalizedFormData)
     const scenarioMultiModelErrors = validateScenarioMultiModel(normalizedFormData)
     const comparativeEvaluationErrors =
@@ -687,7 +637,6 @@ function App() {
       ...sectionOneErrors,
       ...sectionTwoErrors,
       ...sectionThreeErrors,
-      ...sectionFourErrors,
       ...scenarioPolyglotErrors,
       ...scenarioMultiModelErrors,
       ...comparativeEvaluationErrors,
@@ -700,7 +649,7 @@ function App() {
 
     if (Object.keys(nextErrors).length > 0) {
       setSubmissionError(
-        'Please complete all required eligibility, background, architecture context, schema evolution experience, scenario, comparative evaluation, tooling practices, and managerial delivery impact questions before submitting.',
+        'Please complete all required eligibility, background, architecture context, scenario, comparative evaluation, tooling practices, and managerial delivery impact questions before submitting.',
       )
       return
     }
@@ -768,71 +717,59 @@ function App() {
 
     if (step === 4) {
       return (
-        <SchemaEvolutionExperience
+        <ScenarioPolyglot
           formData={normalizedFormData}
           errors={errors}
           onChange={handleChange}
           onBack={() => setStep(3)}
-          onNext={handleSectionFourNext}
+          onNext={handleScenarioPolyglotNext}
         />
       )
     }
 
     if (step === 5) {
       return (
-        <ScenarioPolyglot
+        <ScenarioMultiModel
           formData={normalizedFormData}
           errors={errors}
           onChange={handleChange}
           onBack={() => setStep(4)}
-          onNext={handleScenarioPolyglotNext}
+          onNext={handleScenarioMultiModelNext}
         />
       )
     }
 
     if (step === 6) {
       return (
-        <ScenarioMultiModel
+        <ComparativeEvaluation
           formData={normalizedFormData}
           errors={errors}
           onChange={handleChange}
           onBack={() => setStep(5)}
-          onNext={handleScenarioMultiModelNext}
+          onNext={handleComparativeEvaluationNext}
         />
       )
     }
 
     if (step === 7) {
       return (
-        <ComparativeEvaluation
+        <ToolingPractices
           formData={normalizedFormData}
           errors={errors}
           onChange={handleChange}
           onBack={() => setStep(6)}
-          onNext={handleComparativeEvaluationNext}
+          onNext={handleToolingPracticesNext}
         />
       )
     }
 
     if (step === 8) {
       return (
-        <ToolingPractices
-          formData={normalizedFormData}
-          errors={errors}
-          onChange={handleChange}
-          onBack={() => setStep(7)}
-          onNext={handleToolingPracticesNext}
-        />
-      )
-    }
-
-    if (step === 9) {
-      return (
         <ManagerialDeliveryImpact
           formData={normalizedFormData}
           errors={errors}
           onChange={handleChange}
-          onBack={() => setStep(8)}
+          onBack={() => setStep(7)}
           onNext={handleManagerialDeliveryImpactNext}
         />
       )
@@ -842,7 +779,7 @@ function App() {
       <FinalReflection
         formData={normalizedFormData}
         onChange={handleChange}
-        onBack={() => setStep(9)}
+        onBack={() => setStep(8)}
         onSubmit={handleSubmit}
         isSubmitting={isSubmitting}
         submissionError={submissionError}
@@ -857,12 +794,12 @@ function App() {
           <header className="survey-header">
             <p className="eyebrow">MSc Research Survey</p>
             <h1>Schema Evolution in Microservice Persistence</h1>
-            <div className="progress-wrap" aria-label={`Step ${step} of 10`}>
-              <div className="progress-text">Step {step} of 10</div>
+            <div className="progress-wrap" aria-label={`Step ${step} of ${TOTAL_STEPS}`}>
+              <div className="progress-text">Step {step} of {TOTAL_STEPS}</div>
               <div className="progress-track">
                 <div
                   className="progress-fill"
-                  style={{ width: `${(step / 10) * 100}%` }}
+                  style={{ width: `${(step / TOTAL_STEPS) * 100}%` }}
                 />
               </div>
             </div>

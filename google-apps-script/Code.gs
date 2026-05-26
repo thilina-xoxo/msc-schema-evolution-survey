@@ -2,7 +2,6 @@ const SURVEY_TOKEN = 'msc_schema_evolution_survey_2026';
 
 const PARTICIPANT_BACKGROUND_SHEET = 'participant_background';
 const ARCHITECTURE_CONTEXT_SHEET = 'architecture_context';
-const SCHEMA_EVOLUTION_EXPERIENCE_SHEET = 'schema_evolution_experience';
 const SCENARIO_POLYGLOT_SHEET = 'scenario_polyglot';
 const SCENARIO_MULTIMODEL_SHEET = 'scenario_multimodel';
 const COMPARATIVE_EVALUATION_SHEET = 'comparative_evaluation';
@@ -27,57 +26,29 @@ const PARTICIPANT_BACKGROUND_HEADERS = [
 const ARCHITECTURE_CONTEXT_HEADERS = [
   'timestamp',
   'participant_id',
-  'architecture_context_clarity',
   'architecture_difference_clarity',
-];
-
-const SCHEMA_EVOLUTION_EXPERIENCE_HEADERS = [
-  'timestamp',
-  'participant_id',
-  'schema_change_frequency',
-  'experienced_schema_change_types',
-  'experienced_schema_change_types_other',
-  'schema_evolution_difficulty_factors',
-  'schema_evolution_difficulty_factors_other',
-  'schema_change_productivity_impact',
-  'schema_change_cognitive_load',
-  'schema_change_coordination_overhead',
 ];
 
 const SCENARIO_POLYGLOT_HEADERS = [
   'timestamp',
   'participant_id',
-  'poly_s1_effort',
-  'poly_s1_change_radius',
-  'poly_s1_cognitive_load',
-  'poly_s1_bug_risk',
-  'poly_s1_coordination_overhead',
-  'poly_s1_comment',
-  'poly_s2_effort',
-  'poly_s2_change_radius',
-  'poly_s2_cognitive_load',
-  'poly_s2_bug_risk',
-  'poly_s2_coordination_overhead',
-  'poly_s2_backward_compatibility_difficulty',
-  'poly_s2_comment',
-  'poly_s3_effort',
-  'poly_s3_change_radius',
-  'poly_s3_cognitive_load',
-  'poly_s3_data_risk',
-  'poly_s3_coordination_overhead',
-  'poly_s3_migration_difficulty',
-  'poly_s3_testing_difficulty',
-  'poly_s3_comment',
-  'poly_s4_effort',
-  'poly_s4_change_radius',
-  'poly_s4_cognitive_load',
-  'poly_s4_consistency_risk',
-  'poly_s4_coordination_overhead',
-  'poly_s4_rule_enforcement_difficulty',
-  'poly_s4_failure_handling_difficulty',
-  'poly_s4_preferred_implementation_approach',
-  'poly_s4_preferred_implementation_approach_other',
-  'poly_s4_comment',
+  'polyglot_s1_effort_story_points',
+  'polyglot_s1_mental_effort',
+  'polyglot_s1_bug_data_risk',
+  'polyglot_s1_coordination_overhead',
+  'polyglot_s1_productivity_impact',
+  'polyglot_s1_architecture_benefits',
+  'polyglot_s1_architecture_challenges',
+  'polyglot_s1_optional_comment',
+  'polyglot_s2_effort_story_points',
+  'polyglot_s2_mental_effort',
+  'polyglot_s2_bug_data_risk',
+  'polyglot_s2_coordination_overhead',
+  'polyglot_s2_backward_compatibility_difficulty',
+  'polyglot_s2_productivity_impact',
+  'polyglot_s2_architecture_benefits',
+  'polyglot_s2_architecture_challenges',
+  'polyglot_s2_optional_comment',
 ];
 
 const SCENARIO_MULTIMODEL_HEADERS = [
@@ -199,11 +170,6 @@ function doPost(e) {
       ARCHITECTURE_CONTEXT_SHEET,
       ARCHITECTURE_CONTEXT_HEADERS
     );
-    const schemaEvolutionExperienceSheet = getOrCreateSheet(
-      spreadsheet,
-      SCHEMA_EVOLUTION_EXPERIENCE_SHEET,
-      SCHEMA_EVOLUTION_EXPERIENCE_HEADERS
-    );
     const scenarioPolyglotSheet = getOrCreateSheet(
       spreadsheet,
       SCENARIO_POLYGLOT_SHEET,
@@ -249,14 +215,6 @@ function doPost(e) {
         participantId,
         payload.architecture_context || {},
         ARCHITECTURE_CONTEXT_HEADERS
-      )
-    );
-    schemaEvolutionExperienceSheet.appendRow(
-      buildRow(
-        timestamp,
-        participantId,
-        payload.schema_evolution_experience || {},
-        SCHEMA_EVOLUTION_EXPERIENCE_HEADERS
       )
     );
     scenarioPolyglotSheet.appendRow(
