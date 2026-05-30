@@ -1,13 +1,11 @@
 import { useMemo, useState } from 'react'
-import ComparativeEvaluation from './components/ComparativeEvaluation'
+import ComparativeToolingPractices from './components/ComparativeToolingPractices'
 import ConsentSection from './components/ConsentSection'
-import FinalReflection from './components/FinalReflection'
-import ManagerialDeliveryImpact from './components/ManagerialDeliveryImpact'
 import ParticipantBackground from './components/ParticipantBackground'
 import ScenarioMultiModel from './components/ScenarioMultiModel'
 import ScenarioPolyglot from './components/ScenarioPolyglot'
 import SectionThreeArchitecture from './components/SectionThreeArchitecture'
-import ToolingPractices from './components/ToolingPractices'
+import SoftwareDeliveryImpact from './components/SoftwareDeliveryImpact'
 import { submitSurvey } from './services/submitSurvey'
 import { getParticipantId } from './utils/participantId'
 import './App.css'
@@ -58,48 +56,23 @@ const initialFormData = {
   multimodel_s2_architecture_benefits: [],
   multimodel_s2_architecture_challenges: [],
   multimodel_s2_optional_comment: '',
-  overall_easier_architecture: '',
-  overall_less_effort_architecture: '',
-  overall_lower_cognitive_load_architecture: '',
-  overall_lower_risk_architecture: '',
-  overall_less_coordination_architecture: '',
-  most_difficult_schema_change_type: '',
-  most_difficult_schema_change_type_other: '',
-  main_productivity_factor: '',
-  main_productivity_factor_other: '',
-  architecture_preference_reason: '',
-  used_schema_tools_practices: [],
-  used_schema_tools_practices_other: '',
-  most_effective_migration_tooling: '',
-  most_effective_migration_tooling_other: '',
-  ai_tool_usage_frequency: '',
-  ai_tool_supported_tasks: [],
-  ai_tool_supported_tasks_other: '',
-  ai_tool_trust_level: '',
-  schema_change_checklist_usage: '',
-  organization_improvement_priority: '',
-  organization_improvement_priority_other: '',
-  tooling_gap_observation: '',
-  schema_change_underestimation_frequency: '',
-  missed_planning_factors: [],
-  missed_planning_factors_other: '',
-  release_timeline_impact: '',
-  delivery_confidence_impact: '',
-  schema_change_estimation_owner: '',
-  delivery_risk_warning_signs: [],
-  delivery_risk_warning_signs_other: '',
-  recommended_estimation_buffer: '',
-  most_useful_managerial_metric: '',
-  most_useful_managerial_metric_other: '',
-  planning_resource_advice: '',
-  biggest_hidden_cost: '',
-  one_process_improvement: '',
-  additional_comments: '',
+  architecture_tradeoff_view: [],
+  main_schema_evolution_difficulty_factors: [],
+  productivity_improving_practices: [],
+  useful_schema_tool_practices: [],
+  ai_tool_usage_for_schema_work: '',
+  ai_schema_usage_modes: [],
+  schema_productivity_practice_comment: '',
+  schema_delivery_effort_impact: '',
+  schema_affected_delivery_activities: [],
+  schema_delivery_risk_signals: [],
+  schema_delivery_confidence_actions: [],
+  schema_delivery_recommendation: '',
 }
 
 // TEMPORARY TESTING MODE: Set to false before real survey distribution.
 const TEMP_SKIP_VALIDATION_FOR_TESTING = true
-const TOTAL_STEPS = 9
+const TOTAL_STEPS = 7
 
 function validateSectionOne(formData) {
   const errors = {}
@@ -342,156 +315,67 @@ function validateScenarioMultiModel(formData) {
   return errors
 }
 
-function validateComparativeEvaluation(formData) {
+function validateComparativeToolingPractices(formData) {
   const errors = {}
-  const requiredFields = [
-    ['overall_easier_architecture', 'Please select which architecture seems easier overall.'],
-    ['overall_less_effort_architecture', 'Please select which architecture seems to require less effort.'],
-    ['overall_lower_cognitive_load_architecture', 'Please select which architecture seems to create lower cognitive load.'],
-    ['overall_lower_risk_architecture', 'Please select which architecture seems to have lower risk.'],
-    ['overall_less_coordination_architecture', 'Please select which architecture seems to require less coordination.'],
-    ['most_difficult_schema_change_type', 'Please select the most difficult schema evolution change type.'],
-    ['main_productivity_factor', 'Please select the main productivity factor.'],
-  ]
 
-  requiredFields.forEach(([fieldName, message]) => {
-    if (!formData[fieldName]) {
-      errors[fieldName] = message
-    }
-  })
+  validateMaxFiveCheckbox(errors, formData, 'architecture_tradeoff_view')
+  validateMaxFiveCheckbox(
+    errors,
+    formData,
+    'main_schema_evolution_difficulty_factors',
+  )
+  validateMaxFiveCheckbox(errors, formData, 'productivity_improving_practices')
+  validateMaxFiveCheckbox(errors, formData, 'useful_schema_tool_practices')
+  validateMaxFiveCheckbox(errors, formData, 'ai_schema_usage_modes')
 
-  if (
-    formData.most_difficult_schema_change_type === 'Other' &&
-    !formData.most_difficult_schema_change_type_other.trim()
-  ) {
-    errors.most_difficult_schema_change_type_other =
-      'Please specify the most difficult schema evolution change type.'
-  }
-
-  if (
-    formData.main_productivity_factor === 'Other' &&
-    !formData.main_productivity_factor_other.trim()
-  ) {
-    errors.main_productivity_factor_other =
-      'Please specify the productivity factor.'
+  if (!formData.ai_tool_usage_for_schema_work) {
+    errors.ai_tool_usage_for_schema_work =
+      'Please select your AI tool usage for schema work.'
   }
 
   return errors
 }
 
-function validateToolingPractices(formData) {
+function validateMaxFiveCheckbox(errors, formData, fieldName) {
+  const values = formData[fieldName]
+
+  if (!Array.isArray(values) || values.length === 0) {
+    errors[fieldName] = 'Please select at least one option.'
+  } else if (values.length > 5) {
+    errors[fieldName] = 'Please select up to 5 options.'
+  }
+}
+
+function validateSoftwareDeliveryImpact(formData) {
   const errors = {}
-  const requiredFields = [
-    ['most_effective_migration_tooling', 'Please select the most effective tooling type.'],
-    ['ai_tool_usage_frequency', 'Please select your AI tool usage frequency.'],
-    ['ai_tool_trust_level', 'Please select your trust level for AI-generated output.'],
-    ['schema_change_checklist_usage', 'Please select whether your team uses a schema change checklist or review process.'],
-    ['organization_improvement_priority', 'Please select what organizations should improve first.'],
-  ]
 
-  requiredFields.forEach(([fieldName, message]) => {
-    if (!formData[fieldName]) {
-      errors[fieldName] = message
-    }
-  })
-
-  if (formData.used_schema_tools_practices.length === 0) {
-    errors.used_schema_tools_practices =
-      'Please select at least one tool or practice.'
+  if (!formData.schema_delivery_effort_impact) {
+    errors.schema_delivery_effort_impact =
+      'Please rate the delivery effort impact.'
   }
 
-  if (
-    formData.used_schema_tools_practices.includes('Other') &&
-    !formData.used_schema_tools_practices_other.trim()
-  ) {
-    errors.used_schema_tools_practices_other =
-      'Please specify the tool or practice.'
-  }
+  validateRequiredCheckbox(
+    errors,
+    formData,
+    'schema_affected_delivery_activities',
+  )
 
-  if (
-    formData.most_effective_migration_tooling === 'Other' &&
-    !formData.most_effective_migration_tooling_other.trim()
-  ) {
-    errors.most_effective_migration_tooling_other =
-      'Please specify the effective tooling type.'
-  }
-
-  if (formData.ai_tool_supported_tasks.length === 0) {
-    errors.ai_tool_supported_tasks =
-      'Please select at least one AI-supported task option.'
-  }
-
-  if (
-    formData.ai_tool_supported_tasks.includes('Other') &&
-    !formData.ai_tool_supported_tasks_other.trim()
-  ) {
-    errors.ai_tool_supported_tasks_other =
-      'Please specify the AI-supported task.'
-  }
-
-  if (
-    formData.organization_improvement_priority === 'Other' &&
-    !formData.organization_improvement_priority_other.trim()
-  ) {
-    errors.organization_improvement_priority_other =
-      'Please specify the organizational improvement priority.'
-  }
+  validateRequiredCheckbox(errors, formData, 'schema_delivery_risk_signals')
+  validateRequiredCheckbox(
+    errors,
+    formData,
+    'schema_delivery_confidence_actions',
+  )
 
   return errors
 }
 
-function validateManagerialDeliveryImpact(formData) {
-  const errors = {}
-  const requiredFields = [
-    ['schema_change_underestimation_frequency', 'Please select how often schema changes are underestimated.'],
-    ['release_timeline_impact', 'Please rate the impact on release timelines.'],
-    ['delivery_confidence_impact', 'Please rate the impact on delivery confidence.'],
-    ['schema_change_estimation_owner', 'Please select who should mainly estimate schema evolution effort.'],
-    ['recommended_estimation_buffer', 'Please select the recommended estimation buffer.'],
-    ['most_useful_managerial_metric', 'Please select the most useful managerial metric.'],
-  ]
+function validateRequiredCheckbox(errors, formData, fieldName) {
+  const values = formData[fieldName]
 
-  requiredFields.forEach(([fieldName, message]) => {
-    if (!formData[fieldName]) {
-      errors[fieldName] = message
-    }
-  })
-
-  if (formData.missed_planning_factors.length === 0) {
-    errors.missed_planning_factors =
-      'Please select at least one missed planning factor.'
+  if (!Array.isArray(values) || values.length === 0) {
+    errors[fieldName] = 'Please select at least one option.'
   }
-
-  if (
-    formData.missed_planning_factors.includes('Other') &&
-    !formData.missed_planning_factors_other.trim()
-  ) {
-    errors.missed_planning_factors_other =
-      'Please specify the missed planning factor.'
-  }
-
-  if (formData.delivery_risk_warning_signs.length === 0) {
-    errors.delivery_risk_warning_signs =
-      'Please select at least one delivery risk warning sign.'
-  }
-
-  if (
-    formData.delivery_risk_warning_signs.includes('Other') &&
-    !formData.delivery_risk_warning_signs_other.trim()
-  ) {
-    errors.delivery_risk_warning_signs_other =
-      'Please specify the delivery risk warning sign.'
-  }
-
-  if (
-    formData.most_useful_managerial_metric === 'Other' &&
-    !formData.most_useful_managerial_metric_other.trim()
-  ) {
-    errors.most_useful_managerial_metric_other =
-      'Please specify the managerial metric.'
-  }
-
-  return errors
 }
 
 function App() {
@@ -593,8 +477,8 @@ function App() {
     }
   }
 
-  function handleComparativeEvaluationNext() {
-    const nextErrors = validateComparativeEvaluation(normalizedFormData)
+  function handleComparativeToolingPracticesNext() {
+    const nextErrors = validateComparativeToolingPractices(normalizedFormData)
     setErrors(nextErrors)
 
     if (
@@ -607,54 +491,24 @@ function App() {
     }
   }
 
-  function handleToolingPracticesNext() {
-    const nextErrors = validateToolingPractices(normalizedFormData)
-    setErrors(nextErrors)
-
-    if (
-      TEMP_SKIP_VALIDATION_FOR_TESTING ||
-      Object.keys(nextErrors).length === 0
-    ) {
-      setErrors({})
-      setStep(8)
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    }
-  }
-
-  function handleManagerialDeliveryImpactNext() {
-    const nextErrors = validateManagerialDeliveryImpact(normalizedFormData)
-    setErrors(nextErrors)
-
-    if (
-      TEMP_SKIP_VALIDATION_FOR_TESTING ||
-      Object.keys(nextErrors).length === 0
-    ) {
-      setErrors({})
-      setStep(9)
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    }
-  }
-
   async function handleSubmit() {
     const sectionOneErrors = validateSectionOne(normalizedFormData)
     const sectionTwoErrors = validateSectionTwo(normalizedFormData)
     const sectionThreeErrors = validateSectionThree(normalizedFormData)
     const scenarioPolyglotErrors = validateScenarioPolyglot(normalizedFormData)
     const scenarioMultiModelErrors = validateScenarioMultiModel(normalizedFormData)
-    const comparativeEvaluationErrors =
-      validateComparativeEvaluation(normalizedFormData)
-    const toolingPracticesErrors = validateToolingPractices(normalizedFormData)
-    const managerialDeliveryImpactErrors =
-      validateManagerialDeliveryImpact(normalizedFormData)
+    const comparativeToolingPracticesErrors =
+      validateComparativeToolingPractices(normalizedFormData)
+    const softwareDeliveryImpactErrors =
+      validateSoftwareDeliveryImpact(normalizedFormData)
     const nextErrors = {
       ...sectionOneErrors,
       ...sectionTwoErrors,
       ...sectionThreeErrors,
       ...scenarioPolyglotErrors,
       ...scenarioMultiModelErrors,
-      ...comparativeEvaluationErrors,
-      ...toolingPracticesErrors,
-      ...managerialDeliveryImpactErrors,
+      ...comparativeToolingPracticesErrors,
+      ...softwareDeliveryImpactErrors,
     }
 
     setErrors(nextErrors)
@@ -662,7 +516,7 @@ function App() {
 
     if (Object.keys(nextErrors).length > 0) {
       setSubmissionError(
-        'Please complete all required eligibility, background, architecture context, scenario, comparative evaluation, tooling practices, and managerial delivery impact questions before submitting.',
+        'Please complete all required eligibility, background, architecture context, scenario, comparative tooling practices, and software delivery impact questions before submitting.',
       )
       return
     }
@@ -754,50 +608,31 @@ function App() {
 
     if (step === 6) {
       return (
-        <ComparativeEvaluation
+        <ComparativeToolingPractices
           formData={normalizedFormData}
           errors={errors}
           onChange={handleChange}
           onBack={() => setStep(5)}
-          onNext={handleComparativeEvaluationNext}
+          onNext={handleComparativeToolingPracticesNext}
         />
       )
     }
 
     if (step === 7) {
       return (
-        <ToolingPractices
+        <SoftwareDeliveryImpact
           formData={normalizedFormData}
           errors={errors}
           onChange={handleChange}
           onBack={() => setStep(6)}
-          onNext={handleToolingPracticesNext}
+          onSubmit={handleSubmit}
+          isSubmitting={isSubmitting}
+          submissionError={submissionError}
         />
       )
     }
 
-    if (step === 8) {
-      return (
-        <ManagerialDeliveryImpact
-          formData={normalizedFormData}
-          errors={errors}
-          onChange={handleChange}
-          onBack={() => setStep(7)}
-          onNext={handleManagerialDeliveryImpactNext}
-        />
-      )
-    }
-
-    return (
-      <FinalReflection
-        formData={normalizedFormData}
-        onChange={handleChange}
-        onBack={() => setStep(8)}
-        onSubmit={handleSubmit}
-        isSubmitting={isSubmitting}
-        submissionError={submissionError}
-      />
-    )
+    return null
   }
 
   return (

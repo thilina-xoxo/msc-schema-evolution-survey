@@ -93,67 +93,36 @@ export async function submitSurvey(formData) {
       ),
       multimodel_s2_optional_comment: formData.multimodel_s2_optional_comment,
     },
-    comparative_evaluation: {
-      overall_easier_architecture: formData.overall_easier_architecture,
-      overall_less_effort_architecture:
-        formData.overall_less_effort_architecture,
-      overall_lower_cognitive_load_architecture:
-        formData.overall_lower_cognitive_load_architecture,
-      overall_lower_risk_architecture: formData.overall_lower_risk_architecture,
-      overall_less_coordination_architecture:
-        formData.overall_less_coordination_architecture,
-      most_difficult_schema_change_type:
-        formData.most_difficult_schema_change_type,
-      most_difficult_schema_change_type_other:
-        formData.most_difficult_schema_change_type_other,
-      main_productivity_factor: formData.main_productivity_factor,
-      main_productivity_factor_other: formData.main_productivity_factor_other,
-      architecture_preference_reason: formData.architecture_preference_reason,
-    },
-    tooling_practices: {
-      used_schema_tools_practices: joinArrayValue(
-        formData.used_schema_tools_practices,
+    comparative_tooling_practices: {
+      architecture_tradeoff_view: joinArrayValue(
+        formData.architecture_tradeoff_view,
       ),
-      used_schema_tools_practices_other:
-        formData.used_schema_tools_practices_other,
-      most_effective_migration_tooling:
-        formData.most_effective_migration_tooling,
-      most_effective_migration_tooling_other:
-        formData.most_effective_migration_tooling_other,
-      ai_tool_usage_frequency: formData.ai_tool_usage_frequency,
-      ai_tool_supported_tasks: joinArrayValue(formData.ai_tool_supported_tasks),
-      ai_tool_supported_tasks_other: formData.ai_tool_supported_tasks_other,
-      ai_tool_trust_level: formData.ai_tool_trust_level,
-      schema_change_checklist_usage: formData.schema_change_checklist_usage,
-      organization_improvement_priority:
-        formData.organization_improvement_priority,
-      organization_improvement_priority_other:
-        formData.organization_improvement_priority_other,
-      tooling_gap_observation: formData.tooling_gap_observation,
-    },
-    managerial_delivery_impact: {
-      schema_change_underestimation_frequency:
-        formData.schema_change_underestimation_frequency,
-      missed_planning_factors: joinArrayValue(formData.missed_planning_factors),
-      missed_planning_factors_other: formData.missed_planning_factors_other,
-      release_timeline_impact: formData.release_timeline_impact,
-      delivery_confidence_impact: formData.delivery_confidence_impact,
-      schema_change_estimation_owner: formData.schema_change_estimation_owner,
-      delivery_risk_warning_signs: joinArrayValue(
-        formData.delivery_risk_warning_signs,
+      main_schema_evolution_difficulty_factors: joinArrayValue(
+        formData.main_schema_evolution_difficulty_factors,
       ),
-      delivery_risk_warning_signs_other:
-        formData.delivery_risk_warning_signs_other,
-      recommended_estimation_buffer: formData.recommended_estimation_buffer,
-      most_useful_managerial_metric: formData.most_useful_managerial_metric,
-      most_useful_managerial_metric_other:
-        formData.most_useful_managerial_metric_other,
-      planning_resource_advice: formData.planning_resource_advice,
+      productivity_improving_practices: joinArrayValue(
+        formData.productivity_improving_practices,
+      ),
+      useful_schema_tool_practices: joinArrayValue(
+        formData.useful_schema_tool_practices,
+      ),
+      ai_tool_usage_for_schema_work: formData.ai_tool_usage_for_schema_work,
+      ai_schema_usage_modes: joinArrayValue(formData.ai_schema_usage_modes),
+      schema_productivity_practice_comment:
+        formData.schema_productivity_practice_comment,
     },
-    final_reflection: {
-      biggest_hidden_cost: formData.biggest_hidden_cost,
-      one_process_improvement: formData.one_process_improvement,
-      additional_comments: formData.additional_comments,
+    software_delivery_impact: {
+      schema_delivery_effort_impact: formData.schema_delivery_effort_impact,
+      schema_affected_delivery_activities: joinArrayValue(
+        formData.schema_affected_delivery_activities,
+      ),
+      schema_delivery_risk_signals: joinArrayValue(
+        formData.schema_delivery_risk_signals,
+      ),
+      schema_delivery_confidence_actions: joinArrayValue(
+        formData.schema_delivery_confidence_actions,
+      ),
+      schema_delivery_recommendation: formData.schema_delivery_recommendation,
     },
   };
 

@@ -4,10 +4,8 @@ const PARTICIPANT_BACKGROUND_SHEET = 'participant_background';
 const ARCHITECTURE_CONTEXT_SHEET = 'architecture_context';
 const SCENARIO_POLYGLOT_SHEET = 'scenario_polyglot';
 const SCENARIO_MULTIMODEL_SHEET = 'scenario_multimodel';
-const COMPARATIVE_EVALUATION_SHEET = 'comparative_evaluation';
-const TOOLING_PRACTICES_SHEET = 'tooling_practices';
-const MANAGERIAL_DELIVERY_IMPACT_SHEET = 'managerial_delivery_impact';
-const FINAL_REFLECTION_SHEET = 'final_reflection';
+const COMPARATIVE_TOOLING_PRACTICES_SHEET = 'comparative_tooling_practices';
+const SOFTWARE_DELIVERY_IMPACT_SHEET = 'software_delivery_impact';
 
 const PARTICIPANT_BACKGROUND_HEADERS = [
   'timestamp',
@@ -73,61 +71,26 @@ const SCENARIO_MULTIMODEL_HEADERS = [
   'multimodel_s2_optional_comment',
 ];
 
-const COMPARATIVE_EVALUATION_HEADERS = [
+const COMPARATIVE_TOOLING_PRACTICES_HEADERS = [
   'timestamp',
   'participant_id',
-  'overall_easier_architecture',
-  'overall_less_effort_architecture',
-  'overall_lower_cognitive_load_architecture',
-  'overall_lower_risk_architecture',
-  'overall_less_coordination_architecture',
-  'most_difficult_schema_change_type',
-  'most_difficult_schema_change_type_other',
-  'main_productivity_factor',
-  'main_productivity_factor_other',
-  'architecture_preference_reason',
+  'architecture_tradeoff_view',
+  'main_schema_evolution_difficulty_factors',
+  'productivity_improving_practices',
+  'useful_schema_tool_practices',
+  'ai_tool_usage_for_schema_work',
+  'ai_schema_usage_modes',
+  'schema_productivity_practice_comment',
 ];
 
-const TOOLING_PRACTICES_HEADERS = [
+const SOFTWARE_DELIVERY_IMPACT_HEADERS = [
   'timestamp',
   'participant_id',
-  'used_schema_tools_practices',
-  'used_schema_tools_practices_other',
-  'most_effective_migration_tooling',
-  'most_effective_migration_tooling_other',
-  'ai_tool_usage_frequency',
-  'ai_tool_supported_tasks',
-  'ai_tool_supported_tasks_other',
-  'ai_tool_trust_level',
-  'schema_change_checklist_usage',
-  'organization_improvement_priority',
-  'organization_improvement_priority_other',
-  'tooling_gap_observation',
-];
-
-const MANAGERIAL_DELIVERY_IMPACT_HEADERS = [
-  'timestamp',
-  'participant_id',
-  'schema_change_underestimation_frequency',
-  'missed_planning_factors',
-  'missed_planning_factors_other',
-  'release_timeline_impact',
-  'delivery_confidence_impact',
-  'schema_change_estimation_owner',
-  'delivery_risk_warning_signs',
-  'delivery_risk_warning_signs_other',
-  'recommended_estimation_buffer',
-  'most_useful_managerial_metric',
-  'most_useful_managerial_metric_other',
-  'planning_resource_advice',
-];
-
-const FINAL_REFLECTION_HEADERS = [
-  'timestamp',
-  'participant_id',
-  'biggest_hidden_cost',
-  'one_process_improvement',
-  'additional_comments',
+  'schema_delivery_effort_impact',
+  'schema_affected_delivery_activities',
+  'schema_delivery_risk_signals',
+  'schema_delivery_confidence_actions',
+  'schema_delivery_recommendation',
 ];
 
 function doPost(e) {
@@ -166,25 +129,15 @@ function doPost(e) {
       SCENARIO_MULTIMODEL_SHEET,
       SCENARIO_MULTIMODEL_HEADERS
     );
-    const comparativeEvaluationSheet = getOrCreateSheet(
+    const comparativeToolingPracticesSheet = getOrCreateSheet(
       spreadsheet,
-      COMPARATIVE_EVALUATION_SHEET,
-      COMPARATIVE_EVALUATION_HEADERS
+      COMPARATIVE_TOOLING_PRACTICES_SHEET,
+      COMPARATIVE_TOOLING_PRACTICES_HEADERS
     );
-    const toolingPracticesSheet = getOrCreateSheet(
+    const softwareDeliveryImpactSheet = getOrCreateSheet(
       spreadsheet,
-      TOOLING_PRACTICES_SHEET,
-      TOOLING_PRACTICES_HEADERS
-    );
-    const managerialDeliveryImpactSheet = getOrCreateSheet(
-      spreadsheet,
-      MANAGERIAL_DELIVERY_IMPACT_SHEET,
-      MANAGERIAL_DELIVERY_IMPACT_HEADERS
-    );
-    const finalReflectionSheet = getOrCreateSheet(
-      spreadsheet,
-      FINAL_REFLECTION_SHEET,
-      FINAL_REFLECTION_HEADERS
+      SOFTWARE_DELIVERY_IMPACT_SHEET,
+      SOFTWARE_DELIVERY_IMPACT_HEADERS
     );
 
     participantBackgroundSheet.appendRow(
@@ -219,36 +172,20 @@ function doPost(e) {
         SCENARIO_MULTIMODEL_HEADERS
       )
     );
-    comparativeEvaluationSheet.appendRow(
+    comparativeToolingPracticesSheet.appendRow(
       buildRow(
         timestamp,
         participantId,
-        payload.comparative_evaluation || {},
-        COMPARATIVE_EVALUATION_HEADERS
+        payload.comparative_tooling_practices || {},
+        COMPARATIVE_TOOLING_PRACTICES_HEADERS
       )
     );
-    toolingPracticesSheet.appendRow(
+    softwareDeliveryImpactSheet.appendRow(
       buildRow(
         timestamp,
         participantId,
-        payload.tooling_practices || {},
-        TOOLING_PRACTICES_HEADERS
-      )
-    );
-    managerialDeliveryImpactSheet.appendRow(
-      buildRow(
-        timestamp,
-        participantId,
-        payload.managerial_delivery_impact || {},
-        MANAGERIAL_DELIVERY_IMPACT_HEADERS
-      )
-    );
-    finalReflectionSheet.appendRow(
-      buildRow(
-        timestamp,
-        participantId,
-        payload.final_reflection || {},
-        FINAL_REFLECTION_HEADERS
+        payload.software_delivery_impact || {},
+        SOFTWARE_DELIVERY_IMPACT_HEADERS
       )
     );
 
