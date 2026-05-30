@@ -578,6 +578,22 @@ tr:last-child td {
   border: 0;
 }
 
+.image-diagram-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--surface-input);
+}
+
+.image-diagram-wrap img {
+  display: block;
+  width: 100%;
+  min-width: 680px;
+  height: auto;
+  object-fit: contain;
+}
+
 .diagram-frame figcaption {
   margin-top: 10px;
   color: var(--text-muted);

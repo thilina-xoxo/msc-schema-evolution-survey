@@ -60,42 +60,38 @@ export async function submitSurvey(formData) {
       polyglot_s2_optional_comment: formData.polyglot_s2_optional_comment,
     },
     scenario_multimodel: {
-      multi_s1_effort: formData.multi_s1_effort,
-      multi_s1_change_radius: formData.multi_s1_change_radius,
-      multi_s1_cognitive_load: formData.multi_s1_cognitive_load,
-      multi_s1_bug_risk: formData.multi_s1_bug_risk,
-      multi_s1_coordination_overhead: formData.multi_s1_coordination_overhead,
-      multi_s1_comment: formData.multi_s1_comment,
-      multi_s2_effort: formData.multi_s2_effort,
-      multi_s2_change_radius: formData.multi_s2_change_radius,
-      multi_s2_cognitive_load: formData.multi_s2_cognitive_load,
-      multi_s2_bug_risk: formData.multi_s2_bug_risk,
-      multi_s2_coordination_overhead: formData.multi_s2_coordination_overhead,
-      multi_s2_backward_compatibility_difficulty:
-        formData.multi_s2_backward_compatibility_difficulty,
-      multi_s2_comment: formData.multi_s2_comment,
-      multi_s3_effort: formData.multi_s3_effort,
-      multi_s3_change_radius: formData.multi_s3_change_radius,
-      multi_s3_cognitive_load: formData.multi_s3_cognitive_load,
-      multi_s3_data_risk: formData.multi_s3_data_risk,
-      multi_s3_coordination_overhead: formData.multi_s3_coordination_overhead,
-      multi_s3_migration_difficulty: formData.multi_s3_migration_difficulty,
-      multi_s3_testing_difficulty: formData.multi_s3_testing_difficulty,
-      multi_s3_comment: formData.multi_s3_comment,
-      multi_s4_effort: formData.multi_s4_effort,
-      multi_s4_change_radius: formData.multi_s4_change_radius,
-      multi_s4_cognitive_load: formData.multi_s4_cognitive_load,
-      multi_s4_consistency_risk: formData.multi_s4_consistency_risk,
-      multi_s4_coordination_overhead: formData.multi_s4_coordination_overhead,
-      multi_s4_rule_enforcement_difficulty:
-        formData.multi_s4_rule_enforcement_difficulty,
-      multi_s4_failure_handling_difficulty:
-        formData.multi_s4_failure_handling_difficulty,
-      multi_s4_preferred_implementation_approach:
-        formData.multi_s4_preferred_implementation_approach,
-      multi_s4_preferred_implementation_approach_other:
-        formData.multi_s4_preferred_implementation_approach_other,
-      multi_s4_comment: formData.multi_s4_comment,
+      multimodel_s1_effort_story_points:
+        formData.multimodel_s1_effort_story_points,
+      multimodel_s1_mental_effort: formData.multimodel_s1_mental_effort,
+      multimodel_s1_bug_data_risk: formData.multimodel_s1_bug_data_risk,
+      multimodel_s1_coordination_overhead:
+        formData.multimodel_s1_coordination_overhead,
+      multimodel_s1_productivity_impact:
+        formData.multimodel_s1_productivity_impact,
+      multimodel_s1_architecture_benefits: joinArrayValue(
+        formData.multimodel_s1_architecture_benefits,
+      ),
+      multimodel_s1_architecture_challenges: joinArrayValue(
+        formData.multimodel_s1_architecture_challenges,
+      ),
+      multimodel_s1_optional_comment: formData.multimodel_s1_optional_comment,
+      multimodel_s2_effort_story_points:
+        formData.multimodel_s2_effort_story_points,
+      multimodel_s2_mental_effort: formData.multimodel_s2_mental_effort,
+      multimodel_s2_bug_data_risk: formData.multimodel_s2_bug_data_risk,
+      multimodel_s2_coordination_overhead:
+        formData.multimodel_s2_coordination_overhead,
+      multimodel_s2_backward_compatibility_difficulty:
+        formData.multimodel_s2_backward_compatibility_difficulty,
+      multimodel_s2_productivity_impact:
+        formData.multimodel_s2_productivity_impact,
+      multimodel_s2_architecture_benefits: joinArrayValue(
+        formData.multimodel_s2_architecture_benefits,
+      ),
+      multimodel_s2_architecture_challenges: joinArrayValue(
+        formData.multimodel_s2_architecture_challenges,
+      ),
+      multimodel_s2_optional_comment: formData.multimodel_s2_optional_comment,
     },
     comparative_evaluation: {
       overall_easier_architecture: formData.overall_easier_architecture,

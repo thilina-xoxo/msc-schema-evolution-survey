@@ -41,37 +41,23 @@ const initialFormData = {
   polyglot_s2_architecture_benefits: [],
   polyglot_s2_architecture_challenges: [],
   polyglot_s2_optional_comment: '',
-  multi_s1_effort: '',
-  multi_s1_change_radius: '',
-  multi_s1_cognitive_load: '',
-  multi_s1_bug_risk: '',
-  multi_s1_coordination_overhead: '',
-  multi_s1_comment: '',
-  multi_s2_effort: '',
-  multi_s2_change_radius: '',
-  multi_s2_cognitive_load: '',
-  multi_s2_bug_risk: '',
-  multi_s2_coordination_overhead: '',
-  multi_s2_backward_compatibility_difficulty: '',
-  multi_s2_comment: '',
-  multi_s3_effort: '',
-  multi_s3_change_radius: '',
-  multi_s3_cognitive_load: '',
-  multi_s3_data_risk: '',
-  multi_s3_coordination_overhead: '',
-  multi_s3_migration_difficulty: '',
-  multi_s3_testing_difficulty: '',
-  multi_s3_comment: '',
-  multi_s4_effort: '',
-  multi_s4_change_radius: '',
-  multi_s4_cognitive_load: '',
-  multi_s4_consistency_risk: '',
-  multi_s4_coordination_overhead: '',
-  multi_s4_rule_enforcement_difficulty: '',
-  multi_s4_failure_handling_difficulty: '',
-  multi_s4_preferred_implementation_approach: '',
-  multi_s4_preferred_implementation_approach_other: '',
-  multi_s4_comment: '',
+  multimodel_s1_effort_story_points: '',
+  multimodel_s1_mental_effort: '',
+  multimodel_s1_bug_data_risk: '',
+  multimodel_s1_coordination_overhead: '',
+  multimodel_s1_productivity_impact: '',
+  multimodel_s1_architecture_benefits: [],
+  multimodel_s1_architecture_challenges: [],
+  multimodel_s1_optional_comment: '',
+  multimodel_s2_effort_story_points: '',
+  multimodel_s2_mental_effort: '',
+  multimodel_s2_bug_data_risk: '',
+  multimodel_s2_coordination_overhead: '',
+  multimodel_s2_backward_compatibility_difficulty: '',
+  multimodel_s2_productivity_impact: '',
+  multimodel_s2_architecture_benefits: [],
+  multimodel_s2_architecture_challenges: [],
+  multimodel_s2_optional_comment: '',
   overall_easier_architecture: '',
   overall_less_effort_architecture: '',
   overall_lower_cognitive_load_architecture: '',
@@ -283,33 +269,43 @@ function validateLimitedCheckbox(errors, formData, fieldName, exclusiveOption) {
 function validateScenarioMultiModel(formData) {
   const errors = {}
 
+  const requiredNumericFields = [
+    [
+      'multimodel_s1_effort_story_points',
+      'Please enter the estimated total implementation effort.',
+    ],
+    [
+      'multimodel_s2_effort_story_points',
+      'Please enter the estimated total implementation effort.',
+    ],
+  ]
+
+  requiredNumericFields.forEach(([fieldName, message]) => {
+    const value = formData[fieldName]
+    const numericValue = Number(value)
+
+    if (!value) {
+      errors[fieldName] = message
+    } else if (
+      !Number.isFinite(numericValue) ||
+      numericValue <= 0 ||
+      numericValue > 500
+    ) {
+      errors[fieldName] =
+        'Please enter a reasonable positive numeric story point value.'
+    }
+  })
+
   const requiredFields = [
-    ['multi_s1_effort', 'Please select the likely implementation effort.'],
-    ['multi_s1_change_radius', 'Please select the likely change impact radius.'],
-    ['multi_s1_cognitive_load', 'Please rate the mental effort required.'],
-    ['multi_s1_bug_risk', 'Please rate the risk of bugs or data issues.'],
-    ['multi_s1_coordination_overhead', 'Please rate the coordination overhead.'],
-    ['multi_s2_effort', 'Please select the likely implementation effort.'],
-    ['multi_s2_change_radius', 'Please select the likely change impact radius.'],
-    ['multi_s2_cognitive_load', 'Please rate the mental effort required.'],
-    ['multi_s2_bug_risk', 'Please rate the risk of bugs or inconsistent data.'],
-    ['multi_s2_coordination_overhead', 'Please rate the coordination overhead.'],
-    ['multi_s2_backward_compatibility_difficulty', 'Please rate the backward compatibility difficulty.'],
-    ['multi_s3_effort', 'Please select the likely implementation effort.'],
-    ['multi_s3_change_radius', 'Please select the likely change impact radius.'],
-    ['multi_s3_cognitive_load', 'Please rate the mental effort required.'],
-    ['multi_s3_data_risk', 'Please rate the data, privacy, or compliance risk.'],
-    ['multi_s3_coordination_overhead', 'Please rate the coordination overhead.'],
-    ['multi_s3_migration_difficulty', 'Please rate the data migration difficulty.'],
-    ['multi_s3_testing_difficulty', 'Please rate the testing and validation difficulty.'],
-    ['multi_s4_effort', 'Please select the likely implementation effort.'],
-    ['multi_s4_change_radius', 'Please select the likely change impact radius.'],
-    ['multi_s4_cognitive_load', 'Please rate the mental effort required.'],
-    ['multi_s4_consistency_risk', 'Please rate the consistency or compliance risk.'],
-    ['multi_s4_coordination_overhead', 'Please rate the coordination overhead.'],
-    ['multi_s4_rule_enforcement_difficulty', 'Please rate the rule enforcement difficulty.'],
-    ['multi_s4_failure_handling_difficulty', 'Please rate the rollback or failure handling difficulty.'],
-    ['multi_s4_preferred_implementation_approach', 'Please select the implementation approach you would most likely consider.'],
+    ['multimodel_s1_mental_effort', 'Please rate the mental effort required.'],
+    ['multimodel_s1_bug_data_risk', 'Please rate the risk of bugs or data issues.'],
+    ['multimodel_s1_coordination_overhead', 'Please rate the coordination overhead.'],
+    ['multimodel_s1_productivity_impact', 'Please rate the productivity impact.'],
+    ['multimodel_s2_mental_effort', 'Please rate the mental effort required.'],
+    ['multimodel_s2_bug_data_risk', 'Please rate the risk of bugs or data inconsistency.'],
+    ['multimodel_s2_coordination_overhead', 'Please rate the coordination overhead.'],
+    ['multimodel_s2_backward_compatibility_difficulty', 'Please rate the backward compatibility difficulty.'],
+    ['multimodel_s2_productivity_impact', 'Please rate the productivity impact.'],
   ]
 
   requiredFields.forEach(([fieldName, message]) => {
@@ -318,13 +314,30 @@ function validateScenarioMultiModel(formData) {
     }
   })
 
-  if (
-    formData.multi_s4_preferred_implementation_approach === 'Other' &&
-    !formData.multi_s4_preferred_implementation_approach_other.trim()
-  ) {
-    errors.multi_s4_preferred_implementation_approach_other =
-      'Please specify the implementation approach.'
-  }
+  validateLimitedCheckbox(
+    errors,
+    formData,
+    'multimodel_s1_architecture_benefits',
+    'No clear benefit from Multi-Model Persistence in this scenario.',
+  )
+  validateLimitedCheckbox(
+    errors,
+    formData,
+    'multimodel_s1_architecture_challenges',
+    'No clear disadvantage from Multi-Model Persistence in this scenario.',
+  )
+  validateLimitedCheckbox(
+    errors,
+    formData,
+    'multimodel_s2_architecture_benefits',
+    'No clear benefit from Multi-Model Persistence in this scenario.',
+  )
+  validateLimitedCheckbox(
+    errors,
+    formData,
+    'multimodel_s2_architecture_challenges',
+    'No clear disadvantage from Multi-Model Persistence in this scenario.',
+  )
 
   return errors
 }

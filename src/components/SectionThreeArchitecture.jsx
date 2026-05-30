@@ -5,8 +5,8 @@ function DiagramCard({ title, description, src, caption, showTitle = true }) {
     <figure className="diagram-frame compact-diagram">
       {showTitle && <h3>{title}</h3>}
       <p>{description}</p>
-      <div className="iframe-wrap">
-        <iframe src={src} title={title} />
+      <div className="image-diagram-wrap">
+        <img src={src} alt={title} />
       </div>
       {caption && <figcaption>{caption}</figcaption>}
       <a href={src} target="_blank" rel="noreferrer">
@@ -74,7 +74,8 @@ function SectionThreeArchitecture({
           <DiagramCard
             title="Persistence Layer Model A — Polyglot Persistence"
             description="Diagram: Polyglot persistence data-layer diagram."
-            src="/diagrams/modavista_arch_v3_clean.html"
+            src="/diagrams/Polyglot%20diagram.png"
+            caption="Figure 1. ModaVista Group — Polyglot Persistence Data-Layer Reference Architecture"
             showTitle={false}
           />
         </article>
@@ -108,7 +109,8 @@ function SectionThreeArchitecture({
           <DiagramCard
             title="Persistence Layer Model B — Multi-Model Persistence"
             description="Diagram: Multi-model persistence data-layer diagram."
-            src="/diagrams/modavista_multimodel_v2_clean.html"
+            src="/diagrams/multimodel.png"
+            caption="Figure 2. ModaVista Group — Multi-Model Persistence Data-Layer Reference Architecture"
             showTitle={false}
           />
         </article>
