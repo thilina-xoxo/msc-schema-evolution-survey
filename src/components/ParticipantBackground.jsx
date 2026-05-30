@@ -62,7 +62,7 @@ function ParticipantBackground({
 }) {
   return (
     <section>
-      <h2>Section 2 — Participant Background</h2>
+      <h2>Section 2: Participant Background</h2>
       <p className="section-intro">
         This section collects only basic background information needed to
         interpret survey responses.

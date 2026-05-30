@@ -1,14 +1,11 @@
 import { useMemo, useState } from 'react'
-import ComparativeEvaluation from './components/ComparativeEvaluation'
+import ComparativeToolingPractices from './components/ComparativeToolingPractices'
 import ConsentSection from './components/ConsentSection'
-import FinalReflection from './components/FinalReflection'
-import ManagerialDeliveryImpact from './components/ManagerialDeliveryImpact'
 import ParticipantBackground from './components/ParticipantBackground'
 import ScenarioMultiModel from './components/ScenarioMultiModel'
 import ScenarioPolyglot from './components/ScenarioPolyglot'
-import SchemaEvolutionExperience from './components/SchemaEvolutionExperience'
 import SectionThreeArchitecture from './components/SectionThreeArchitecture'
-import ToolingPractices from './components/ToolingPractices'
+import SoftwareDeliveryImpact from './components/SoftwareDeliveryImpact'
 import { submitSurvey } from './services/submitSurvey'
 import { getParticipantId } from './utils/participantId'
 import './App.css'
@@ -24,119 +21,58 @@ const initialFormData = {
   database_technologies_other: '',
   schema_evolution_familiarity: '',
   production_schema_change_experience: '',
-  architecture_context_clarity: '',
   architecture_difference_clarity: '',
-  schema_change_frequency: '',
-  experienced_schema_change_types: [],
-  experienced_schema_change_types_other: '',
-  schema_evolution_difficulty_factors: [],
-  schema_evolution_difficulty_factors_other: '',
-  schema_change_productivity_impact: '',
-  schema_change_cognitive_load: '',
-  schema_change_coordination_overhead: '',
-  poly_s1_effort: '',
-  poly_s1_change_radius: '',
-  poly_s1_cognitive_load: '',
-  poly_s1_bug_risk: '',
-  poly_s1_coordination_overhead: '',
-  poly_s1_comment: '',
-  poly_s2_effort: '',
-  poly_s2_change_radius: '',
-  poly_s2_cognitive_load: '',
-  poly_s2_bug_risk: '',
-  poly_s2_coordination_overhead: '',
-  poly_s2_backward_compatibility_difficulty: '',
-  poly_s2_comment: '',
-  poly_s3_effort: '',
-  poly_s3_change_radius: '',
-  poly_s3_cognitive_load: '',
-  poly_s3_data_risk: '',
-  poly_s3_coordination_overhead: '',
-  poly_s3_migration_difficulty: '',
-  poly_s3_testing_difficulty: '',
-  poly_s3_comment: '',
-  poly_s4_effort: '',
-  poly_s4_change_radius: '',
-  poly_s4_cognitive_load: '',
-  poly_s4_consistency_risk: '',
-  poly_s4_coordination_overhead: '',
-  poly_s4_rule_enforcement_difficulty: '',
-  poly_s4_failure_handling_difficulty: '',
-  poly_s4_preferred_implementation_approach: '',
-  poly_s4_preferred_implementation_approach_other: '',
-  poly_s4_comment: '',
-  multi_s1_effort: '',
-  multi_s1_change_radius: '',
-  multi_s1_cognitive_load: '',
-  multi_s1_bug_risk: '',
-  multi_s1_coordination_overhead: '',
-  multi_s1_comment: '',
-  multi_s2_effort: '',
-  multi_s2_change_radius: '',
-  multi_s2_cognitive_load: '',
-  multi_s2_bug_risk: '',
-  multi_s2_coordination_overhead: '',
-  multi_s2_backward_compatibility_difficulty: '',
-  multi_s2_comment: '',
-  multi_s3_effort: '',
-  multi_s3_change_radius: '',
-  multi_s3_cognitive_load: '',
-  multi_s3_data_risk: '',
-  multi_s3_coordination_overhead: '',
-  multi_s3_migration_difficulty: '',
-  multi_s3_testing_difficulty: '',
-  multi_s3_comment: '',
-  multi_s4_effort: '',
-  multi_s4_change_radius: '',
-  multi_s4_cognitive_load: '',
-  multi_s4_consistency_risk: '',
-  multi_s4_coordination_overhead: '',
-  multi_s4_rule_enforcement_difficulty: '',
-  multi_s4_failure_handling_difficulty: '',
-  multi_s4_preferred_implementation_approach: '',
-  multi_s4_preferred_implementation_approach_other: '',
-  multi_s4_comment: '',
-  overall_easier_architecture: '',
-  overall_less_effort_architecture: '',
-  overall_lower_cognitive_load_architecture: '',
-  overall_lower_risk_architecture: '',
-  overall_less_coordination_architecture: '',
-  most_difficult_schema_change_type: '',
-  most_difficult_schema_change_type_other: '',
-  main_productivity_factor: '',
-  main_productivity_factor_other: '',
-  architecture_preference_reason: '',
-  used_schema_tools_practices: [],
-  used_schema_tools_practices_other: '',
-  most_effective_migration_tooling: '',
-  most_effective_migration_tooling_other: '',
-  ai_tool_usage_frequency: '',
-  ai_tool_supported_tasks: [],
-  ai_tool_supported_tasks_other: '',
-  ai_tool_trust_level: '',
-  schema_change_checklist_usage: '',
-  organization_improvement_priority: '',
-  organization_improvement_priority_other: '',
-  tooling_gap_observation: '',
-  schema_change_underestimation_frequency: '',
-  missed_planning_factors: [],
-  missed_planning_factors_other: '',
-  release_timeline_impact: '',
-  delivery_confidence_impact: '',
-  schema_change_estimation_owner: '',
-  delivery_risk_warning_signs: [],
-  delivery_risk_warning_signs_other: '',
-  recommended_estimation_buffer: '',
-  most_useful_managerial_metric: '',
-  most_useful_managerial_metric_other: '',
-  planning_resource_advice: '',
-  biggest_hidden_cost: '',
-  one_process_improvement: '',
-  additional_comments: '',
+  polyglot_s1_effort_story_points: '',
+  polyglot_s1_mental_effort: '',
+  polyglot_s1_bug_data_risk: '',
+  polyglot_s1_coordination_overhead: '',
+  polyglot_s1_productivity_impact: '',
+  polyglot_s1_architecture_benefits: [],
+  polyglot_s1_architecture_challenges: [],
+  polyglot_s1_optional_comment: '',
+  polyglot_s2_effort_story_points: '',
+  polyglot_s2_mental_effort: '',
+  polyglot_s2_bug_data_risk: '',
+  polyglot_s2_coordination_overhead: '',
+  polyglot_s2_backward_compatibility_difficulty: '',
+  polyglot_s2_productivity_impact: '',
+  polyglot_s2_architecture_benefits: [],
+  polyglot_s2_architecture_challenges: [],
+  polyglot_s2_optional_comment: '',
+  multimodel_s1_effort_story_points: '',
+  multimodel_s1_mental_effort: '',
+  multimodel_s1_bug_data_risk: '',
+  multimodel_s1_coordination_overhead: '',
+  multimodel_s1_productivity_impact: '',
+  multimodel_s1_architecture_benefits: [],
+  multimodel_s1_architecture_challenges: [],
+  multimodel_s1_optional_comment: '',
+  multimodel_s2_effort_story_points: '',
+  multimodel_s2_mental_effort: '',
+  multimodel_s2_bug_data_risk: '',
+  multimodel_s2_coordination_overhead: '',
+  multimodel_s2_backward_compatibility_difficulty: '',
+  multimodel_s2_productivity_impact: '',
+  multimodel_s2_architecture_benefits: [],
+  multimodel_s2_architecture_challenges: [],
+  multimodel_s2_optional_comment: '',
+  architecture_tradeoff_view: [],
+  main_schema_evolution_difficulty_factors: [],
+  productivity_improving_practices: [],
+  useful_schema_tool_practices: [],
+  ai_tool_usage_for_schema_work: '',
+  ai_schema_usage_modes: [],
+  schema_productivity_practice_comment: '',
+  schema_delivery_effort_impact: '',
+  schema_affected_delivery_activities: [],
+  schema_delivery_risk_signals: [],
+  schema_delivery_confidence_actions: [],
+  schema_delivery_recommendation: '',
 }
 
 // TEMPORARY TESTING MODE: Set to false before real survey distribution.
-const TEMP_SKIP_VALIDATION_FOR_TESTING = true
+const TEMP_SKIP_VALIDATION_FOR_TESTING = false
+const TOTAL_STEPS = 7
 
 function validateSectionOne(formData) {
   const errors = {}
@@ -206,11 +142,6 @@ function validateSectionTwo(formData) {
 function validateSectionThree(formData) {
   const errors = {}
 
-  if (!formData.architecture_context_clarity) {
-    errors.architecture_context_clarity =
-      'Please rate the clarity of the reference architecture context.'
-  }
-
   if (!formData.architecture_difference_clarity) {
     errors.architecture_difference_clarity =
       'Please rate the clarity of the difference between Polyglot Persistence and Multi-Model Persistence.'
@@ -219,88 +150,46 @@ function validateSectionThree(formData) {
   return errors
 }
 
-function validateSectionFour(formData) {
-  const errors = {}
-
-  if (!formData.schema_change_frequency) {
-    errors.schema_change_frequency =
-      'Please select how often schemas or data structures change in your experience.'
-  }
-
-  if (formData.experienced_schema_change_types.length === 0) {
-    errors.experienced_schema_change_types =
-      'Please select at least one schema or data structure change type.'
-  }
-
-  if (
-    formData.experienced_schema_change_types.includes('Other') &&
-    !formData.experienced_schema_change_types_other.trim()
-  ) {
-    errors.experienced_schema_change_types_other =
-      'Please specify the schema or data structure change type.'
-  }
-
-  if (formData.schema_evolution_difficulty_factors.length === 0) {
-    errors.schema_evolution_difficulty_factors =
-      'Please select at least one factor that makes schema evolution difficult.'
-  }
-
-  if (
-    formData.schema_evolution_difficulty_factors.includes('Other') &&
-    !formData.schema_evolution_difficulty_factors_other.trim()
-  ) {
-    errors.schema_evolution_difficulty_factors_other =
-      'Please specify the difficulty factor.'
-  }
-
-  if (!formData.schema_change_productivity_impact) {
-    errors.schema_change_productivity_impact =
-      'Please rate how schema changes affect developer productivity.'
-  }
-
-  if (!formData.schema_change_cognitive_load) {
-    errors.schema_change_cognitive_load =
-      'Please rate the mental effort required to understand schema change impact.'
-  }
-
-  if (!formData.schema_change_coordination_overhead) {
-    errors.schema_change_coordination_overhead =
-      'Please rate the coordination required for cross-service or cross-team schema changes.'
-  }
-
-  return errors
-}
-
 function validateScenarioPolyglot(formData) {
   const errors = {}
 
+  const requiredNumericFields = [
+    [
+      'polyglot_s1_effort_story_points',
+      'Please enter the estimated total implementation effort.',
+    ],
+    [
+      'polyglot_s2_effort_story_points',
+      'Please enter the estimated total implementation effort.',
+    ],
+  ]
+
+  requiredNumericFields.forEach(([fieldName, message]) => {
+    const value = formData[fieldName]
+    const numericValue = Number(value)
+
+    if (!value) {
+      errors[fieldName] = message
+    } else if (
+      !Number.isFinite(numericValue) ||
+      numericValue <= 0 ||
+      numericValue > 500
+    ) {
+      errors[fieldName] =
+        'Please enter a reasonable positive numeric story point value.'
+    }
+  })
+
   const requiredFields = [
-    ['poly_s1_effort', 'Please select the likely implementation effort.'],
-    ['poly_s1_change_radius', 'Please select the likely change impact radius.'],
-    ['poly_s1_cognitive_load', 'Please rate the mental effort required.'],
-    ['poly_s1_bug_risk', 'Please rate the risk of bugs or data issues.'],
-    ['poly_s1_coordination_overhead', 'Please rate the coordination overhead.'],
-    ['poly_s2_effort', 'Please select the likely implementation effort.'],
-    ['poly_s2_change_radius', 'Please select the likely change impact radius.'],
-    ['poly_s2_cognitive_load', 'Please rate the mental effort required.'],
-    ['poly_s2_bug_risk', 'Please rate the risk of bugs or inconsistent data.'],
-    ['poly_s2_coordination_overhead', 'Please rate the coordination overhead.'],
-    ['poly_s2_backward_compatibility_difficulty', 'Please rate the backward compatibility difficulty.'],
-    ['poly_s3_effort', 'Please select the likely implementation effort.'],
-    ['poly_s3_change_radius', 'Please select the likely change impact radius.'],
-    ['poly_s3_cognitive_load', 'Please rate the mental effort required.'],
-    ['poly_s3_data_risk', 'Please rate the data, privacy, or compliance risk.'],
-    ['poly_s3_coordination_overhead', 'Please rate the coordination overhead.'],
-    ['poly_s3_migration_difficulty', 'Please rate the data migration difficulty.'],
-    ['poly_s3_testing_difficulty', 'Please rate the testing and validation difficulty.'],
-    ['poly_s4_effort', 'Please select the likely implementation effort.'],
-    ['poly_s4_change_radius', 'Please select the likely change impact radius.'],
-    ['poly_s4_cognitive_load', 'Please rate the mental effort required.'],
-    ['poly_s4_consistency_risk', 'Please rate the consistency or compliance risk.'],
-    ['poly_s4_coordination_overhead', 'Please rate the coordination overhead.'],
-    ['poly_s4_rule_enforcement_difficulty', 'Please rate the rule enforcement difficulty.'],
-    ['poly_s4_failure_handling_difficulty', 'Please rate the failure handling or rollback difficulty.'],
-    ['poly_s4_preferred_implementation_approach', 'Please select the implementation approach you would most likely consider.'],
+    ['polyglot_s1_mental_effort', 'Please rate the mental effort required.'],
+    ['polyglot_s1_bug_data_risk', 'Please rate the risk of bugs or data issues.'],
+    ['polyglot_s1_coordination_overhead', 'Please rate the coordination overhead.'],
+    ['polyglot_s1_productivity_impact', 'Please rate the productivity impact.'],
+    ['polyglot_s2_mental_effort', 'Please rate the mental effort required.'],
+    ['polyglot_s2_bug_data_risk', 'Please rate the risk of bugs or data inconsistency.'],
+    ['polyglot_s2_coordination_overhead', 'Please rate the coordination overhead.'],
+    ['polyglot_s2_backward_compatibility_difficulty', 'Please rate the backward compatibility difficulty.'],
+    ['polyglot_s2_productivity_impact', 'Please rate the productivity impact.'],
   ]
 
   requiredFields.forEach(([fieldName, message]) => {
@@ -309,47 +198,87 @@ function validateScenarioPolyglot(formData) {
     }
   })
 
-  if (
-    formData.poly_s4_preferred_implementation_approach === 'Other' &&
-    !formData.poly_s4_preferred_implementation_approach_other.trim()
-  ) {
-    errors.poly_s4_preferred_implementation_approach_other =
-      'Please specify the implementation approach.'
-  }
+  validateLimitedCheckbox(
+    errors,
+    formData,
+    'polyglot_s1_architecture_benefits',
+    'No clear benefit from Polyglot Persistence in this scenario.',
+  )
+  validateLimitedCheckbox(
+    errors,
+    formData,
+    'polyglot_s1_architecture_challenges',
+    'No clear disadvantage from Polyglot Persistence in this scenario.',
+  )
+  validateLimitedCheckbox(
+    errors,
+    formData,
+    'polyglot_s2_architecture_benefits',
+    'No clear benefit from Polyglot Persistence in this scenario.',
+  )
+  validateLimitedCheckbox(
+    errors,
+    formData,
+    'polyglot_s2_architecture_challenges',
+    'No clear disadvantage from Polyglot Persistence in this scenario.',
+  )
 
   return errors
+}
+
+function validateLimitedCheckbox(errors, formData, fieldName, exclusiveOption) {
+  const values = formData[fieldName]
+
+  if (!Array.isArray(values) || values.length === 0) {
+    errors[fieldName] = 'Please select at least one option.'
+  } else if (values.length > 2) {
+    errors[fieldName] = 'Please select up to two options.'
+  } else if (values.includes(exclusiveOption) && values.length > 1) {
+    errors[fieldName] =
+      'Please select this option by itself, or choose other options instead.'
+  }
 }
 
 function validateScenarioMultiModel(formData) {
   const errors = {}
 
+  const requiredNumericFields = [
+    [
+      'multimodel_s1_effort_story_points',
+      'Please enter the estimated total implementation effort.',
+    ],
+    [
+      'multimodel_s2_effort_story_points',
+      'Please enter the estimated total implementation effort.',
+    ],
+  ]
+
+  requiredNumericFields.forEach(([fieldName, message]) => {
+    const value = formData[fieldName]
+    const numericValue = Number(value)
+
+    if (!value) {
+      errors[fieldName] = message
+    } else if (
+      !Number.isFinite(numericValue) ||
+      numericValue <= 0 ||
+      numericValue > 500
+    ) {
+      errors[fieldName] =
+        'Please enter a reasonable positive numeric story point value.'
+    }
+  })
+
   const requiredFields = [
-    ['multi_s1_effort', 'Please select the likely implementation effort.'],
-    ['multi_s1_change_radius', 'Please select the likely change impact radius.'],
-    ['multi_s1_cognitive_load', 'Please rate the mental effort required.'],
-    ['multi_s1_bug_risk', 'Please rate the risk of bugs or data issues.'],
-    ['multi_s1_coordination_overhead', 'Please rate the coordination overhead.'],
-    ['multi_s2_effort', 'Please select the likely implementation effort.'],
-    ['multi_s2_change_radius', 'Please select the likely change impact radius.'],
-    ['multi_s2_cognitive_load', 'Please rate the mental effort required.'],
-    ['multi_s2_bug_risk', 'Please rate the risk of bugs or inconsistent data.'],
-    ['multi_s2_coordination_overhead', 'Please rate the coordination overhead.'],
-    ['multi_s2_backward_compatibility_difficulty', 'Please rate the backward compatibility difficulty.'],
-    ['multi_s3_effort', 'Please select the likely implementation effort.'],
-    ['multi_s3_change_radius', 'Please select the likely change impact radius.'],
-    ['multi_s3_cognitive_load', 'Please rate the mental effort required.'],
-    ['multi_s3_data_risk', 'Please rate the data, privacy, or compliance risk.'],
-    ['multi_s3_coordination_overhead', 'Please rate the coordination overhead.'],
-    ['multi_s3_migration_difficulty', 'Please rate the data migration difficulty.'],
-    ['multi_s3_testing_difficulty', 'Please rate the testing and validation difficulty.'],
-    ['multi_s4_effort', 'Please select the likely implementation effort.'],
-    ['multi_s4_change_radius', 'Please select the likely change impact radius.'],
-    ['multi_s4_cognitive_load', 'Please rate the mental effort required.'],
-    ['multi_s4_consistency_risk', 'Please rate the consistency or compliance risk.'],
-    ['multi_s4_coordination_overhead', 'Please rate the coordination overhead.'],
-    ['multi_s4_rule_enforcement_difficulty', 'Please rate the rule enforcement difficulty.'],
-    ['multi_s4_failure_handling_difficulty', 'Please rate the rollback or failure handling difficulty.'],
-    ['multi_s4_preferred_implementation_approach', 'Please select the implementation approach you would most likely consider.'],
+    ['multimodel_s1_mental_effort', 'Please rate the mental effort required.'],
+    ['multimodel_s1_bug_data_risk', 'Please rate the risk of bugs or data issues.'],
+    ['multimodel_s1_coordination_overhead', 'Please rate the coordination overhead.'],
+    ['multimodel_s1_productivity_impact', 'Please rate the productivity impact.'],
+    ['multimodel_s2_mental_effort', 'Please rate the mental effort required.'],
+    ['multimodel_s2_bug_data_risk', 'Please rate the risk of bugs or data inconsistency.'],
+    ['multimodel_s2_coordination_overhead', 'Please rate the coordination overhead.'],
+    ['multimodel_s2_backward_compatibility_difficulty', 'Please rate the backward compatibility difficulty.'],
+    ['multimodel_s2_productivity_impact', 'Please rate the productivity impact.'],
   ]
 
   requiredFields.forEach(([fieldName, message]) => {
@@ -358,167 +287,95 @@ function validateScenarioMultiModel(formData) {
     }
   })
 
-  if (
-    formData.multi_s4_preferred_implementation_approach === 'Other' &&
-    !formData.multi_s4_preferred_implementation_approach_other.trim()
-  ) {
-    errors.multi_s4_preferred_implementation_approach_other =
-      'Please specify the implementation approach.'
+  validateLimitedCheckbox(
+    errors,
+    formData,
+    'multimodel_s1_architecture_benefits',
+    'No clear benefit from Multi-Model Persistence in this scenario.',
+  )
+  validateLimitedCheckbox(
+    errors,
+    formData,
+    'multimodel_s1_architecture_challenges',
+    'No clear disadvantage from Multi-Model Persistence in this scenario.',
+  )
+  validateLimitedCheckbox(
+    errors,
+    formData,
+    'multimodel_s2_architecture_benefits',
+    'No clear benefit from Multi-Model Persistence in this scenario.',
+  )
+  validateLimitedCheckbox(
+    errors,
+    formData,
+    'multimodel_s2_architecture_challenges',
+    'No clear disadvantage from Multi-Model Persistence in this scenario.',
+  )
+
+  return errors
+}
+
+function validateComparativeToolingPractices(formData) {
+  const errors = {}
+
+  validateMaxFiveCheckbox(errors, formData, 'architecture_tradeoff_view')
+  validateMaxFiveCheckbox(
+    errors,
+    formData,
+    'main_schema_evolution_difficulty_factors',
+  )
+  validateMaxFiveCheckbox(errors, formData, 'productivity_improving_practices')
+  validateMaxFiveCheckbox(errors, formData, 'useful_schema_tool_practices')
+  validateMaxFiveCheckbox(errors, formData, 'ai_schema_usage_modes')
+
+  if (!formData.ai_tool_usage_for_schema_work) {
+    errors.ai_tool_usage_for_schema_work =
+      'Please select your AI tool usage for schema work.'
   }
 
   return errors
 }
 
-function validateComparativeEvaluation(formData) {
+function validateMaxFiveCheckbox(errors, formData, fieldName) {
+  const values = formData[fieldName]
+
+  if (!Array.isArray(values) || values.length === 0) {
+    errors[fieldName] = 'Please select at least one option.'
+  } else if (values.length > 5) {
+    errors[fieldName] = 'Please select up to 5 options.'
+  }
+}
+
+function validateSoftwareDeliveryImpact(formData) {
   const errors = {}
-  const requiredFields = [
-    ['overall_easier_architecture', 'Please select which architecture seems easier overall.'],
-    ['overall_less_effort_architecture', 'Please select which architecture seems to require less effort.'],
-    ['overall_lower_cognitive_load_architecture', 'Please select which architecture seems to create lower cognitive load.'],
-    ['overall_lower_risk_architecture', 'Please select which architecture seems to have lower risk.'],
-    ['overall_less_coordination_architecture', 'Please select which architecture seems to require less coordination.'],
-    ['most_difficult_schema_change_type', 'Please select the most difficult schema evolution change type.'],
-    ['main_productivity_factor', 'Please select the main productivity factor.'],
-  ]
 
-  requiredFields.forEach(([fieldName, message]) => {
-    if (!formData[fieldName]) {
-      errors[fieldName] = message
-    }
-  })
-
-  if (
-    formData.most_difficult_schema_change_type === 'Other' &&
-    !formData.most_difficult_schema_change_type_other.trim()
-  ) {
-    errors.most_difficult_schema_change_type_other =
-      'Please specify the most difficult schema evolution change type.'
+  if (!formData.schema_delivery_effort_impact) {
+    errors.schema_delivery_effort_impact =
+      'Please rate the delivery effort impact.'
   }
 
-  if (
-    formData.main_productivity_factor === 'Other' &&
-    !formData.main_productivity_factor_other.trim()
-  ) {
-    errors.main_productivity_factor_other =
-      'Please specify the productivity factor.'
-  }
+  validateRequiredCheckbox(
+    errors,
+    formData,
+    'schema_affected_delivery_activities',
+  )
+
+  validateRequiredCheckbox(errors, formData, 'schema_delivery_risk_signals')
+  validateRequiredCheckbox(
+    errors,
+    formData,
+    'schema_delivery_confidence_actions',
+  )
 
   return errors
 }
 
-function validateToolingPractices(formData) {
-  const errors = {}
-  const requiredFields = [
-    ['most_effective_migration_tooling', 'Please select the most effective tooling type.'],
-    ['ai_tool_usage_frequency', 'Please select your AI tool usage frequency.'],
-    ['ai_tool_trust_level', 'Please select your trust level for AI-generated output.'],
-    ['schema_change_checklist_usage', 'Please select whether your team uses a schema change checklist or review process.'],
-    ['organization_improvement_priority', 'Please select what organizations should improve first.'],
-  ]
+function validateRequiredCheckbox(errors, formData, fieldName) {
+  const values = formData[fieldName]
 
-  requiredFields.forEach(([fieldName, message]) => {
-    if (!formData[fieldName]) {
-      errors[fieldName] = message
-    }
-  })
-
-  if (formData.used_schema_tools_practices.length === 0) {
-    errors.used_schema_tools_practices =
-      'Please select at least one tool or practice.'
+  if (!Array.isArray(values) || values.length === 0) {
+    errors[fieldName] = 'Please select at least one option.'
   }
-
-  if (
-    formData.used_schema_tools_practices.includes('Other') &&
-    !formData.used_schema_tools_practices_other.trim()
-  ) {
-    errors.used_schema_tools_practices_other =
-      'Please specify the tool or practice.'
-  }
-
-  if (
-    formData.most_effective_migration_tooling === 'Other' &&
-    !formData.most_effective_migration_tooling_other.trim()
-  ) {
-    errors.most_effective_migration_tooling_other =
-      'Please specify the effective tooling type.'
-  }
-
-  if (formData.ai_tool_supported_tasks.length === 0) {
-    errors.ai_tool_supported_tasks =
-      'Please select at least one AI-supported task option.'
-  }
-
-  if (
-    formData.ai_tool_supported_tasks.includes('Other') &&
-    !formData.ai_tool_supported_tasks_other.trim()
-  ) {
-    errors.ai_tool_supported_tasks_other =
-      'Please specify the AI-supported task.'
-  }
-
-  if (
-    formData.organization_improvement_priority === 'Other' &&
-    !formData.organization_improvement_priority_other.trim()
-  ) {
-    errors.organization_improvement_priority_other =
-      'Please specify the organizational improvement priority.'
-  }
-
-  return errors
-}
-
-function validateManagerialDeliveryImpact(formData) {
-  const errors = {}
-  const requiredFields = [
-    ['schema_change_underestimation_frequency', 'Please select how often schema changes are underestimated.'],
-    ['release_timeline_impact', 'Please rate the impact on release timelines.'],
-    ['delivery_confidence_impact', 'Please rate the impact on delivery confidence.'],
-    ['schema_change_estimation_owner', 'Please select who should mainly estimate schema evolution effort.'],
-    ['recommended_estimation_buffer', 'Please select the recommended estimation buffer.'],
-    ['most_useful_managerial_metric', 'Please select the most useful managerial metric.'],
-  ]
-
-  requiredFields.forEach(([fieldName, message]) => {
-    if (!formData[fieldName]) {
-      errors[fieldName] = message
-    }
-  })
-
-  if (formData.missed_planning_factors.length === 0) {
-    errors.missed_planning_factors =
-      'Please select at least one missed planning factor.'
-  }
-
-  if (
-    formData.missed_planning_factors.includes('Other') &&
-    !formData.missed_planning_factors_other.trim()
-  ) {
-    errors.missed_planning_factors_other =
-      'Please specify the missed planning factor.'
-  }
-
-  if (formData.delivery_risk_warning_signs.length === 0) {
-    errors.delivery_risk_warning_signs =
-      'Please select at least one delivery risk warning sign.'
-  }
-
-  if (
-    formData.delivery_risk_warning_signs.includes('Other') &&
-    !formData.delivery_risk_warning_signs_other.trim()
-  ) {
-    errors.delivery_risk_warning_signs_other =
-      'Please specify the delivery risk warning sign.'
-  }
-
-  if (
-    formData.most_useful_managerial_metric === 'Other' &&
-    !formData.most_useful_managerial_metric_other.trim()
-  ) {
-    errors.most_useful_managerial_metric_other =
-      'Please specify the managerial metric.'
-  }
-
-  return errors
 }
 
 function App() {
@@ -535,6 +392,32 @@ function App() {
   const normalizedFormData = {
     ...initialFormData,
     ...formData,
+  }
+
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  function scrollToValidationError() {
+    window.requestAnimationFrame(() => {
+      const firstError = document.querySelector(
+        '.has-error, .form-error, .error-message',
+      )
+
+      if (firstError) {
+        firstError.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+        })
+      } else {
+        scrollToTop()
+      }
+    })
+  }
+
+  function goToStep(nextStep) {
+    setStep(nextStep)
+    window.requestAnimationFrame(scrollToTop)
   }
 
   function handleChange(name, value) {
@@ -559,8 +442,9 @@ function App() {
       Object.keys(nextErrors).length === 0
     ) {
       setErrors({})
-      setStep(2)
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+      goToStep(2)
+    } else {
+      scrollToValidationError()
     }
   }
 
@@ -573,8 +457,9 @@ function App() {
       Object.keys(nextErrors).length === 0
     ) {
       setErrors({})
-      setStep(3)
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+      goToStep(3)
+    } else {
+      scrollToValidationError()
     }
   }
 
@@ -587,22 +472,9 @@ function App() {
       Object.keys(nextErrors).length === 0
     ) {
       setErrors({})
-      setStep(4)
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    }
-  }
-
-  function handleSectionFourNext() {
-    const nextErrors = validateSectionFour(normalizedFormData)
-    setErrors(nextErrors)
-
-    if (
-      TEMP_SKIP_VALIDATION_FOR_TESTING ||
-      Object.keys(nextErrors).length === 0
-    ) {
-      setErrors({})
-      setStep(5)
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+      goToStep(4)
+    } else {
+      scrollToValidationError()
     }
   }
 
@@ -615,8 +487,9 @@ function App() {
       Object.keys(nextErrors).length === 0
     ) {
       setErrors({})
-      setStep(6)
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+      goToStep(5)
+    } else {
+      scrollToValidationError()
     }
   }
 
@@ -629,13 +502,14 @@ function App() {
       Object.keys(nextErrors).length === 0
     ) {
       setErrors({})
-      setStep(7)
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+      goToStep(6)
+    } else {
+      scrollToValidationError()
     }
   }
 
-  function handleComparativeEvaluationNext() {
-    const nextErrors = validateComparativeEvaluation(normalizedFormData)
+  function handleComparativeToolingPracticesNext() {
+    const nextErrors = validateComparativeToolingPractices(normalizedFormData)
     setErrors(nextErrors)
 
     if (
@@ -643,36 +517,9 @@ function App() {
       Object.keys(nextErrors).length === 0
     ) {
       setErrors({})
-      setStep(8)
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    }
-  }
-
-  function handleToolingPracticesNext() {
-    const nextErrors = validateToolingPractices(normalizedFormData)
-    setErrors(nextErrors)
-
-    if (
-      TEMP_SKIP_VALIDATION_FOR_TESTING ||
-      Object.keys(nextErrors).length === 0
-    ) {
-      setErrors({})
-      setStep(9)
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    }
-  }
-
-  function handleManagerialDeliveryImpactNext() {
-    const nextErrors = validateManagerialDeliveryImpact(normalizedFormData)
-    setErrors(nextErrors)
-
-    if (
-      TEMP_SKIP_VALIDATION_FOR_TESTING ||
-      Object.keys(nextErrors).length === 0
-    ) {
-      setErrors({})
-      setStep(10)
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+      goToStep(7)
+    } else {
+      scrollToValidationError()
     }
   }
 
@@ -680,24 +527,20 @@ function App() {
     const sectionOneErrors = validateSectionOne(normalizedFormData)
     const sectionTwoErrors = validateSectionTwo(normalizedFormData)
     const sectionThreeErrors = validateSectionThree(normalizedFormData)
-    const sectionFourErrors = validateSectionFour(normalizedFormData)
     const scenarioPolyglotErrors = validateScenarioPolyglot(normalizedFormData)
     const scenarioMultiModelErrors = validateScenarioMultiModel(normalizedFormData)
-    const comparativeEvaluationErrors =
-      validateComparativeEvaluation(normalizedFormData)
-    const toolingPracticesErrors = validateToolingPractices(normalizedFormData)
-    const managerialDeliveryImpactErrors =
-      validateManagerialDeliveryImpact(normalizedFormData)
+    const comparativeToolingPracticesErrors =
+      validateComparativeToolingPractices(normalizedFormData)
+    const softwareDeliveryImpactErrors =
+      validateSoftwareDeliveryImpact(normalizedFormData)
     const nextErrors = {
       ...sectionOneErrors,
       ...sectionTwoErrors,
       ...sectionThreeErrors,
-      ...sectionFourErrors,
       ...scenarioPolyglotErrors,
       ...scenarioMultiModelErrors,
-      ...comparativeEvaluationErrors,
-      ...toolingPracticesErrors,
-      ...managerialDeliveryImpactErrors,
+      ...comparativeToolingPracticesErrors,
+      ...softwareDeliveryImpactErrors,
     }
 
     setErrors(nextErrors)
@@ -705,8 +548,9 @@ function App() {
 
     if (Object.keys(nextErrors).length > 0) {
       setSubmissionError(
-        'Please complete all required eligibility, background, architecture context, schema evolution experience, scenario, comparative evaluation, tooling practices, and managerial delivery impact questions before submitting.',
+        'Please complete all required eligibility, background, architecture context, scenario, comparative tooling practices, and software delivery impact questions before submitting.',
       )
+      scrollToValidationError()
       return
     }
 
@@ -753,7 +597,7 @@ function App() {
           formData={normalizedFormData}
           errors={errors}
           onChange={handleChange}
-          onBack={() => setStep(1)}
+          onBack={() => goToStep(1)}
           onNext={handleSectionTwoNext}
         />
       )
@@ -765,7 +609,7 @@ function App() {
           formData={normalizedFormData}
           errors={errors}
           onChange={handleChange}
-          onBack={() => setStep(2)}
+          onBack={() => goToStep(2)}
           onNext={handleSectionThreeNext}
         />
       )
@@ -773,86 +617,55 @@ function App() {
 
     if (step === 4) {
       return (
-        <SchemaEvolutionExperience
+        <ScenarioPolyglot
           formData={normalizedFormData}
           errors={errors}
           onChange={handleChange}
-          onBack={() => setStep(3)}
-          onNext={handleSectionFourNext}
+          onBack={() => goToStep(3)}
+          onNext={handleScenarioPolyglotNext}
         />
       )
     }
 
     if (step === 5) {
       return (
-        <ScenarioPolyglot
+        <ScenarioMultiModel
           formData={normalizedFormData}
           errors={errors}
           onChange={handleChange}
-          onBack={() => setStep(4)}
-          onNext={handleScenarioPolyglotNext}
+          onBack={() => goToStep(4)}
+          onNext={handleScenarioMultiModelNext}
         />
       )
     }
 
     if (step === 6) {
       return (
-        <ScenarioMultiModel
+        <ComparativeToolingPractices
           formData={normalizedFormData}
           errors={errors}
           onChange={handleChange}
-          onBack={() => setStep(5)}
-          onNext={handleScenarioMultiModelNext}
+          onBack={() => goToStep(5)}
+          onNext={handleComparativeToolingPracticesNext}
         />
       )
     }
 
     if (step === 7) {
       return (
-        <ComparativeEvaluation
+        <SoftwareDeliveryImpact
           formData={normalizedFormData}
           errors={errors}
           onChange={handleChange}
-          onBack={() => setStep(6)}
-          onNext={handleComparativeEvaluationNext}
+          onBack={() => goToStep(6)}
+          onSubmit={handleSubmit}
+          isSubmitting={isSubmitting}
+          submissionError={submissionError}
         />
       )
     }
 
-    if (step === 8) {
-      return (
-        <ToolingPractices
-          formData={normalizedFormData}
-          errors={errors}
-          onChange={handleChange}
-          onBack={() => setStep(7)}
-          onNext={handleToolingPracticesNext}
-        />
-      )
-    }
-
-    if (step === 9) {
-      return (
-        <ManagerialDeliveryImpact
-          formData={normalizedFormData}
-          errors={errors}
-          onChange={handleChange}
-          onBack={() => setStep(8)}
-          onNext={handleManagerialDeliveryImpactNext}
-        />
-      )
-    }
-
-    return (
-      <FinalReflection
-        formData={normalizedFormData}
-        onChange={handleChange}
-        onBack={() => setStep(9)}
-        onSubmit={handleSubmit}
-        isSubmitting={isSubmitting}
-        submissionError={submissionError}
-      />
-    )
+    return null
   }
 
   return (
@@ -862,12 +675,12 @@ function App() {
           <header className="survey-header">
             <p className="eyebrow">MSc Research Survey</p>
             <h1>Schema Evolution in Microservice Persistence</h1>
-            <div className="progress-wrap" aria-label={`Step ${step} of 10`}>
-              <div className="progress-text">Step {step} of 10</div>
+            <div className="progress-wrap" aria-label={`Step ${step} of ${TOTAL_STEPS}`}>
+              <div className="progress-text">Step {step} of {TOTAL_STEPS}</div>
               <div className="progress-track">
                 <div
                   className="progress-fill"
-                  style={{ width: `${(step / 10) * 100}%` }}
+                  style={{ width: `${(step / TOTAL_STEPS) * 100}%` }}
                 />
               </div>
             </div>
