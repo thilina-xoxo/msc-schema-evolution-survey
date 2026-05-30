@@ -102,12 +102,12 @@ function SoftwareDeliveryImpact({
 }) {
   return (
     <section>
-      <h2>Section 6 — Software Delivery Impact and Final Reflection</h2>
+      <h2>Section 6: Software Delivery Impact and Final Reflection</h2>
       <p className="section-intro">
-        This final section asks how schema-related changes affect software
-        delivery. Please answer based on your experience with planning,
-        estimating, implementing, testing, releasing, or supporting software
-        changes that involve databases, APIs, events, or data structures.
+        This final section focuses on how schema-related changes affect
+        software delivery, including planning, estimation, implementation,
+        testing, release, and support work involving databases, APIs, events,
+        or data structures.
       </p>
 
       <div className="delivery-section">

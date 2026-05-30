@@ -147,15 +147,14 @@ function ComparativeToolingPractices({
 }) {
   return (
     <section>
-      <h2>Section 5 — Architecture Trade-offs, Tooling, and Productivity Practices</h2>
+      <h2>Section 5: Architecture Trade-offs, Tooling, and Productivity Practices</h2>
       <p className="section-intro">
-        This section asks you to reflect on schema evolution trade-offs after
-        evaluating both Polyglot Persistence and Multi-Model Persistence.
+        Reflect on the schema evolution trade-offs observed across Polyglot
+        Persistence and Multi-Model Persistence.
       </p>
       <p className="section-intro">
-        The aim is not to identify one universally better architecture, but to
-        understand which factors, tools, practices, and AI-assisted support can
-        reduce schema evolution effort, risk, and coordination overhead.
+        The focus is on the factors, tools, practices, and AI-assisted support
+        that can lower implementation effort, risk, and coordination overhead.
       </p>
 
       <div className="comparison-section">

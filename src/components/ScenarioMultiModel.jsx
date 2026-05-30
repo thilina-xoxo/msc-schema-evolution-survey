@@ -165,15 +165,15 @@ function ScenarioMultiModel({
 }) {
   return (
     <section>
-      <h2>Section 4_2 — Scenario-Based Evaluation: Multi-Model Persistence</h2>
+      <h2>Section 4_2: Scenario-Based Evaluation: Multi-Model Persistence</h2>
       <p className="section-intro">
-        This section asks you to evaluate the same two schema evolution
-        scenarios under Architecture B — Multi-Model Persistence.
+        Please evaluate the same two schema evolution scenarios under
+        Architecture B: Multi-Model Persistence.
       </p>
 
       <div className="scenario-list">
         <ScenarioCard
-          title="Scenario 4_2.1 — Catalogue Enrichment for Regional Product Experience"
+          title="Scenario 4_2.1: Catalogue Enrichment for Regional Product Experience"
           complexity="Complexity: Medium"
           scope="Scope: Mainly within one domain/team"
         >
@@ -304,7 +304,7 @@ function ScenarioMultiModel({
         </ScenarioCard>
 
         <ScenarioCard
-          title="Scenario 4_2.2 — Personalized Product Discovery Rule Rollout"
+          title="Scenario 4_2.2: Personalized Product Discovery Rule Rollout"
           complexity="Complexity: High"
           scope="Scope: Across multiple domains/teams"
         >

@@ -25,7 +25,7 @@ function SectionThreeArchitecture({
 }) {
   return (
     <section>
-      <h2>Section 3 — Baseline Understanding of Reference Architecture</h2>
+      <h2>Section 3: Baseline Understanding of Reference Architecture</h2>
       <p className="section-intro">
         The following reference architecture context is provided before the
         scenario-based questions.
@@ -55,7 +55,7 @@ function SectionThreeArchitecture({
         </article>
 
         <article className="section-three-card persistence-card">
-          <h3>Persistence Layer Model A — Polyglot Persistence</h3>
+          <h3>Persistence Layer Model A: Polyglot Persistence</h3>
           <p>
             Polyglot Persistence means using different database technologies
             for different domain or workload requirements.
@@ -72,16 +72,16 @@ function SectionThreeArchitecture({
           </p>
 
           <DiagramCard
-            title="Persistence Layer Model A — Polyglot Persistence"
+            title="Persistence Layer Model A: Polyglot Persistence"
             description="Diagram: Polyglot persistence data-layer diagram."
             src="/diagrams/Polyglot%20diagram.png"
-            caption="Figure 1. ModaVista Group — Polyglot Persistence Data-Layer Reference Architecture"
+            caption="Figure 1. ModaVista Group: Polyglot Persistence Data-Layer Reference Architecture"
             showTitle={false}
           />
         </article>
 
         <article className="section-three-card persistence-card">
-          <h3>Persistence Layer Model B — Multi-Model Persistence</h3>
+          <h3>Persistence Layer Model B: Multi-Model Persistence</h3>
           <p>
             Multi-Model Persistence means using a database platform that
             supports multiple data models, such as document, graph, key-value,
@@ -107,10 +107,10 @@ function SectionThreeArchitecture({
           </p>
 
           <DiagramCard
-            title="Persistence Layer Model B — Multi-Model Persistence"
+            title="Persistence Layer Model B: Multi-Model Persistence"
             description="Diagram: Multi-model persistence data-layer diagram."
             src="/diagrams/multimodel.png"
-            caption="Figure 2. ModaVista Group — Multi-Model Persistence Data-Layer Reference Architecture"
+            caption="Figure 2. ModaVista Group: Multi-Model Persistence Data-Layer Reference Architecture"
             showTitle={false}
           />
         </article>

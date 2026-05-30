@@ -1,5 +1,5 @@
 const SCRIPT_URL =
-  'https://script.google.com/macros/s/AKfycbxoRTbHk3ubCXBnlXmAWZdBemqm7PSyGiRDxepMywCA9ttorLN95yPsi_eqp-OY5oXm/exec';
+  'https://script.google.com/macros/s/AKfycbzu4UCgQB71jhUiCBioCOLNfWexbwnJPJ79y-9fRX0x1ftlb507cDERVNVszue4TSY0/exec';
 const SURVEY_TOKEN = 'msc_schema_evolution_survey_2026';
 
 function joinArrayValue(value) {
@@ -26,14 +26,12 @@ export async function submitSurvey(formData) {
       architecture_difference_clarity: formData.architecture_difference_clarity,
     },
     scenario_polyglot: {
-      polyglot_s1_effort_story_points:
-        formData.polyglot_s1_effort_story_points,
+      polyglot_s1_effort_story_points: formData.polyglot_s1_effort_story_points,
       polyglot_s1_mental_effort: formData.polyglot_s1_mental_effort,
       polyglot_s1_bug_data_risk: formData.polyglot_s1_bug_data_risk,
       polyglot_s1_coordination_overhead:
         formData.polyglot_s1_coordination_overhead,
-      polyglot_s1_productivity_impact:
-        formData.polyglot_s1_productivity_impact,
+      polyglot_s1_productivity_impact: formData.polyglot_s1_productivity_impact,
       polyglot_s1_architecture_benefits: joinArrayValue(
         formData.polyglot_s1_architecture_benefits,
       ),
@@ -41,16 +39,14 @@ export async function submitSurvey(formData) {
         formData.polyglot_s1_architecture_challenges,
       ),
       polyglot_s1_optional_comment: formData.polyglot_s1_optional_comment,
-      polyglot_s2_effort_story_points:
-        formData.polyglot_s2_effort_story_points,
+      polyglot_s2_effort_story_points: formData.polyglot_s2_effort_story_points,
       polyglot_s2_mental_effort: formData.polyglot_s2_mental_effort,
       polyglot_s2_bug_data_risk: formData.polyglot_s2_bug_data_risk,
       polyglot_s2_coordination_overhead:
         formData.polyglot_s2_coordination_overhead,
       polyglot_s2_backward_compatibility_difficulty:
         formData.polyglot_s2_backward_compatibility_difficulty,
-      polyglot_s2_productivity_impact:
-        formData.polyglot_s2_productivity_impact,
+      polyglot_s2_productivity_impact: formData.polyglot_s2_productivity_impact,
       polyglot_s2_architecture_benefits: joinArrayValue(
         formData.polyglot_s2_architecture_benefits,
       ),

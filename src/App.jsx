@@ -71,7 +71,7 @@ const initialFormData = {
 }
 
 // TEMPORARY TESTING MODE: Set to false before real survey distribution.
-const TEMP_SKIP_VALIDATION_FOR_TESTING = true
+const TEMP_SKIP_VALIDATION_FOR_TESTING = false
 const TOTAL_STEPS = 7
 
 function validateSectionOne(formData) {
@@ -394,6 +394,32 @@ function App() {
     ...formData,
   }
 
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  function scrollToValidationError() {
+    window.requestAnimationFrame(() => {
+      const firstError = document.querySelector(
+        '.has-error, .form-error, .error-message',
+      )
+
+      if (firstError) {
+        firstError.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+        })
+      } else {
+        scrollToTop()
+      }
+    })
+  }
+
+  function goToStep(nextStep) {
+    setStep(nextStep)
+    window.requestAnimationFrame(scrollToTop)
+  }
+
   function handleChange(name, value) {
     setFormData((currentData) => ({
       ...currentData,
@@ -416,8 +442,9 @@ function App() {
       Object.keys(nextErrors).length === 0
     ) {
       setErrors({})
-      setStep(2)
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+      goToStep(2)
+    } else {
+      scrollToValidationError()
     }
   }
 
@@ -430,8 +457,9 @@ function App() {
       Object.keys(nextErrors).length === 0
     ) {
       setErrors({})
-      setStep(3)
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+      goToStep(3)
+    } else {
+      scrollToValidationError()
     }
   }
 
@@ -444,8 +472,9 @@ function App() {
       Object.keys(nextErrors).length === 0
     ) {
       setErrors({})
-      setStep(4)
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+      goToStep(4)
+    } else {
+      scrollToValidationError()
     }
   }
 
@@ -458,8 +487,9 @@ function App() {
       Object.keys(nextErrors).length === 0
     ) {
       setErrors({})
-      setStep(5)
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+      goToStep(5)
+    } else {
+      scrollToValidationError()
     }
   }
 
@@ -472,8 +502,9 @@ function App() {
       Object.keys(nextErrors).length === 0
     ) {
       setErrors({})
-      setStep(6)
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+      goToStep(6)
+    } else {
+      scrollToValidationError()
     }
   }
 
@@ -486,8 +517,9 @@ function App() {
       Object.keys(nextErrors).length === 0
     ) {
       setErrors({})
-      setStep(7)
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+      goToStep(7)
+    } else {
+      scrollToValidationError()
     }
   }
 
@@ -518,6 +550,7 @@ function App() {
       setSubmissionError(
         'Please complete all required eligibility, background, architecture context, scenario, comparative tooling practices, and software delivery impact questions before submitting.',
       )
+      scrollToValidationError()
       return
     }
 
@@ -564,7 +597,7 @@ function App() {
           formData={normalizedFormData}
           errors={errors}
           onChange={handleChange}
-          onBack={() => setStep(1)}
+          onBack={() => goToStep(1)}
           onNext={handleSectionTwoNext}
         />
       )
@@ -576,7 +609,7 @@ function App() {
           formData={normalizedFormData}
           errors={errors}
           onChange={handleChange}
-          onBack={() => setStep(2)}
+          onBack={() => goToStep(2)}
           onNext={handleSectionThreeNext}
         />
       )
@@ -588,7 +621,7 @@ function App() {
           formData={normalizedFormData}
           errors={errors}
           onChange={handleChange}
-          onBack={() => setStep(3)}
+          onBack={() => goToStep(3)}
           onNext={handleScenarioPolyglotNext}
         />
       )
@@ -600,7 +633,7 @@ function App() {
           formData={normalizedFormData}
           errors={errors}
           onChange={handleChange}
-          onBack={() => setStep(4)}
+          onBack={() => goToStep(4)}
           onNext={handleScenarioMultiModelNext}
         />
       )
@@ -612,7 +645,7 @@ function App() {
           formData={normalizedFormData}
           errors={errors}
           onChange={handleChange}
-          onBack={() => setStep(5)}
+          onBack={() => goToStep(5)}
           onNext={handleComparativeToolingPracticesNext}
         />
       )
@@ -624,7 +657,7 @@ function App() {
           formData={normalizedFormData}
           errors={errors}
           onChange={handleChange}
-          onBack={() => setStep(6)}
+          onBack={() => goToStep(6)}
           onSubmit={handleSubmit}
           isSubmitting={isSubmitting}
           submissionError={submissionError}

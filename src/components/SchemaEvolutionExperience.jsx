@@ -83,7 +83,7 @@ function SchemaEvolutionExperience({
 
   return (
     <section>
-      <h2>Section 4 — General Experience with Schema Evolution</h2>
+      <h2>Section 4: General Experience with Schema Evolution</h2>
       <p className="section-intro">
         This section captures your general experience with schema evolution
         before the scenario-based questions.
