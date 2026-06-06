@@ -38,6 +38,23 @@ export async function submitSurvey(formData) {
       polyglot_s1_architecture_challenges: joinArrayValue(
         formData.polyglot_s1_architecture_challenges,
       ),
+      poly_s2_implementation_complexity:
+        formData.poly_s2_implementation_complexity,
+      poly_s2_cognitive_load: formData.poly_s2_cognitive_load,
+      poly_s2_bug_risk: formData.poly_s2_bug_risk,
+      poly_s2_coordination_overhead: formData.poly_s2_coordination_overhead,
+      poly_s2_backward_compatibility_difficulty:
+        formData.poly_s2_backward_compatibility_difficulty,
+      poly_s2_business_logic_validation_difficulty:
+        formData.poly_s2_business_logic_validation_difficulty,
+      poly_s2_operational_effort: formData.poly_s2_operational_effort,
+      poly_s2_productivity_impact: formData.poly_s2_productivity_impact,
+      poly_s2_architecture_benefits: joinArrayValue(
+        formData.poly_s2_architecture_benefits,
+      ),
+      poly_s2_architecture_challenges: joinArrayValue(
+        formData.poly_s2_architecture_challenges,
+      ),
     },
     scenario_multimodel: {
       multi_s1_effort: formData.multi_s1_effort,
@@ -51,38 +68,23 @@ export async function submitSurvey(formData) {
       multi_s1_architecture_challenges: joinArrayValue(
         formData.multi_s1_architecture_challenges,
       ),
-      multimodel_s1_effort_story_points:
-        formData.multimodel_s1_effort_story_points,
-      multimodel_s1_mental_effort: formData.multimodel_s1_mental_effort,
-      multimodel_s1_bug_data_risk: formData.multimodel_s1_bug_data_risk,
-      multimodel_s1_coordination_overhead:
-        formData.multimodel_s1_coordination_overhead,
-      multimodel_s1_productivity_impact:
-        formData.multimodel_s1_productivity_impact,
-      multimodel_s1_architecture_benefits: joinArrayValue(
-        formData.multimodel_s1_architecture_benefits,
+      multi_s2_implementation_complexity:
+        formData.multi_s2_implementation_complexity,
+      multi_s2_cognitive_load: formData.multi_s2_cognitive_load,
+      multi_s2_bug_risk: formData.multi_s2_bug_risk,
+      multi_s2_coordination_overhead: formData.multi_s2_coordination_overhead,
+      multi_s2_backward_compatibility_difficulty:
+        formData.multi_s2_backward_compatibility_difficulty,
+      multi_s2_business_logic_validation_difficulty:
+        formData.multi_s2_business_logic_validation_difficulty,
+      multi_s2_operational_effort: formData.multi_s2_operational_effort,
+      multi_s2_productivity_impact: formData.multi_s2_productivity_impact,
+      multi_s2_architecture_benefits: joinArrayValue(
+        formData.multi_s2_architecture_benefits,
       ),
-      multimodel_s1_architecture_challenges: joinArrayValue(
-        formData.multimodel_s1_architecture_challenges,
+      multi_s2_architecture_challenges: joinArrayValue(
+        formData.multi_s2_architecture_challenges,
       ),
-      multimodel_s1_optional_comment: formData.multimodel_s1_optional_comment,
-      multimodel_s2_effort_story_points:
-        formData.multimodel_s2_effort_story_points,
-      multimodel_s2_mental_effort: formData.multimodel_s2_mental_effort,
-      multimodel_s2_bug_data_risk: formData.multimodel_s2_bug_data_risk,
-      multimodel_s2_coordination_overhead:
-        formData.multimodel_s2_coordination_overhead,
-      multimodel_s2_backward_compatibility_difficulty:
-        formData.multimodel_s2_backward_compatibility_difficulty,
-      multimodel_s2_productivity_impact:
-        formData.multimodel_s2_productivity_impact,
-      multimodel_s2_architecture_benefits: joinArrayValue(
-        formData.multimodel_s2_architecture_benefits,
-      ),
-      multimodel_s2_architecture_challenges: joinArrayValue(
-        formData.multimodel_s2_architecture_challenges,
-      ),
-      multimodel_s2_optional_comment: formData.multimodel_s2_optional_comment,
     },
     comparative_tooling_practices: {
       architecture_tradeoff_view: joinArrayValue(
