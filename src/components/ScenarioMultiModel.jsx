@@ -279,6 +279,7 @@ function ScenarioMultiModel({
             name="poly_s2_productivity_impact"
             value={formData.poly_s2_productivity_impact}
             required
+            helper="Developer productivity measures iteration speed, automation efficiency, change failure rates, team collaboration, and overall developer experience."
             leftLabel="1 = No impact"
             rightLabel="5 = Very high impact"
             onChange={onChange}
@@ -430,6 +431,7 @@ function ScenarioMultiModel({
             name="multi_s2_productivity_impact"
             value={formData.multi_s2_productivity_impact}
             required
+            helper="Developer productivity measures iteration speed, automation efficiency, change failure rates, team collaboration, and overall developer experience."
             leftLabel="1 = No impact"
             rightLabel="5 = Very high impact"
             onChange={onChange}
