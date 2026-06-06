@@ -151,6 +151,10 @@ function ScenarioPolyglot({
   return (
     <section>
       <h2>Section 4: Scenario-Based Evaluation of Persistence Strategies</h2>
+      <p className="section-intro">
+        This section asks you to evaluate schema evolution tasks under Polyglot
+        and Multi-Model persistence strategies.
+      </p>
 
       <div className="scenario-list">
         <ScenarioCard
