@@ -35,9 +35,9 @@ function SectionThreeArchitecture({
         <article className="section-three-card">
           <h3>Reference Company Context</h3>
           <p>
-            This survey uses a hypothetical microservice-based company system
-            called ModaVista Group to evaluate schema evolution under two
-            persistence strategies: Polyglot Persistence and Multi-Model
+            This survey uses a hypothetical EU-based microservice company
+            system called ModaVista Group to evaluate schema evolution under
+            two persistence strategies: Polyglot Persistence and Multi-Model
             Persistence.
           </p>
           <p>

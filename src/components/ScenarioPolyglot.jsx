@@ -161,9 +161,10 @@ function ScenarioPolyglot({
           <div className="scenario-description">
             <p>
               ModaVista wants to launch region-specific product pages for
-              different markets. For example, the same product may need
-              different display content, size guidance, and enrichment details
-              depending on the customer’s region.
+              different EU markets, such as Germany, France, Italy, and Spain.
+              For example, the same product may need different display content,
+              size guidance, and enrichment details depending on the customer’s
+              region.
             </p>
             <p>
               To support this business requirement using a Polyglot Persistence
@@ -258,7 +259,7 @@ function ScenarioPolyglot({
               values={formData.polyglot_s1_architecture_benefits}
               options={s1BenefitOptions}
               required
-              helper="Select up to three."
+              helper="Select 1 to 3 options."
               exclusiveOption="No clear benefit from Polyglot Persistence in this scenario."
               onChange={onChange}
               error={errors.polyglot_s1_architecture_benefits}
@@ -269,7 +270,7 @@ function ScenarioPolyglot({
               values={formData.polyglot_s1_architecture_challenges}
               options={s1ChallengeOptions}
               required
-              helper="Select up to three."
+              helper="Select 1 to 3 options."
               exclusiveOption="No clear disadvantage from Polyglot Persistence in this scenario."
               onChange={onChange}
               error={errors.polyglot_s1_architecture_challenges}
@@ -384,7 +385,7 @@ function ScenarioPolyglot({
               values={formData.multi_s1_architecture_benefits}
               options={multiS1BenefitOptions}
               required
-              helper="Select up to three."
+              helper="Select 1 to 3 options."
               exclusiveOption="No clear benefit from Multi-Model Persistence in this scenario."
               onChange={onChange}
               error={errors.multi_s1_architecture_benefits}
@@ -395,7 +396,7 @@ function ScenarioPolyglot({
               values={formData.multi_s1_architecture_challenges}
               options={multiS1ChallengeOptions}
               required
-              helper="Select up to three."
+              helper="Select 1 to 3 options."
               exclusiveOption="No clear disadvantage from Multi-Model Persistence in this scenario."
               onChange={onChange}
               error={errors.multi_s1_architecture_challenges}
