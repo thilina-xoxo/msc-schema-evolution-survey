@@ -29,16 +29,13 @@ const initialFormData = {
   polyglot_s1_productivity_impact: '',
   polyglot_s1_architecture_benefits: [],
   polyglot_s1_architecture_challenges: [],
-  polyglot_s1_optional_comment: '',
-  polyglot_s2_effort_story_points: '',
-  polyglot_s2_mental_effort: '',
-  polyglot_s2_bug_data_risk: '',
-  polyglot_s2_coordination_overhead: '',
-  polyglot_s2_backward_compatibility_difficulty: '',
-  polyglot_s2_productivity_impact: '',
-  polyglot_s2_architecture_benefits: [],
-  polyglot_s2_architecture_challenges: [],
-  polyglot_s2_optional_comment: '',
+  multi_s1_effort: '',
+  multi_s1_cognitive_load: '',
+  multi_s1_bug_risk: '',
+  multi_s1_coordination_overhead: '',
+  multi_s1_productivity_impact: '',
+  multi_s1_architecture_benefits: [],
+  multi_s1_architecture_challenges: [],
   multimodel_s1_effort_story_points: '',
   multimodel_s1_mental_effort: '',
   multimodel_s1_bug_data_risk: '',
@@ -71,7 +68,7 @@ const initialFormData = {
 }
 
 // TEMPORARY TESTING MODE: Set to false before real survey distribution.
-const TEMP_SKIP_VALIDATION_FOR_TESTING = false
+const TEMP_SKIP_VALIDATION_FOR_TESTING = true
 const TOTAL_STEPS = 7
 
 function validateSectionOne(formData) {
@@ -159,7 +156,7 @@ function validateScenarioPolyglot(formData) {
       'Please enter the estimated total implementation effort.',
     ],
     [
-      'polyglot_s2_effort_story_points',
+      'multi_s1_effort',
       'Please enter the estimated total implementation effort.',
     ],
   ]
@@ -185,11 +182,10 @@ function validateScenarioPolyglot(formData) {
     ['polyglot_s1_bug_data_risk', 'Please rate the risk of bugs or data issues.'],
     ['polyglot_s1_coordination_overhead', 'Please rate the coordination overhead.'],
     ['polyglot_s1_productivity_impact', 'Please rate the productivity impact.'],
-    ['polyglot_s2_mental_effort', 'Please rate the mental effort required.'],
-    ['polyglot_s2_bug_data_risk', 'Please rate the risk of bugs or data inconsistency.'],
-    ['polyglot_s2_coordination_overhead', 'Please rate the coordination overhead.'],
-    ['polyglot_s2_backward_compatibility_difficulty', 'Please rate the backward compatibility difficulty.'],
-    ['polyglot_s2_productivity_impact', 'Please rate the productivity impact.'],
+    ['multi_s1_cognitive_load', 'Please rate the mental effort required.'],
+    ['multi_s1_bug_risk', 'Please rate the risk of bugs or data issues.'],
+    ['multi_s1_coordination_overhead', 'Please rate the coordination overhead.'],
+    ['multi_s1_productivity_impact', 'Please rate the productivity impact.'],
   ]
 
   requiredFields.forEach(([fieldName, message]) => {
@@ -203,36 +199,46 @@ function validateScenarioPolyglot(formData) {
     formData,
     'polyglot_s1_architecture_benefits',
     'No clear benefit from Polyglot Persistence in this scenario.',
+    3,
   )
   validateLimitedCheckbox(
     errors,
     formData,
     'polyglot_s1_architecture_challenges',
     'No clear disadvantage from Polyglot Persistence in this scenario.',
+    3,
   )
   validateLimitedCheckbox(
     errors,
     formData,
-    'polyglot_s2_architecture_benefits',
-    'No clear benefit from Polyglot Persistence in this scenario.',
+    'multi_s1_architecture_benefits',
+    'No clear benefit from Multi-Model Persistence in this scenario.',
+    3,
   )
   validateLimitedCheckbox(
     errors,
     formData,
-    'polyglot_s2_architecture_challenges',
-    'No clear disadvantage from Polyglot Persistence in this scenario.',
+    'multi_s1_architecture_challenges',
+    'No clear disadvantage from Multi-Model Persistence in this scenario.',
+    3,
   )
 
   return errors
 }
 
-function validateLimitedCheckbox(errors, formData, fieldName, exclusiveOption) {
+function validateLimitedCheckbox(
+  errors,
+  formData,
+  fieldName,
+  exclusiveOption,
+  maxSelections = 2,
+) {
   const values = formData[fieldName]
 
   if (!Array.isArray(values) || values.length === 0) {
     errors[fieldName] = 'Please select at least one option.'
-  } else if (values.length > 2) {
-    errors[fieldName] = 'Please select up to two options.'
+  } else if (values.length > maxSelections) {
+    errors[fieldName] = `Please select up to ${maxSelections} options.`
   } else if (values.includes(exclusiveOption) && values.length > 1) {
     errors[fieldName] =
       'Please select this option by itself, or choose other options instead.'

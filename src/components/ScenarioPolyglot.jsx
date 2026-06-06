@@ -1,39 +1,39 @@
 import ScaleQuestion from './ScaleQuestion'
 
 const s1BenefitOptions = [
-  'PostgreSQL can keep structured product master data separate from flexible catalogue content.',
-  'MongoDB can support flexible regional enrichment fields without forcing every detail into relational tables.',
-  'Each database can be changed based on the type of data it manages.',
-  'The Catalogue Intelligence Team can keep this change mostly inside its own bounded context.',
-  'Existing PostgreSQL and MongoDB strengths can be used without replacing the current data layer.',
+  'Right database for the right data model.',
+  'Mature tooling for schema migrations.',
+  'Clear ownership within the Catalogue Intelligence Team boundary.',
+  'Separate evolution of database, service, and API changes.',
+  'Flexibility to update structured and document data independently.',
   'No clear benefit from Polyglot Persistence in this scenario.',
 ]
 
 const s1ChallengeOptions = [
-  'Keeping PostgreSQL and MongoDB changes consistent during implementation.',
-  'Designing migration logic across relational and document data models.',
-  'Updating APIs or events that expose data coming from both databases.',
-  'Testing whether regional product data works correctly across both stores.',
-  'Debugging issues when product data is split between PostgreSQL and MongoDB.',
+  'Coordinating database, service, and API changes together.',
+  'Keeping relational and document data consistent.',
+  'Testing changes across databases, services, and sync pipelines.',
+  'Managing deployment order and backward compatibility.',
+  'Debugging issues across multiple technologies and layers.',
   'No clear disadvantage from Polyglot Persistence in this scenario.',
 ]
 
-const s2BenefitOptions = [
-  'Each team can use the database technology best suited to its domain workload.',
-  'Catalogue, recommendation, customer, stock, and search data can be optimized separately.',
-  'Neo4j can support product relationship and recommendation graph needs.',
-  'Elasticsearch can support search, ranking, filtering, and discovery requirements.',
-  'Teams may evolve some internal data models independently if APIs and events remain compatible.',
-  'No clear benefit from Polyglot Persistence in this scenario.',
+const multiS1BenefitOptions = [
+  'One database platform for multiple data models.',
+  'Mature platform tooling for schema and model changes.',
+  'Clear ownership within the Catalogue Intelligence Team boundary.',
+  'Simpler coordination across database, service, and API changes.',
+  'Lower operational overhead for deployment, monitoring, and backup.',
+  'No clear benefit from Multi-Model Persistence in this scenario.',
 ]
 
-const s2ChallengeOptions = [
-  'Coordinating schema changes across several teams and database technologies.',
-  'Keeping API and event contracts compatible across downstream consumers.',
-  'Testing consistency across PostgreSQL, MongoDB, Neo4j, Elasticsearch, and event flows.',
-  'Debugging issues when data is duplicated, transformed, or indexed across multiple stores.',
-  'Planning migration and rollout order across multiple teams.',
-  'No clear disadvantage from Polyglot Persistence in this scenario.',
+const multiS1ChallengeOptions = [
+  'Defining clear boundaries between relational and document models.',
+  'Managing consistency between multiple models in one platform.',
+  'Testing changes across models, services, and sync pipelines.',
+  'Risk of hidden coupling inside the shared database platform.',
+  'Limitations in complex joins, queries, or document aggregations.',
+  'No clear disadvantage from Multi-Model Persistence in this scenario.',
 ]
 
 function NumericQuestion({
@@ -84,7 +84,7 @@ function LimitedCheckboxGroup({
       return
     }
 
-    if (!values.includes(option) && values.length >= 2) {
+    if (!values.includes(option) && values.length >= 3) {
       return
     }
 
@@ -112,7 +112,7 @@ function LimitedCheckboxGroup({
               checked={values.includes(option)}
               disabled={
                 !values.includes(option) &&
-                values.length >= 2 &&
+                values.length >= 3 &&
                 option !== exclusiveOption
               }
               onChange={() => handleChange(option)}
@@ -126,31 +126,16 @@ function LimitedCheckboxGroup({
   )
 }
 
-function TextareaQuestion({ label, name, value, onChange }) {
-  return (
-    <div className="question">
-      <label className="question-label" htmlFor={name}>
-        {label}
-      </label>
-      <textarea
-        id={name}
-        name={name}
-        value={value}
-        rows="4"
-        onChange={(event) => onChange(name, event.target.value)}
-      />
-    </div>
-  )
-}
-
 function ScenarioCard({ title, complexity, scope, children }) {
   return (
     <article className="scenario-card">
-      <div className="scenario-card-header">
-        <h3>{title}</h3>
-        <span className="complexity-badge">{complexity}</span>
-      </div>
-      <p className="scenario-scope">{scope}</p>
+      {(title || complexity) && (
+        <div className="scenario-card-header">
+          {title && <h3>{title}</h3>}
+          {complexity && <span className="complexity-badge">{complexity}</span>}
+        </div>
+      )}
+      {scope && <p className="scenario-scope">{scope}</p>}
       {children}
     </article>
   )
@@ -165,11 +150,7 @@ function ScenarioPolyglot({
 }) {
   return (
     <section>
-      <h2>Section 4: Scenario-Based Evaluation: Polyglot Persistence</h2>
-      <p className="section-intro">
-        Please evaluate two schema evolution scenarios under Architecture A:
-        Polyglot Persistence.
-      </p>
+      <h2>Section 4: Scenario-Based Evaluation of Persistence Strategies</h2>
 
       <div className="scenario-list">
         <ScenarioCard
@@ -185,32 +166,39 @@ function ScenarioPolyglot({
               depending on the customer’s region.
             </p>
             <p>
-              To support this business requirement, the Catalogue Intelligence
-              Team must update both catalogue databases used inside its bounded
-              context:
+              To support this business requirement using a Polyglot Persistence
+              architecture, the Catalogue Intelligence Team (CAT) updates
+              PostgreSQL and MongoDB within its bounded context.
             </p>
-            <ul className="polyglot-scenario-points">
-              <li>
-                In PostgreSQL, the team must add a new
-                product_region_profile structure linked to existing product
-                master records. This stores structured regional catalogue data
-                such as product_id, region_code, regional_status, and
-                size_guide_code.
-              </li>
-              <li>
-                In MongoDB, the team must extend the product enrichment
-                document to store flexible regional content such as localized
-                descriptions, regional size advice, care notes, styling notes,
-                and market-specific display attributes.
-              </li>
-            </ul>
-            <p>Estimated affected scope:</p>
             <p>
-              This change is expected to affect 1 domain/team and approximately
-              4–6 internal layers or service components, such as PostgreSQL
-              schema/migration scripts, MongoDB document schema, catalogue
-              APIs, catalogue event schema, indexing/synchronization jobs, and
-              testing/validation flows.
+              1. Database Migrations: Relational and Document
+            </p>
+            <p>
+              The Catalogue Intelligence Team (CAT) deploys a new
+              product_region_profile table to PostgreSQL and extends enrichment
+              documents in MongoDB.
+            </p>
+            <p>
+              These migrations are backward-compatible to ensure existing
+              services do not crash during the data layer transition.
+            </p>
+            <p>2. Internal Service Layer Updates</p>
+            <p>
+              Update internal code, repositories, and APIs within the CAT Team
+              boundary to read and write the new regional fields.
+            </p>
+            <p>
+              This affects approximately 4-6 internal components that must be
+              redeployed to recognize the updated schema.
+            </p>
+            <p>3. Sync Pipelines and Event Schema</p>
+            <p>
+              Modify the CAT Team synchronization and indexing jobs to align
+              data between the PostgreSQL and MongoDB stores.
+            </p>
+            <p>
+              Update the outbound catalogue event schema to broadcast regional
+              product updates to the rest of the business.
             </p>
           </div>
 
@@ -270,7 +258,7 @@ function ScenarioPolyglot({
               values={formData.polyglot_s1_architecture_benefits}
               options={s1BenefitOptions}
               required
-              helper="Select up to two."
+              helper="Select up to three."
               exclusiveOption="No clear benefit from Polyglot Persistence in this scenario."
               onChange={onChange}
               error={errors.polyglot_s1_architecture_benefits}
@@ -281,171 +269,136 @@ function ScenarioPolyglot({
               values={formData.polyglot_s1_architecture_challenges}
               options={s1ChallengeOptions}
               required
-              helper="Select up to two."
+              helper="Select up to three."
               exclusiveOption="No clear disadvantage from Polyglot Persistence in this scenario."
               onChange={onChange}
               error={errors.polyglot_s1_architecture_challenges}
-            />
-            <TextareaQuestion
-              label="Q22. Optional: What is the main challenge, assumption, or practice you would consider for this scenario?"
-              name="polyglot_s1_optional_comment"
-              value={formData.polyglot_s1_optional_comment}
-              onChange={onChange}
             />
           </div>
         </ScenarioCard>
 
         <ScenarioCard
-          title="Scenario 4.2: Personalized Product Discovery Rule Rollout"
-          complexity="Complexity: High"
-          scope="Scope: Across multiple domains/teams"
         >
           <div className="scenario-description">
             <p>
-              ModaVista wants to introduce a personalized product discovery
-              experience. The platform should recommend products using customer
-              preferences, product relationships, regional catalogue
-              attributes, stock availability, and recent customer behaviour.
+              To support the same business requirement using a Multi-Model
+              Persistence architecture, the Catalogue Intelligence Team (CAT)
+              updates both relational/tabular and document models within Azure
+              Cosmos DB.
+            </p>
+            <p>1. Database Migrations: Relational and Document</p>
+            <p>
+              The Catalogue Intelligence Team (CAT) adds the new
+              product_region_profile table structure to the relational/tabular
+              model and extends the regional enrichment fields in the document
+              model within Azure Cosmos DB.
             </p>
             <p>
-              To support this business requirement, the following schema and
-              data-contract changes must be implemented across the Polyglot
-              Persistence data layer:
+              These dual-model schema updates are backward-compatible to ensure
+              existing application components do not crash during the database
+              transition.
             </p>
-            <ul className="polyglot-scenario-points">
-              <li>
-                In the Catalogue Intelligence Team, PostgreSQL product master
-                data must be extended with structured regional discovery fields
-                such as region_code, regional_status, and discovery_priority,
-                while MongoDB product enrichment documents must be extended
-                with flexible discovery attributes such as style_tags,
-                occasion_tags, localized content, and market-specific display
-                attributes.
-              </li>
-              <li>
-                In the Personalization and Discovery Team, Neo4j graph data
-                must be updated to include richer product relationship signals
-                such as “similar to”, “style alternative”, and “frequently
-                bought with”, while MongoDB behaviour/preference documents must
-                be extended to store recent customer behaviour and preference
-                signals used for ranking.
-              </li>
-              <li>
-                In the Customer Identity and Trust Team, MongoDB customer
-                preference documents and related customer preference event
-                schemas must expose relevant preference attributes such as
-                preferred language, preferred size category, and style
-                preference indicators.
-              </li>
-              <li>
-                In the Stock and Fulfilment Team, PostgreSQL inventory and
-                stock data must expose region-level product availability so
-                unavailable products are not recommended.
-              </li>
-              <li>
-                In the Search Experience Team, Elasticsearch index mappings
-                must be updated to support regional discovery attributes,
-                style/occasion filters, ranking signals, and
-                personalization-related search filtering.
-              </li>
-            </ul>
-            <p>Estimated affected scope:</p>
+            <p>2. Internal Service Layer Updates</p>
             <p>
-              This change may affect approximately 4–5 core domains/teams, with
-              possible wider impact depending on implementation. The affected
-              areas may include data models, API contracts, event schemas,
-              event consumers, search indexes, recommendation inputs, analytics
-              pipelines, compatibility handling, migration logic, and testing.
+              Internal data access logic, domain models, repositories, and
+              catalogue APIs within the CAT Team boundary are updated to read
+              and write the new regional fields from both updated data models.
+            </p>
+            <p>
+              This affects approximately 3-5 internal components that must be
+              redeployed to recognize and serve the new regional attributes.
+            </p>
+            <p>3. Sync Pipelines and Event Schema</p>
+            <p>
+              The CAT Team adjusts internal indexing or synchronization logic
+              to keep the relational/tabular and document views properly
+              aligned within the same multi-model database platform.
+            </p>
+            <p>
+              The outbound catalogue event schema is updated to broadcast
+              regional product updates to the rest of the business.
+            </p>
+            <p className="architecture-note-heading">Architecture Note</p>
+            <p>
+              This approach may provide a simpler codebase and lower
+              operational overhead because both models are handled within one
+              database platform. However, the team may still encounter
+              limitations when handling complex relational-style joins or deep
+              document aggregations.
             </p>
           </div>
 
           <div className="scenario-questions">
             <NumericQuestion
-              label="Q23. Estimated total implementation effort for this scenario"
-              name="polyglot_s2_effort_story_points"
-              value={formData.polyglot_s2_effort_story_points}
+              label="Q22. Estimated total implementation effort for this scenario"
+              name="multi_s1_effort"
+              value={formData.multi_s1_effort}
               required
-              helper="Enter your estimate in story points. Assume 1 story point = approximately 1 working day of engineering effort. Estimate the total effort across all affected teams/domains, not only one service. Include schema/model changes, API/event updates, migration, compatibility handling, testing, validation, deployment, and coordination effort."
+              helper="Enter your estimate in story points. Assume 1 story point = approximately 1 working day of engineering effort. Estimate the total effort across the affected Catalogue Intelligence Team scope, not only one small service. Include Azure Cosmos DB relational/tabular model changes, document model changes, API/event updates, migration, testing, validation, and deployment effort."
               onChange={onChange}
-              error={errors.polyglot_s2_effort_story_points}
+              error={errors.multi_s1_effort}
             />
             <ScaleQuestion
-              label="Q24. How much mental effort is required to understand the full impact of this change?"
-              name="polyglot_s2_mental_effort"
-              value={formData.polyglot_s2_mental_effort}
+              label="Q23. How much mental effort is required to understand the full impact of this change?"
+              name="multi_s1_cognitive_load"
+              value={formData.multi_s1_cognitive_load}
               required
               leftLabel="1 = Very low effort"
               rightLabel="5 = Very high effort"
               onChange={onChange}
-              error={errors.polyglot_s2_mental_effort}
+              error={errors.multi_s1_cognitive_load}
             />
             <ScaleQuestion
-              label="Q25. How high is the risk of bugs or data inconsistency?"
-              name="polyglot_s2_bug_data_risk"
-              value={formData.polyglot_s2_bug_data_risk}
+              label="Q24. How high is the risk of bugs or data issues?"
+              name="multi_s1_bug_risk"
+              value={formData.multi_s1_bug_risk}
               required
               leftLabel="1 = Very low risk"
               rightLabel="5 = Very high risk"
               onChange={onChange}
-              error={errors.polyglot_s2_bug_data_risk}
+              error={errors.multi_s1_bug_risk}
             />
             <ScaleQuestion
-              label="Q26. How much coordination overhead is likely required?"
-              name="polyglot_s2_coordination_overhead"
-              value={formData.polyglot_s2_coordination_overhead}
+              label="Q25. How much coordination overhead is likely required?"
+              name="multi_s1_coordination_overhead"
+              value={formData.multi_s1_coordination_overhead}
               required
               leftLabel="1 = Very low coordination"
               rightLabel="5 = Very high coordination"
               onChange={onChange}
-              error={errors.polyglot_s2_coordination_overhead}
+              error={errors.multi_s1_coordination_overhead}
             />
             <ScaleQuestion
-              label="Q27. How difficult is it to maintain backward compatibility during this change?"
-              name="polyglot_s2_backward_compatibility_difficulty"
-              value={formData.polyglot_s2_backward_compatibility_difficulty}
-              required
-              leftLabel="1 = Very easy"
-              rightLabel="5 = Very difficult"
-              onChange={onChange}
-              error={errors.polyglot_s2_backward_compatibility_difficulty}
-            />
-            <ScaleQuestion
-              label="Q28. How much could this schema change affect developer productivity during implementation?"
-              name="polyglot_s2_productivity_impact"
-              value={formData.polyglot_s2_productivity_impact}
+              label="Q26. How much could this schema change affect developer productivity during implementation?"
+              name="multi_s1_productivity_impact"
+              value={formData.multi_s1_productivity_impact}
               required
               leftLabel="1 = No impact"
               rightLabel="5 = Very high impact"
               onChange={onChange}
-              error={errors.polyglot_s2_productivity_impact}
+              error={errors.multi_s1_productivity_impact}
             />
             <LimitedCheckboxGroup
-              label="Q29. Given that this scenario is implemented in a Polyglot Persistence architecture, what helps the most?"
-              name="polyglot_s2_architecture_benefits"
-              values={formData.polyglot_s2_architecture_benefits}
-              options={s2BenefitOptions}
+              label="Q27. Given that this scenario is implemented in a Multi-Model Persistence architecture, what helps the most?"
+              name="multi_s1_architecture_benefits"
+              values={formData.multi_s1_architecture_benefits}
+              options={multiS1BenefitOptions}
               required
-              helper="Select up to two."
-              exclusiveOption="No clear benefit from Polyglot Persistence in this scenario."
+              helper="Select up to three."
+              exclusiveOption="No clear benefit from Multi-Model Persistence in this scenario."
               onChange={onChange}
-              error={errors.polyglot_s2_architecture_benefits}
+              error={errors.multi_s1_architecture_benefits}
             />
             <LimitedCheckboxGroup
-              label="Q30. Given that this scenario is implemented in a Polyglot Persistence architecture, what is most likely to make the change harder?"
-              name="polyglot_s2_architecture_challenges"
-              values={formData.polyglot_s2_architecture_challenges}
-              options={s2ChallengeOptions}
+              label="Q28. Given that this scenario is implemented in a Multi-Model Persistence architecture, what is most likely to make the change harder?"
+              name="multi_s1_architecture_challenges"
+              values={formData.multi_s1_architecture_challenges}
+              options={multiS1ChallengeOptions}
               required
-              helper="Select up to two."
-              exclusiveOption="No clear disadvantage from Polyglot Persistence in this scenario."
+              helper="Select up to three."
+              exclusiveOption="No clear disadvantage from Multi-Model Persistence in this scenario."
               onChange={onChange}
-              error={errors.polyglot_s2_architecture_challenges}
-            />
-            <TextareaQuestion
-              label="Q31. Optional: What is the main challenge, assumption, or practice you would consider for this scenario?"
-              name="polyglot_s2_optional_comment"
-              value={formData.polyglot_s2_optional_comment}
-              onChange={onChange}
+              error={errors.multi_s1_architecture_challenges}
             />
           </div>
         </ScenarioCard>
@@ -464,3 +417,4 @@ function ScenarioPolyglot({
 }
 
 export default ScenarioPolyglot
+

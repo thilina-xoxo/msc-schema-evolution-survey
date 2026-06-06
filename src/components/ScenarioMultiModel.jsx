@@ -173,7 +173,7 @@ function ScenarioMultiModel({
 
       <div className="scenario-list">
         <ScenarioCard
-          title="Scenario 4_2.1: Catalogue Enrichment for Regional Product Experience"
+          title="Catalogue Enrichment for Regional Product Experience"
           complexity="Complexity: Medium"
           scope="Scope: Mainly within one domain/team"
         >

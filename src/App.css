@@ -977,6 +977,26 @@ tr:last-child td {
   margin-bottom: 0;
 }
 
+.architecture-evaluation-heading {
+  margin: 18px 0 10px;
+  color: var(--heading);
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.architecture-note-heading {
+  display: inline-flex;
+  width: fit-content;
+  margin-top: 4px;
+  padding: 5px 9px;
+  border: 1px solid rgba(107, 182, 255, 0.24);
+  border-radius: var(--radius-sm);
+  background: rgba(107, 182, 255, 0.1);
+  color: var(--accent-strong);
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
 .scenario-description ul {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

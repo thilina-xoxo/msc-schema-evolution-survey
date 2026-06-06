@@ -38,24 +38,19 @@ export async function submitSurvey(formData) {
       polyglot_s1_architecture_challenges: joinArrayValue(
         formData.polyglot_s1_architecture_challenges,
       ),
-      polyglot_s1_optional_comment: formData.polyglot_s1_optional_comment,
-      polyglot_s2_effort_story_points: formData.polyglot_s2_effort_story_points,
-      polyglot_s2_mental_effort: formData.polyglot_s2_mental_effort,
-      polyglot_s2_bug_data_risk: formData.polyglot_s2_bug_data_risk,
-      polyglot_s2_coordination_overhead:
-        formData.polyglot_s2_coordination_overhead,
-      polyglot_s2_backward_compatibility_difficulty:
-        formData.polyglot_s2_backward_compatibility_difficulty,
-      polyglot_s2_productivity_impact: formData.polyglot_s2_productivity_impact,
-      polyglot_s2_architecture_benefits: joinArrayValue(
-        formData.polyglot_s2_architecture_benefits,
-      ),
-      polyglot_s2_architecture_challenges: joinArrayValue(
-        formData.polyglot_s2_architecture_challenges,
-      ),
-      polyglot_s2_optional_comment: formData.polyglot_s2_optional_comment,
     },
     scenario_multimodel: {
+      multi_s1_effort: formData.multi_s1_effort,
+      multi_s1_cognitive_load: formData.multi_s1_cognitive_load,
+      multi_s1_bug_risk: formData.multi_s1_bug_risk,
+      multi_s1_coordination_overhead: formData.multi_s1_coordination_overhead,
+      multi_s1_productivity_impact: formData.multi_s1_productivity_impact,
+      multi_s1_architecture_benefits: joinArrayValue(
+        formData.multi_s1_architecture_benefits,
+      ),
+      multi_s1_architecture_challenges: joinArrayValue(
+        formData.multi_s1_architecture_challenges,
+      ),
       multimodel_s1_effort_story_points:
         formData.multimodel_s1_effort_story_points,
       multimodel_s1_mental_effort: formData.multimodel_s1_mental_effort,
