@@ -311,15 +311,16 @@ function validateScenarioMultiModel(formData) {
 function validateComparativeToolingPractices(formData) {
   const errors = {}
 
-  validateMaxFiveCheckbox(errors, formData, 'architecture_tradeoff_view')
-  validateMaxFiveCheckbox(
+  validateMaxCheckbox(errors, formData, 'architecture_tradeoff_view', 3)
+  validateMaxCheckbox(
     errors,
     formData,
     'main_schema_evolution_difficulty_factors',
+    3,
   )
-  validateMaxFiveCheckbox(errors, formData, 'productivity_improving_practices')
-  validateMaxFiveCheckbox(errors, formData, 'useful_schema_tool_practices')
-  validateMaxFiveCheckbox(errors, formData, 'ai_schema_usage_modes')
+  validateMaxCheckbox(errors, formData, 'productivity_improving_practices', 3)
+  validateMaxCheckbox(errors, formData, 'useful_schema_tool_practices', 3)
+  validateMaxCheckbox(errors, formData, 'ai_schema_usage_modes', 3)
 
   if (!formData.ai_tool_usage_for_schema_work) {
     errors.ai_tool_usage_for_schema_work =
@@ -329,13 +330,13 @@ function validateComparativeToolingPractices(formData) {
   return errors
 }
 
-function validateMaxFiveCheckbox(errors, formData, fieldName) {
+function validateMaxCheckbox(errors, formData, fieldName, maxSelections) {
   const values = formData[fieldName]
 
   if (!Array.isArray(values) || values.length === 0) {
     errors[fieldName] = 'Please select at least one option.'
-  } else if (values.length > 5) {
-    errors[fieldName] = 'Please select up to 5 options.'
+  } else if (values.length > maxSelections) {
+    errors[fieldName] = `Please select up to ${maxSelections} options.`
   }
 }
 

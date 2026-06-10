@@ -65,11 +65,12 @@ function LimitedCheckboxGroup({
   options,
   required,
   helper,
+  maxSelections = 5,
   onChange,
   error,
 }) {
   function handleChange(option) {
-    if (!values.includes(option) && values.length >= 5) {
+    if (!values.includes(option) && values.length >= maxSelections) {
       return
     }
 
@@ -95,15 +96,19 @@ function LimitedCheckboxGroup({
               name={name}
               value={option}
               checked={values.includes(option)}
-              disabled={!values.includes(option) && values.length >= 5}
+              disabled={
+                !values.includes(option) && values.length >= maxSelections
+              }
               onChange={() => handleChange(option)}
             />
             <span>{option}</span>
           </label>
         ))}
       </div>
-      {values.length >= 5 && (
-        <p className="question-helper">You can select up to 5 options.</p>
+      {values.length >= maxSelections && (
+        <p className="question-helper">
+          You can select up to {maxSelections} options.
+        </p>
       )}
       {error && <p className="error-message">{error}</p>}
     </fieldset>
@@ -165,7 +170,8 @@ function ComparativeToolingPractices({
             values={formData.architecture_tradeoff_view}
             options={tradeoffOptions}
             required
-            helper="Select up to 5."
+            helper="Select up to 3 options."
+            maxSelections={3}
             onChange={onChange}
             error={errors.architecture_tradeoff_view}
           />
@@ -175,7 +181,8 @@ function ComparativeToolingPractices({
             values={formData.main_schema_evolution_difficulty_factors}
             options={difficultyOptions}
             required
-            helper="Select up to 5."
+            helper="Select up to 3 options."
+            maxSelections={3}
             onChange={onChange}
             error={errors.main_schema_evolution_difficulty_factors}
           />
@@ -188,7 +195,8 @@ function ComparativeToolingPractices({
             values={formData.productivity_improving_practices}
             options={productivityOptions}
             required
-            helper="Select up to 5."
+            helper="Select up to 3 options."
+            maxSelections={3}
             onChange={onChange}
             error={errors.productivity_improving_practices}
           />
@@ -198,7 +206,8 @@ function ComparativeToolingPractices({
             values={formData.useful_schema_tool_practices}
             options={toolPracticeOptions}
             required
-            helper="Select up to 5."
+            helper="Select up to 3 options."
+            maxSelections={3}
             onChange={onChange}
             error={errors.useful_schema_tool_practices}
           />
@@ -220,7 +229,8 @@ function ComparativeToolingPractices({
             values={formData.ai_schema_usage_modes}
             options={aiModeOptions}
             required
-            helper="Select up to 5."
+            helper="Select up to 3 options."
+            maxSelections={3}
             onChange={onChange}
             error={errors.ai_schema_usage_modes}
           />
