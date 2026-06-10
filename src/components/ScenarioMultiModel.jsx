@@ -20,19 +20,19 @@ const polyS2ChallengeOptions = [
 
 const multiS2BenefitOptions = [
   'One platform per team for multiple data models.',
-  'Unified platform tooling for schema and model changes.',
+  'Less custom synchronization between separate database engines.',
   'Simpler cross-model querying within PDT.',
   'Lower operational overhead for deployment, monitoring, and backup.',
-  'Streamlined event integration between CAT and PDT.',
+  'Easier alignment between graph and document data inside PDT.',
   'No clear benefit from Multi-Model Persistence in this scenario.',
 ]
 
 const multiS2ChallengeOptions = [
-  'Defining clear boundaries between models inside each platform.',
-  'Risk of hidden coupling through shared platform features.',
+  'Limited mature tooling for multi-model schema evolution.',
+  'Risk of hidden coupling between models inside the same platform.',
   'Platform-specific query or modelling limitations.',
-  'Keeping CAT and PDT contracts compatible.',
-  'Testing cross-model changes and event feeds.',
+  'Keeping CAT and PDT data contracts compatible across event or change-feed integration.',
+  'Testing cross-model changes, ingestion logic, and event feeds.',
   'No clear disadvantage from Multi-Model Persistence in this scenario.',
 ]
 
