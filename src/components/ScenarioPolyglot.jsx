@@ -20,7 +20,7 @@ const s1ChallengeOptions = [
 
 const multiS1BenefitOptions = [
   'One database platform for multiple data models.',
-  'Mature platform tooling for schema and model changes.',
+  'Less custom synchronization between separate database engines.',
   'Clear ownership within the Catalogue Intelligence Team boundary.',
   'Simpler coordination across database, service, and API changes.',
   'Lower operational overhead for deployment, monitoring, and backup.',
@@ -28,10 +28,10 @@ const multiS1BenefitOptions = [
 ]
 
 const multiS1ChallengeOptions = [
-  'Defining clear boundaries between relational and document models.',
-  'Managing consistency between multiple models in one platform.',
+  'Managing consistency between relational and document models.',
   'Testing changes across models, services, and sync pipelines.',
   'Risk of hidden coupling inside the shared database platform.',
+  'Limited mature tooling for multi-model schema evolution.',
   'Limitations in complex joins, queries, or document aggregations.',
   'No clear disadvantage from Multi-Model Persistence in this scenario.',
 ]

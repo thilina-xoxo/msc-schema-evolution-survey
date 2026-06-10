@@ -345,12 +345,6 @@ function ScenarioMultiModel({
                 DB to broadcast regional eligibility updates. PDT’s ingestion
                 service listens to this feed.
               </p>
-              <p>
-                Outcome: Code deployment is simplified because each team
-                manages multiple data models within its own platform, reducing
-                the need for custom synchronization across separate database
-                engines.
-              </p>
             </WorkStep>
           </div>
         </ScenarioCard>
