@@ -29,33 +29,33 @@ const initialFormData = {
   polyglot_s1_productivity_impact: '',
   polyglot_s1_architecture_benefits: [],
   polyglot_s1_architecture_challenges: [],
-  polyglot_s1_optional_comment: '',
-  polyglot_s2_effort_story_points: '',
-  polyglot_s2_mental_effort: '',
-  polyglot_s2_bug_data_risk: '',
-  polyglot_s2_coordination_overhead: '',
-  polyglot_s2_backward_compatibility_difficulty: '',
-  polyglot_s2_productivity_impact: '',
-  polyglot_s2_architecture_benefits: [],
-  polyglot_s2_architecture_challenges: [],
-  polyglot_s2_optional_comment: '',
-  multimodel_s1_effort_story_points: '',
-  multimodel_s1_mental_effort: '',
-  multimodel_s1_bug_data_risk: '',
-  multimodel_s1_coordination_overhead: '',
-  multimodel_s1_productivity_impact: '',
-  multimodel_s1_architecture_benefits: [],
-  multimodel_s1_architecture_challenges: [],
-  multimodel_s1_optional_comment: '',
-  multimodel_s2_effort_story_points: '',
-  multimodel_s2_mental_effort: '',
-  multimodel_s2_bug_data_risk: '',
-  multimodel_s2_coordination_overhead: '',
-  multimodel_s2_backward_compatibility_difficulty: '',
-  multimodel_s2_productivity_impact: '',
-  multimodel_s2_architecture_benefits: [],
-  multimodel_s2_architecture_challenges: [],
-  multimodel_s2_optional_comment: '',
+  multi_s1_effort: '',
+  multi_s1_cognitive_load: '',
+  multi_s1_bug_risk: '',
+  multi_s1_coordination_overhead: '',
+  multi_s1_productivity_impact: '',
+  multi_s1_architecture_benefits: [],
+  multi_s1_architecture_challenges: [],
+  poly_s2_implementation_complexity: '',
+  poly_s2_cognitive_load: '',
+  poly_s2_bug_risk: '',
+  poly_s2_coordination_overhead: '',
+  poly_s2_backward_compatibility_difficulty: '',
+  poly_s2_business_logic_validation_difficulty: '',
+  poly_s2_operational_effort: '',
+  poly_s2_productivity_impact: '',
+  poly_s2_architecture_benefits: [],
+  poly_s2_architecture_challenges: [],
+  multi_s2_implementation_complexity: '',
+  multi_s2_cognitive_load: '',
+  multi_s2_bug_risk: '',
+  multi_s2_coordination_overhead: '',
+  multi_s2_backward_compatibility_difficulty: '',
+  multi_s2_business_logic_validation_difficulty: '',
+  multi_s2_operational_effort: '',
+  multi_s2_productivity_impact: '',
+  multi_s2_architecture_benefits: [],
+  multi_s2_architecture_challenges: [],
   architecture_tradeoff_view: [],
   main_schema_evolution_difficulty_factors: [],
   productivity_improving_practices: [],
@@ -71,7 +71,7 @@ const initialFormData = {
 }
 
 // TEMPORARY TESTING MODE: Set to false before real survey distribution.
-const TEMP_SKIP_VALIDATION_FOR_TESTING = false
+const TEMP_SKIP_VALIDATION_FOR_TESTING = true
 const TOTAL_STEPS = 7
 
 function validateSectionOne(formData) {
@@ -159,7 +159,7 @@ function validateScenarioPolyglot(formData) {
       'Please enter the estimated total implementation effort.',
     ],
     [
-      'polyglot_s2_effort_story_points',
+      'multi_s1_effort',
       'Please enter the estimated total implementation effort.',
     ],
   ]
@@ -185,11 +185,10 @@ function validateScenarioPolyglot(formData) {
     ['polyglot_s1_bug_data_risk', 'Please rate the risk of bugs or data issues.'],
     ['polyglot_s1_coordination_overhead', 'Please rate the coordination overhead.'],
     ['polyglot_s1_productivity_impact', 'Please rate the productivity impact.'],
-    ['polyglot_s2_mental_effort', 'Please rate the mental effort required.'],
-    ['polyglot_s2_bug_data_risk', 'Please rate the risk of bugs or data inconsistency.'],
-    ['polyglot_s2_coordination_overhead', 'Please rate the coordination overhead.'],
-    ['polyglot_s2_backward_compatibility_difficulty', 'Please rate the backward compatibility difficulty.'],
-    ['polyglot_s2_productivity_impact', 'Please rate the productivity impact.'],
+    ['multi_s1_cognitive_load', 'Please rate the mental effort required.'],
+    ['multi_s1_bug_risk', 'Please rate the risk of bugs or data issues.'],
+    ['multi_s1_coordination_overhead', 'Please rate the coordination overhead.'],
+    ['multi_s1_productivity_impact', 'Please rate the productivity impact.'],
   ]
 
   requiredFields.forEach(([fieldName, message]) => {
@@ -203,36 +202,46 @@ function validateScenarioPolyglot(formData) {
     formData,
     'polyglot_s1_architecture_benefits',
     'No clear benefit from Polyglot Persistence in this scenario.',
+    3,
   )
   validateLimitedCheckbox(
     errors,
     formData,
     'polyglot_s1_architecture_challenges',
     'No clear disadvantage from Polyglot Persistence in this scenario.',
+    3,
   )
   validateLimitedCheckbox(
     errors,
     formData,
-    'polyglot_s2_architecture_benefits',
-    'No clear benefit from Polyglot Persistence in this scenario.',
+    'multi_s1_architecture_benefits',
+    'No clear benefit from Multi-Model Persistence in this scenario.',
+    3,
   )
   validateLimitedCheckbox(
     errors,
     formData,
-    'polyglot_s2_architecture_challenges',
-    'No clear disadvantage from Polyglot Persistence in this scenario.',
+    'multi_s1_architecture_challenges',
+    'No clear disadvantage from Multi-Model Persistence in this scenario.',
+    3,
   )
 
   return errors
 }
 
-function validateLimitedCheckbox(errors, formData, fieldName, exclusiveOption) {
+function validateLimitedCheckbox(
+  errors,
+  formData,
+  fieldName,
+  exclusiveOption,
+  maxSelections = 2,
+) {
   const values = formData[fieldName]
 
   if (!Array.isArray(values) || values.length === 0) {
     errors[fieldName] = 'Please select at least one option.'
-  } else if (values.length > 2) {
-    errors[fieldName] = 'Please select up to two options.'
+  } else if (values.length > maxSelections) {
+    errors[fieldName] = `Please select up to ${maxSelections} options.`
   } else if (values.includes(exclusiveOption) && values.length > 1) {
     errors[fieldName] =
       'Please select this option by itself, or choose other options instead.'
@@ -242,43 +251,23 @@ function validateLimitedCheckbox(errors, formData, fieldName, exclusiveOption) {
 function validateScenarioMultiModel(formData) {
   const errors = {}
 
-  const requiredNumericFields = [
-    [
-      'multimodel_s1_effort_story_points',
-      'Please enter the estimated total implementation effort.',
-    ],
-    [
-      'multimodel_s2_effort_story_points',
-      'Please enter the estimated total implementation effort.',
-    ],
-  ]
-
-  requiredNumericFields.forEach(([fieldName, message]) => {
-    const value = formData[fieldName]
-    const numericValue = Number(value)
-
-    if (!value) {
-      errors[fieldName] = message
-    } else if (
-      !Number.isFinite(numericValue) ||
-      numericValue <= 0 ||
-      numericValue > 500
-    ) {
-      errors[fieldName] =
-        'Please enter a reasonable positive numeric story point value.'
-    }
-  })
-
   const requiredFields = [
-    ['multimodel_s1_mental_effort', 'Please rate the mental effort required.'],
-    ['multimodel_s1_bug_data_risk', 'Please rate the risk of bugs or data issues.'],
-    ['multimodel_s1_coordination_overhead', 'Please rate the coordination overhead.'],
-    ['multimodel_s1_productivity_impact', 'Please rate the productivity impact.'],
-    ['multimodel_s2_mental_effort', 'Please rate the mental effort required.'],
-    ['multimodel_s2_bug_data_risk', 'Please rate the risk of bugs or data inconsistency.'],
-    ['multimodel_s2_coordination_overhead', 'Please rate the coordination overhead.'],
-    ['multimodel_s2_backward_compatibility_difficulty', 'Please rate the backward compatibility difficulty.'],
-    ['multimodel_s2_productivity_impact', 'Please rate the productivity impact.'],
+    ['poly_s2_implementation_complexity', 'Please rate the implementation complexity.'],
+    ['poly_s2_cognitive_load', 'Please rate the mental effort required.'],
+    ['poly_s2_bug_risk', 'Please rate the risk of bugs or data inconsistency.'],
+    ['poly_s2_coordination_overhead', 'Please rate the coordination overhead.'],
+    ['poly_s2_backward_compatibility_difficulty', 'Please rate the backward compatibility difficulty.'],
+    ['poly_s2_business_logic_validation_difficulty', 'Please rate the business logic validation difficulty.'],
+    ['poly_s2_operational_effort', 'Please rate the operational effort.'],
+    ['poly_s2_productivity_impact', 'Please rate the productivity impact.'],
+    ['multi_s2_implementation_complexity', 'Please rate the implementation complexity.'],
+    ['multi_s2_cognitive_load', 'Please rate the mental effort required.'],
+    ['multi_s2_bug_risk', 'Please rate the risk of bugs or data inconsistency.'],
+    ['multi_s2_coordination_overhead', 'Please rate the coordination overhead.'],
+    ['multi_s2_backward_compatibility_difficulty', 'Please rate the backward compatibility difficulty.'],
+    ['multi_s2_business_logic_validation_difficulty', 'Please rate the business logic validation difficulty.'],
+    ['multi_s2_operational_effort', 'Please rate the operational effort.'],
+    ['multi_s2_productivity_impact', 'Please rate the productivity impact.'],
   ]
 
   requiredFields.forEach(([fieldName, message]) => {
@@ -290,26 +279,30 @@ function validateScenarioMultiModel(formData) {
   validateLimitedCheckbox(
     errors,
     formData,
-    'multimodel_s1_architecture_benefits',
+    'poly_s2_architecture_benefits',
+    'No clear benefit from Polyglot Persistence in this scenario.',
+    3,
+  )
+  validateLimitedCheckbox(
+    errors,
+    formData,
+    'poly_s2_architecture_challenges',
+    'No clear disadvantage from Polyglot Persistence in this scenario.',
+    3,
+  )
+  validateLimitedCheckbox(
+    errors,
+    formData,
+    'multi_s2_architecture_benefits',
     'No clear benefit from Multi-Model Persistence in this scenario.',
+    3,
   )
   validateLimitedCheckbox(
     errors,
     formData,
-    'multimodel_s1_architecture_challenges',
+    'multi_s2_architecture_challenges',
     'No clear disadvantage from Multi-Model Persistence in this scenario.',
-  )
-  validateLimitedCheckbox(
-    errors,
-    formData,
-    'multimodel_s2_architecture_benefits',
-    'No clear benefit from Multi-Model Persistence in this scenario.',
-  )
-  validateLimitedCheckbox(
-    errors,
-    formData,
-    'multimodel_s2_architecture_challenges',
-    'No clear disadvantage from Multi-Model Persistence in this scenario.',
+    3,
   )
 
   return errors
@@ -318,15 +311,16 @@ function validateScenarioMultiModel(formData) {
 function validateComparativeToolingPractices(formData) {
   const errors = {}
 
-  validateMaxFiveCheckbox(errors, formData, 'architecture_tradeoff_view')
-  validateMaxFiveCheckbox(
+  validateMaxCheckbox(errors, formData, 'architecture_tradeoff_view', 3)
+  validateMaxCheckbox(
     errors,
     formData,
     'main_schema_evolution_difficulty_factors',
+    3,
   )
-  validateMaxFiveCheckbox(errors, formData, 'productivity_improving_practices')
-  validateMaxFiveCheckbox(errors, formData, 'useful_schema_tool_practices')
-  validateMaxFiveCheckbox(errors, formData, 'ai_schema_usage_modes')
+  validateMaxCheckbox(errors, formData, 'productivity_improving_practices', 3)
+  validateMaxCheckbox(errors, formData, 'useful_schema_tool_practices', 3)
+  validateMaxCheckbox(errors, formData, 'ai_schema_usage_modes', 3)
 
   if (!formData.ai_tool_usage_for_schema_work) {
     errors.ai_tool_usage_for_schema_work =
@@ -336,13 +330,13 @@ function validateComparativeToolingPractices(formData) {
   return errors
 }
 
-function validateMaxFiveCheckbox(errors, formData, fieldName) {
+function validateMaxCheckbox(errors, formData, fieldName, maxSelections) {
   const values = formData[fieldName]
 
   if (!Array.isArray(values) || values.length === 0) {
     errors[fieldName] = 'Please select at least one option.'
-  } else if (values.length > 5) {
-    errors[fieldName] = 'Please select up to 5 options.'
+  } else if (values.length > maxSelections) {
+    errors[fieldName] = `Please select up to ${maxSelections} options.`
   }
 }
 

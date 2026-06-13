@@ -35,9 +35,9 @@ function SectionThreeArchitecture({
         <article className="section-three-card">
           <h3>Reference Company Context</h3>
           <p>
-            This survey uses a hypothetical microservice-based company system
-            called ModaVista Group to evaluate schema evolution under two
-            persistence strategies: Polyglot Persistence and Multi-Model
+            This survey uses a hypothetical EU-based microservice company
+            system called ModaVista Group to evaluate schema evolution under
+            two persistence strategies: Polyglot Persistence and Multi-Model
             Persistence.
           </p>
           <p>
@@ -119,7 +119,7 @@ function SectionThreeArchitecture({
       <div className="question-section compact-question-section">
         <h3>Section 3 Questions</h3>
         <ScaleQuestion
-          label="Q14. How clear is the difference between Polyglot Persistence and Multi-Model Persistence usage for ModaVista’s persistence-layer implementation?"
+          label="Q7. How clear is the difference between Polyglot Persistence and Multi-Model Persistence usage for ModaVista’s persistence-layer implementation?"
           name="architecture_difference_clarity"
           value={formData.architecture_difference_clarity}
           required

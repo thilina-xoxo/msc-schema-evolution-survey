@@ -3,6 +3,7 @@ function ScaleQuestion({
   name,
   value,
   required,
+  helper,
   leftLabel,
   rightLabel,
   onChange,
@@ -16,6 +17,7 @@ function ScaleQuestion({
         {label}
         {required && <span className="required"> *</span>}
       </legend>
+      {helper && <p className="question-helper">{helper}</p>}
       <div className="scale-labels">
         <span>{leftLabel}</span>
         <span>{rightLabel}</span>

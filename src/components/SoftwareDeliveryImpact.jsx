@@ -113,7 +113,7 @@ function SoftwareDeliveryImpact({
       <div className="delivery-section">
         <DeliveryGroup>
           <ScaleQuestion
-            label="Q56. When a software delivery item includes a schema-related change, how much does it usually affect delivery effort?"
+            label="Q49. When a software delivery item includes a schema-related change, how much does it usually affect delivery effort?"
             name="schema_delivery_effort_impact"
             value={formData.schema_delivery_effort_impact}
             required
@@ -123,7 +123,7 @@ function SoftwareDeliveryImpact({
             error={errors.schema_delivery_effort_impact}
           />
           <CheckboxGroup
-            label="Q57. Which delivery activities are most affected when a change involves schema evolution?"
+            label="Q50. Which delivery activities are most affected when a change involves schema evolution?"
             name="schema_affected_delivery_activities"
             values={formData.schema_affected_delivery_activities}
             options={affectedActivityOptions}
@@ -133,7 +133,7 @@ function SoftwareDeliveryImpact({
             error={errors.schema_affected_delivery_activities}
           />
           <CheckboxGroup
-            label="Q58. What warning signs indicate that a schema-related change may become a delivery risk?"
+            label="Q51. What warning signs indicate that a schema-related change may become a delivery risk?"
             name="schema_delivery_risk_signals"
             values={formData.schema_delivery_risk_signals}
             options={riskSignalOptions}
@@ -143,7 +143,7 @@ function SoftwareDeliveryImpact({
             error={errors.schema_delivery_risk_signals}
           />
           <CheckboxGroup
-            label="Q59. Which actions are most useful for improving delivery confidence for schema-related work?"
+            label="Q52. Which actions are most useful for improving delivery confidence for schema-related work?"
             name="schema_delivery_confidence_actions"
             values={formData.schema_delivery_confidence_actions}
             options={confidenceActionOptions}
@@ -153,7 +153,7 @@ function SoftwareDeliveryImpact({
             error={errors.schema_delivery_confidence_actions}
           />
           <TextareaQuestion
-            label="Q60. Optional: What is one practical lesson or recommendation you would give for delivering schema-related changes successfully?"
+            label="Q53. Optional: What is one practical lesson or recommendation you would give for delivering schema-related changes successfully?"
             name="schema_delivery_recommendation"
             value={formData.schema_delivery_recommendation}
             onChange={onChange}
