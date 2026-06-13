@@ -205,7 +205,7 @@ function ScenarioMultiModel({
 
         <div className="scenario-questions">
           <ScaleQuestion
-            label="Q29. How complex would this cross-team schema evolution task be to implement?"
+            label="Q22. How complex would this cross-team schema evolution task be to implement?"
             name="poly_s2_implementation_complexity"
             value={formData.poly_s2_implementation_complexity}
             required
@@ -215,7 +215,7 @@ function ScenarioMultiModel({
             error={errors.poly_s2_implementation_complexity}
           />
           <ScaleQuestion
-            label="Q30. How much mental effort is required to understand the full impact of this change?"
+            label="Q23. How much mental effort is required to understand the full impact of this change?"
             name="poly_s2_cognitive_load"
             value={formData.poly_s2_cognitive_load}
             required
@@ -225,7 +225,7 @@ function ScenarioMultiModel({
             error={errors.poly_s2_cognitive_load}
           />
           <ScaleQuestion
-            label="Q31. How high is the risk of bugs or data inconsistency?"
+            label="Q24. How high is the risk of bugs or data inconsistency?"
             name="poly_s2_bug_risk"
             value={formData.poly_s2_bug_risk}
             required
@@ -235,7 +235,7 @@ function ScenarioMultiModel({
             error={errors.poly_s2_bug_risk}
           />
           <ScaleQuestion
-            label="Q32. How much coordination overhead is likely required?"
+            label="Q25. How much coordination overhead is likely required?"
             name="poly_s2_coordination_overhead"
             value={formData.poly_s2_coordination_overhead}
             required
@@ -245,7 +245,7 @@ function ScenarioMultiModel({
             error={errors.poly_s2_coordination_overhead}
           />
           <ScaleQuestion
-            label="Q33. How difficult is it to maintain API or event backward compatibility during this change?"
+            label="Q26. How difficult is it to maintain API or event backward compatibility during this change?"
             name="poly_s2_backward_compatibility_difficulty"
             value={formData.poly_s2_backward_compatibility_difficulty}
             required
@@ -255,7 +255,7 @@ function ScenarioMultiModel({
             error={errors.poly_s2_backward_compatibility_difficulty}
           />
           <ScaleQuestion
-            label="Q34. How difficult would it be to update and validate the recommendation business logic?"
+            label="Q27. How difficult would it be to update and validate the recommendation business logic?"
             name="poly_s2_business_logic_validation_difficulty"
             value={formData.poly_s2_business_logic_validation_difficulty}
             required
@@ -265,7 +265,7 @@ function ScenarioMultiModel({
             error={errors.poly_s2_business_logic_validation_difficulty}
           />
           <ScaleQuestion
-            label="Q35. How much operational effort would be required for deployment, synchronization, and monitoring?"
+            label="Q28. How much operational effort would be required for deployment, synchronization, and monitoring?"
             name="poly_s2_operational_effort"
             value={formData.poly_s2_operational_effort}
             required
@@ -275,7 +275,7 @@ function ScenarioMultiModel({
             error={errors.poly_s2_operational_effort}
           />
           <ScaleQuestion
-            label="Q36. How much could this schema change affect developer productivity during implementation?"
+            label="Q29. How much could this schema change affect developer productivity during implementation?"
             name="poly_s2_productivity_impact"
             value={formData.poly_s2_productivity_impact}
             required
@@ -286,7 +286,7 @@ function ScenarioMultiModel({
             error={errors.poly_s2_productivity_impact}
           />
           <LimitedCheckboxGroup
-            label="Q37. Given that this scenario is implemented in a Polyglot Persistence architecture, what helps the most?"
+            label="Q30. Given that this scenario is implemented in a Polyglot Persistence architecture, what helps the most?"
             name="poly_s2_architecture_benefits"
             values={formData.poly_s2_architecture_benefits}
             options={polyS2BenefitOptions}
@@ -297,7 +297,7 @@ function ScenarioMultiModel({
             error={errors.poly_s2_architecture_benefits}
           />
           <LimitedCheckboxGroup
-            label="Q38. Given that this scenario is implemented in a Polyglot Persistence architecture, what is most likely to make the change harder?"
+            label="Q31. Given that this scenario is implemented in a Polyglot Persistence architecture, what is most likely to make the change harder?"
             name="poly_s2_architecture_challenges"
             values={formData.poly_s2_architecture_challenges}
             options={polyS2ChallengeOptions}
@@ -351,7 +351,7 @@ function ScenarioMultiModel({
 
         <div className="scenario-questions">
           <ScaleQuestion
-            label="Q39. How complex would this cross-team schema evolution task be to implement?"
+            label="Q32. How complex would this cross-team schema evolution task be to implement?"
             name="multi_s2_implementation_complexity"
             value={formData.multi_s2_implementation_complexity}
             required
@@ -361,7 +361,7 @@ function ScenarioMultiModel({
             error={errors.multi_s2_implementation_complexity}
           />
           <ScaleQuestion
-            label="Q40. How much mental effort is required to understand the full impact of this change?"
+            label="Q33. How much mental effort is required to understand the full impact of this change?"
             name="multi_s2_cognitive_load"
             value={formData.multi_s2_cognitive_load}
             required
@@ -371,7 +371,7 @@ function ScenarioMultiModel({
             error={errors.multi_s2_cognitive_load}
           />
           <ScaleQuestion
-            label="Q41. How high is the risk of bugs or data inconsistency?"
+            label="Q34. How high is the risk of bugs or data inconsistency?"
             name="multi_s2_bug_risk"
             value={formData.multi_s2_bug_risk}
             required
@@ -381,7 +381,7 @@ function ScenarioMultiModel({
             error={errors.multi_s2_bug_risk}
           />
           <ScaleQuestion
-            label="Q42. How much coordination overhead is likely required?"
+            label="Q35. How much coordination overhead is likely required?"
             name="multi_s2_coordination_overhead"
             value={formData.multi_s2_coordination_overhead}
             required
@@ -391,7 +391,7 @@ function ScenarioMultiModel({
             error={errors.multi_s2_coordination_overhead}
           />
           <ScaleQuestion
-            label="Q43. How difficult is it to maintain API or event backward compatibility during this change?"
+            label="Q36. How difficult is it to maintain API or event backward compatibility during this change?"
             name="multi_s2_backward_compatibility_difficulty"
             value={formData.multi_s2_backward_compatibility_difficulty}
             required
@@ -401,7 +401,7 @@ function ScenarioMultiModel({
             error={errors.multi_s2_backward_compatibility_difficulty}
           />
           <ScaleQuestion
-            label="Q44. How difficult would it be to update and validate the recommendation business logic?"
+            label="Q37. How difficult would it be to update and validate the recommendation business logic?"
             name="multi_s2_business_logic_validation_difficulty"
             value={formData.multi_s2_business_logic_validation_difficulty}
             required
@@ -411,7 +411,7 @@ function ScenarioMultiModel({
             error={errors.multi_s2_business_logic_validation_difficulty}
           />
           <ScaleQuestion
-            label="Q45. How much operational effort would be required for deployment, synchronization, and monitoring?"
+            label="Q38. How much operational effort would be required for deployment, synchronization, and monitoring?"
             name="multi_s2_operational_effort"
             value={formData.multi_s2_operational_effort}
             required
@@ -421,7 +421,7 @@ function ScenarioMultiModel({
             error={errors.multi_s2_operational_effort}
           />
           <ScaleQuestion
-            label="Q46. How much could this schema change affect developer productivity during implementation?"
+            label="Q39. How much could this schema change affect developer productivity during implementation?"
             name="multi_s2_productivity_impact"
             value={formData.multi_s2_productivity_impact}
             required
@@ -432,7 +432,7 @@ function ScenarioMultiModel({
             error={errors.multi_s2_productivity_impact}
           />
           <LimitedCheckboxGroup
-            label="Q47. Given that this scenario is implemented in a Multi-Model Persistence architecture, what helps the most?"
+            label="Q40. Given that this scenario is implemented in a Multi-Model Persistence architecture, what helps the most?"
             name="multi_s2_architecture_benefits"
             values={formData.multi_s2_architecture_benefits}
             options={multiS2BenefitOptions}
@@ -443,7 +443,7 @@ function ScenarioMultiModel({
             error={errors.multi_s2_architecture_benefits}
           />
           <LimitedCheckboxGroup
-            label="Q48. Given that this scenario is implemented in a Multi-Model Persistence architecture, what is most likely to make the change harder?"
+            label="Q41. Given that this scenario is implemented in a Multi-Model Persistence architecture, what is most likely to make the change harder?"
             name="multi_s2_architecture_challenges"
             values={formData.multi_s2_architecture_challenges}
             options={multiS2ChallengeOptions}

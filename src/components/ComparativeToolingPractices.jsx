@@ -165,7 +165,7 @@ function ComparativeToolingPractices({
       <div className="comparison-section">
         <QuestionGroup title="Architecture trade-offs and difficulty factors">
           <LimitedCheckboxGroup
-            label="Q49. Which statements best match your view of Polyglot vs Multi-Model Persistence during schema evolution?"
+            label="Q42. Which statements best match your view of Polyglot vs Multi-Model Persistence during schema evolution?"
             name="architecture_tradeoff_view"
             values={formData.architecture_tradeoff_view}
             options={tradeoffOptions}
@@ -176,7 +176,7 @@ function ComparativeToolingPractices({
             error={errors.architecture_tradeoff_view}
           />
           <LimitedCheckboxGroup
-            label="Q50. Which factors most increase schema evolution difficulty in microservice systems?"
+            label="Q43. Which factors most increase schema evolution difficulty in microservice systems?"
             name="main_schema_evolution_difficulty_factors"
             values={formData.main_schema_evolution_difficulty_factors}
             options={difficultyOptions}
@@ -190,7 +190,7 @@ function ComparativeToolingPractices({
 
         <QuestionGroup title="Productivity practices and tooling">
           <LimitedCheckboxGroup
-            label="Q51. Which practices can most improve developer productivity during schema evolution?"
+            label="Q44. Which practices can most improve developer productivity during schema evolution?"
             name="productivity_improving_practices"
             values={formData.productivity_improving_practices}
             options={productivityOptions}
@@ -201,7 +201,7 @@ function ComparativeToolingPractices({
             error={errors.productivity_improving_practices}
           />
           <LimitedCheckboxGroup
-            label="Q52. Which tool or practice categories are most useful for schema evolution?"
+            label="Q45. Which tool or practice categories are most useful for schema evolution?"
             name="useful_schema_tool_practices"
             values={formData.useful_schema_tool_practices}
             options={toolPracticeOptions}
@@ -215,7 +215,7 @@ function ComparativeToolingPractices({
 
         <QuestionGroup title="AI-assisted support">
           <SelectQuestion
-            label="Q53. Have you used AI tools to support schema migration, database changes, or related development work?"
+            label="Q46. Have you used AI tools to support schema migration, database changes, or related development work?"
             name="ai_tool_usage_for_schema_work"
             value={formData.ai_tool_usage_for_schema_work}
             options={aiUsageOptions}
@@ -224,7 +224,7 @@ function ComparativeToolingPractices({
             error={errors.ai_tool_usage_for_schema_work}
           />
           <LimitedCheckboxGroup
-            label="Q54. How would you most likely use AI tools during schema evolution work?"
+            label="Q47. How would you most likely use AI tools during schema evolution work?"
             name="ai_schema_usage_modes"
             values={formData.ai_schema_usage_modes}
             options={aiModeOptions}
@@ -235,7 +235,7 @@ function ComparativeToolingPractices({
             error={errors.ai_schema_usage_modes}
           />
           <TextareaQuestion
-            label="Q55. Optional: What is one practical practice, tool, or workflow that can reduce schema evolution effort or risk?"
+            label="Q48. Optional: What is one practical practice, tool, or workflow that can reduce schema evolution effort or risk?"
             name="schema_productivity_practice_comment"
             value={formData.schema_productivity_practice_comment}
             onChange={onChange}

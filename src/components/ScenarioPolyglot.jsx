@@ -209,7 +209,7 @@ function ScenarioPolyglot({
 
           <div className="scenario-questions">
             <NumericQuestion
-              label="Q15. Estimated total implementation effort for this scenario"
+              label="Q8. Estimated total implementation effort for this scenario"
               name="polyglot_s1_effort_story_points"
               value={formData.polyglot_s1_effort_story_points}
               required
@@ -218,7 +218,7 @@ function ScenarioPolyglot({
               error={errors.polyglot_s1_effort_story_points}
             />
             <ScaleQuestion
-              label="Q16. How much mental effort is required to understand the full impact of this change?"
+              label="Q9. How much mental effort is required to understand the full impact of this change?"
               name="polyglot_s1_mental_effort"
               value={formData.polyglot_s1_mental_effort}
               required
@@ -228,7 +228,7 @@ function ScenarioPolyglot({
               error={errors.polyglot_s1_mental_effort}
             />
             <ScaleQuestion
-              label="Q17. How high is the risk of bugs or data issues?"
+              label="Q10. How high is the risk of bugs or data issues?"
               name="polyglot_s1_bug_data_risk"
               value={formData.polyglot_s1_bug_data_risk}
               required
@@ -238,7 +238,7 @@ function ScenarioPolyglot({
               error={errors.polyglot_s1_bug_data_risk}
             />
             <ScaleQuestion
-              label="Q18. How much coordination overhead is likely required?"
+              label="Q11. How much coordination overhead is likely required?"
               name="polyglot_s1_coordination_overhead"
               value={formData.polyglot_s1_coordination_overhead}
               required
@@ -248,7 +248,7 @@ function ScenarioPolyglot({
               error={errors.polyglot_s1_coordination_overhead}
             />
             <ScaleQuestion
-              label="Q19. How much could this schema change affect developer productivity during implementation?"
+              label="Q12. How much could this schema change affect developer productivity during implementation?"
               name="polyglot_s1_productivity_impact"
               value={formData.polyglot_s1_productivity_impact}
               required
@@ -259,7 +259,7 @@ function ScenarioPolyglot({
               error={errors.polyglot_s1_productivity_impact}
             />
             <LimitedCheckboxGroup
-              label="Q20. Given that this scenario is implemented in a Polyglot Persistence architecture, what helps the most?"
+              label="Q13. Given that this scenario is implemented in a Polyglot Persistence architecture, what helps the most?"
               name="polyglot_s1_architecture_benefits"
               values={formData.polyglot_s1_architecture_benefits}
               options={s1BenefitOptions}
@@ -270,7 +270,7 @@ function ScenarioPolyglot({
               error={errors.polyglot_s1_architecture_benefits}
             />
             <LimitedCheckboxGroup
-              label="Q21. Given that this scenario is implemented in a Polyglot Persistence architecture, what is most likely to make the change harder?"
+              label="Q14. Given that this scenario is implemented in a Polyglot Persistence architecture, what is most likely to make the change harder?"
               name="polyglot_s1_architecture_challenges"
               values={formData.polyglot_s1_architecture_challenges}
               options={s1ChallengeOptions}
@@ -336,7 +336,7 @@ function ScenarioPolyglot({
 
           <div className="scenario-questions">
             <NumericQuestion
-              label="Q22. Estimated total implementation effort for this scenario"
+              label="Q15. Estimated total implementation effort for this scenario"
               name="multi_s1_effort"
               value={formData.multi_s1_effort}
               required
@@ -345,7 +345,7 @@ function ScenarioPolyglot({
               error={errors.multi_s1_effort}
             />
             <ScaleQuestion
-              label="Q23. How much mental effort is required to understand the full impact of this change?"
+              label="Q16. How much mental effort is required to understand the full impact of this change?"
               name="multi_s1_cognitive_load"
               value={formData.multi_s1_cognitive_load}
               required
@@ -355,7 +355,7 @@ function ScenarioPolyglot({
               error={errors.multi_s1_cognitive_load}
             />
             <ScaleQuestion
-              label="Q24. How high is the risk of bugs or data issues?"
+              label="Q17. How high is the risk of bugs or data issues?"
               name="multi_s1_bug_risk"
               value={formData.multi_s1_bug_risk}
               required
@@ -365,7 +365,7 @@ function ScenarioPolyglot({
               error={errors.multi_s1_bug_risk}
             />
             <ScaleQuestion
-              label="Q25. How much coordination overhead is likely required?"
+              label="Q18. How much coordination overhead is likely required?"
               name="multi_s1_coordination_overhead"
               value={formData.multi_s1_coordination_overhead}
               required
@@ -375,7 +375,7 @@ function ScenarioPolyglot({
               error={errors.multi_s1_coordination_overhead}
             />
             <ScaleQuestion
-              label="Q26. How much could this schema change affect developer productivity during implementation?"
+              label="Q19. How much could this schema change affect developer productivity during implementation?"
               name="multi_s1_productivity_impact"
               value={formData.multi_s1_productivity_impact}
               required
@@ -386,7 +386,7 @@ function ScenarioPolyglot({
               error={errors.multi_s1_productivity_impact}
             />
             <LimitedCheckboxGroup
-              label="Q27. Given that this scenario is implemented in a Multi-Model Persistence architecture, what helps the most?"
+              label="Q20. Given that this scenario is implemented in a Multi-Model Persistence architecture, what helps the most?"
               name="multi_s1_architecture_benefits"
               values={formData.multi_s1_architecture_benefits}
               options={multiS1BenefitOptions}
@@ -397,7 +397,7 @@ function ScenarioPolyglot({
               error={errors.multi_s1_architecture_benefits}
             />
             <LimitedCheckboxGroup
-              label="Q28. Given that this scenario is implemented in a Multi-Model Persistence architecture, what is most likely to make the change harder?"
+              label="Q21. Given that this scenario is implemented in a Multi-Model Persistence architecture, what is most likely to make the change harder?"
               name="multi_s1_architecture_challenges"
               values={formData.multi_s1_architecture_challenges}
               options={multiS1ChallengeOptions}

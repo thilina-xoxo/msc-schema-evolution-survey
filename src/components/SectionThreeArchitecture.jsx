@@ -119,7 +119,7 @@ function SectionThreeArchitecture({
       <div className="question-section compact-question-section">
         <h3>Section 3 Questions</h3>
         <ScaleQuestion
-          label="Q14. How clear is the difference between Polyglot Persistence and Multi-Model Persistence usage for ModaVista’s persistence-layer implementation?"
+          label="Q7. How clear is the difference between Polyglot Persistence and Multi-Model Persistence usage for ModaVista’s persistence-layer implementation?"
           name="architecture_difference_clarity"
           value={formData.architecture_difference_clarity}
           required
