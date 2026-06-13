@@ -41,11 +41,11 @@
 }
 
 .survey-card {
-  width: min(960px, 100%);
+  width: min(920px, 100%);
   max-width: 100%;
   min-width: 0;
   margin: 0 auto;
-  padding: clamp(24px, 4vw, 42px);
+  padding: clamp(26px, 4vw, 42px);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background:
@@ -56,7 +56,7 @@
 
 .survey-header {
   padding-bottom: 24px;
-  margin-bottom: 30px;
+  margin-bottom: 32px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -126,22 +126,23 @@ section {
 }
 
 section h2 {
-  margin: 0 0 12px;
+  margin: 0 0 14px;
   color: var(--heading);
   font-size: clamp(1.28rem, 2.4vw, 1.58rem);
   line-height: 1.25;
+  overflow-wrap: anywhere;
 }
 
 .section-intro {
   max-width: 780px;
-  margin: 0 0 24px;
+  margin: 0 0 22px;
   color: var(--text-muted);
   font-size: 1rem;
   line-height: 1.7;
 }
 
 .survey-introduction {
-  padding: clamp(18px, 3vw, 26px);
+  padding: clamp(20px, 3vw, 28px);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--surface-raised);
@@ -152,10 +153,30 @@ section h2 {
   margin-bottom: 14px;
 }
 
+.survey-introduction h3 {
+  margin: 22px 0 10px;
+  color: var(--heading);
+  font-size: 1.06rem;
+  line-height: 1.35;
+}
+
 .survey-introduction p {
   margin: 0 0 14px;
   color: var(--text);
   line-height: 1.68;
+}
+
+.survey-introduction ul {
+  display: grid;
+  gap: 8px;
+  margin: 0 0 16px;
+  padding-left: 22px;
+  color: var(--text);
+  line-height: 1.58;
+}
+
+.survey-introduction li {
+  padding-left: 2px;
 }
 
 .survey-introduction p:last-child {
@@ -191,11 +212,12 @@ section h2 {
 legend,
 .question-label {
   display: block;
-  margin-bottom: 12px;
+  margin-bottom: 11px;
   color: var(--heading);
   font-size: 1rem;
   font-weight: 760;
   line-height: 1.45;
+  overflow-wrap: anywhere;
 }
 
 fieldset {
@@ -215,7 +237,7 @@ fieldset {
 }
 
 .question-helper {
-  margin: -5px 0 12px;
+  margin: -3px 0 13px;
   color: var(--text-muted);
   font-size: 0.9rem;
   line-height: 1.5;
@@ -223,7 +245,7 @@ fieldset {
 
 .option-list {
   display: grid;
-  gap: 9px;
+  gap: 10px;
 }
 
 .checkbox-grid {
@@ -237,10 +259,10 @@ fieldset {
   align-items: flex-start;
   min-width: 0;
   max-width: 100%;
-  gap: 11px;
+  gap: 12px;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  background: rgba(27, 40, 56, 0.68);
+  background: rgba(27, 40, 56, 0.72);
   color: var(--text);
   line-height: 1.45;
   cursor: pointer;
@@ -251,8 +273,8 @@ fieldset {
 }
 
 .choice {
-  min-height: 44px;
-  padding: 11px 12px;
+  min-height: 46px;
+  padding: 12px 13px;
 }
 
 .choice span,
@@ -270,6 +292,12 @@ fieldset {
   margin-top: 2px;
   accent-color: var(--accent);
   flex: 0 0 auto;
+}
+
+.choice:has(input:disabled),
+.scale-choice:has(input:disabled) {
+  cursor: not-allowed;
+  opacity: 0.58;
 }
 
 .choice:hover,
@@ -297,10 +325,10 @@ input[type='number'],
 textarea {
   width: 100%;
   max-width: 100%;
-  min-height: 46px;
+  min-height: 48px;
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-sm);
-  padding: 11px 12px;
+  padding: 12px 13px;
   background: var(--surface-input);
   color: var(--text);
   font: inherit;
@@ -330,7 +358,7 @@ a:focus-visible {
 }
 
 textarea {
-  min-height: 112px;
+  min-height: 124px;
   resize: vertical;
 }
 
@@ -359,7 +387,7 @@ code {
   display: flex;
   justify-content: space-between;
   gap: 18px;
-  margin-bottom: 10px;
+  margin-bottom: 11px;
   color: var(--text-muted);
   font-size: 0.9rem;
   line-height: 1.4;
@@ -369,17 +397,22 @@ code {
   text-align: right;
 }
 
+.scale-labels span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
 .scale-options {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 8px;
+  gap: 9px;
 }
 
 .scale-choice {
   align-items: center;
   justify-content: center;
-  min-height: 46px;
-  padding: 9px;
+  min-height: 48px;
+  padding: 9px 8px;
   font-weight: 800;
 }
 
@@ -398,7 +431,7 @@ code {
 
 .error-message,
 .form-error {
-  margin: 10px 0 0;
+  margin: 11px 0 0;
   color: var(--danger);
   font-size: 0.92rem;
   font-weight: 750;
@@ -570,6 +603,8 @@ tr:last-child td {
 }
 
 .diagram-frame {
+  min-width: 0;
+  max-width: 100%;
   margin: 0;
   padding-bottom: 26px;
   border-bottom: 1px solid var(--border);
@@ -651,7 +686,7 @@ tr:last-child td {
 
 .section-three-layout {
   display: grid;
-  gap: 18px;
+  gap: 20px;
   width: min(100%, 820px);
   max-width: 100%;
   margin-top: 22px;
@@ -660,7 +695,7 @@ tr:last-child td {
 .section-three-card {
   min-width: 0;
   max-width: 100%;
-  padding: 20px;
+  padding: 21px;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--surface-raised);
@@ -672,10 +707,11 @@ tr:last-child td {
   color: var(--heading);
   font-size: 1.08rem;
   line-height: 1.35;
+  overflow-wrap: anywhere;
 }
 
 .section-three-card p {
-  margin: 0 0 12px;
+  margin: 0 0 13px;
   color: var(--text);
   line-height: 1.6;
 }
@@ -768,8 +804,8 @@ tr:last-child td {
 }
 
 .question-section {
-  margin-top: 30px;
-  padding-top: 26px;
+  margin-top: 32px;
+  padding-top: 28px;
   border-top: 2px solid var(--border);
 }
 
@@ -785,10 +821,20 @@ tr:last-child td {
 .delivery-group > .question,
 .reflection-section > .question {
   margin-bottom: 0;
-  padding: 17px;
+  padding: 18px;
   border: 1px solid var(--border);
+  border-left: 3px solid rgba(107, 182, 255, 0.22);
   border-radius: var(--radius);
   background: var(--surface);
+}
+
+.scenario-questions > .question:focus-within,
+.comparison-group > .question:focus-within,
+.tooling-group > .question:focus-within,
+.delivery-group > .question:focus-within,
+.schema-experience-section > .question:focus-within {
+  border-left-color: var(--accent);
+  background: rgba(17, 26, 38, 0.92);
 }
 
 .schema-experience-section > .question.nested,
@@ -889,13 +935,13 @@ tr:last-child td {
 
 .scenario-list {
   display: grid;
-  gap: 26px;
+  gap: 28px;
 }
 
 .scenario-card {
   min-width: 0;
   max-width: 100%;
-  padding: clamp(18px, 3vw, 24px);
+  padding: clamp(20px, 3vw, 26px);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--surface-raised);
@@ -903,7 +949,7 @@ tr:last-child td {
 }
 
 .scenario-card + .scenario-card {
-  border-top: 4px solid var(--border-strong);
+  border-top: 4px solid rgba(107, 182, 255, 0.3);
 }
 
 .scenario-card-header {
@@ -911,21 +957,23 @@ tr:last-child td {
   align-items: flex-start;
   justify-content: space-between;
   gap: 14px;
-  margin-bottom: 16px;
+  margin-bottom: 15px;
 }
 
 .scenario-card h3 {
-  margin: 0 0 10px;
+  margin: 0;
   color: var(--heading);
-  font-size: 1.15rem;
+  font-size: clamp(1.08rem, 1.7vw, 1.22rem);
   line-height: 1.32;
+  overflow-wrap: anywhere;
 }
 
 .complexity-badge {
   display: inline-flex;
   align-items: center;
   min-height: 28px;
-  white-space: nowrap;
+  white-space: normal;
+  text-align: center;
   padding: 4px 10px;
   border-radius: 999px;
   background: var(--success-bg);
@@ -950,7 +998,7 @@ tr:last-child td {
 }
 
 .scenario-scope {
-  margin: -8px 0 14px;
+  margin: -4px 0 15px;
   color: var(--text-muted);
   font-size: 0.92rem;
   font-weight: 750;
@@ -961,16 +1009,31 @@ tr:last-child td {
   min-width: 0;
   max-width: 100%;
   margin-bottom: 18px;
-  padding: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.035);
+  padding: 17px;
+  border: 1px solid rgba(255, 255, 255, 0.045);
   border-radius: var(--radius);
   background: var(--surface-soft);
   color: var(--text);
 }
 
 .scenario-description p {
-  margin: 0 0 11px;
-  line-height: 1.58;
+  margin: 0 0 12px;
+  line-height: 1.62;
+}
+
+.scenario-description h4,
+.scenario-work-step h4 {
+  margin: 0 0 9px;
+  color: var(--heading);
+  font-size: 0.99rem;
+  line-height: 1.38;
+}
+
+.scenario-work-step {
+  min-width: 0;
+  margin-top: 17px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .scenario-description p:last-child {
@@ -1000,7 +1063,7 @@ tr:last-child td {
 .scenario-description ul {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 6px 20px;
+  gap: 8px 20px;
   margin: 0 0 12px;
   padding-left: 22px;
   line-height: 1.5;
@@ -1016,7 +1079,7 @@ tr:last-child td {
 .delivery-section,
 .reflection-section {
   display: grid;
-  gap: 16px;
+  gap: 17px;
 }
 
 .comparison-reminder {
@@ -1031,10 +1094,10 @@ tr:last-child td {
 .tooling-group,
 .delivery-group {
   display: grid;
-  gap: 16px;
+  gap: 17px;
   min-width: 0;
   max-width: 100%;
-  padding: 18px;
+  padding: 19px;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--surface-raised);
@@ -1048,6 +1111,7 @@ tr:last-child td {
   color: var(--heading);
   font-size: 1.06rem;
   line-height: 1.35;
+  overflow-wrap: anywhere;
 }
 
 .comparison-reminder p {
@@ -1107,8 +1171,8 @@ tr:last-child td {
 
 .button-row {
   display: flex;
-  gap: 12px;
-  margin-top: 30px;
+  gap: 14px;
+  margin-top: 32px;
 }
 
 .button-row.inline-actions {
@@ -1125,13 +1189,14 @@ tr:last-child td {
 }
 
 button {
-  min-height: 46px;
+  min-height: 48px;
   border: 0;
   border-radius: var(--radius-sm);
-  padding: 11px 20px;
+  padding: 12px 22px;
   font: inherit;
   font-weight: 800;
   cursor: pointer;
+  text-align: center;
   transition:
     background-color 0.18s ease,
     border-color 0.18s ease,
@@ -1209,10 +1274,12 @@ button:disabled {
 
   .survey-header {
     margin-bottom: 24px;
+    padding-bottom: 20px;
   }
 
   .section-intro {
     font-size: 0.97rem;
+    line-height: 1.62;
   }
 
   .team-card,
@@ -1263,7 +1330,16 @@ button:disabled {
 
   .scenario-card-header {
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
+  }
+
+  .scenario-description {
+    line-height: 1.58;
+  }
+
+  .scenario-work-step {
+    margin-top: 15px;
+    padding-top: 13px;
   }
 
   .scenario-description ul {
@@ -1305,6 +1381,7 @@ button:disabled {
   .button-row.end,
   .button-row.split {
     flex-direction: column;
+    gap: 10px;
   }
 
   button {
@@ -1319,6 +1396,18 @@ button:disabled {
 
   .survey-introduction {
     padding: 16px;
+  }
+
+  .survey-introduction h3 {
+    margin-top: 18px;
+  }
+
+  .survey-introduction p,
+  .survey-introduction li,
+  .scenario-description p,
+  .reading-block p,
+  .section-three-card p {
+    line-height: 1.56;
   }
 
   .choice {
@@ -1340,8 +1429,14 @@ button:disabled {
   }
 
   .scale-choice {
-    min-height: 48px;
-    padding: 8px 6px;
+    min-height: 50px;
+    padding: 8px 4px;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .scale-choice input {
+    margin-top: 0;
   }
 
   .diagram-link-card a {
@@ -1369,6 +1464,7 @@ button:disabled {
 
   section h2 {
     font-size: 1.18rem;
+    line-height: 1.3;
   }
 
   legend,
@@ -1413,6 +1509,17 @@ button:disabled {
 
   .scenario-card {
     padding: 14px;
+  }
+
+  .scenario-list,
+  .scenario-questions,
+  .comparison-section,
+  .delivery-section {
+    gap: 14px;
+  }
+
+  .question-helper {
+    font-size: 0.86rem;
   }
 
   .image-diagram-wrap {
